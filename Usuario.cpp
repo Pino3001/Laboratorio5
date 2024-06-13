@@ -115,7 +115,7 @@ int Usuario::getEdad() { return this->edad; }
 bool Usuario::getActivo() { return this->activo; }
 TipoUsuario[*] Usuario::getTipoUsr() { return this->tipoUsr; }
 list<Actividad *> *Usuario::getActividadesUsr() { return this->actividadesUsr; }
-CategoriaUsuario[*] Usuario::getCatUsr() { return this->catUsr; }
+CategoriaUsuario** Usuario::getCatUsr() { return this->catUsr; }
 
 //Dat un datatype con los datos del Usuario.
 DTDatosUsuario Usuario::getDatosUsuario()

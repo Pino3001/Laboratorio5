@@ -2,6 +2,7 @@
 #define IUSUARIO_H
 
 #include "DTDatosUsuario.h"
+#include "Usuario.h"
 #include <string>
 #include "definiciones.h"
 
@@ -11,13 +12,13 @@ public:
     // Todos los metodos del controlador
 
     virtual DTDatosUsuario buscarUser(string ci)= 0;
-    virtual bool verificarContraseña(string contraseña)= 0;
+    virtual bool verificarContraseña(string ci, string contraseña)= 0;
     virtual bool primerContraseña(string contraseña)= 0;
     virtual void cancelarIntento()= 0;
     virtual void asignarSesion()= 0;
     virtual void cerrarSesion()= 0;
-    void existeUsuario(string ci )= 0;
-    virtual void altaUsuario(string nombre, string sexo, DTFecha nacimiento, TipoUsuario tipo[MAX_TIPO_USUARIO])= 0;
+    virtual bool existeUsuario(string ci )= 0;
+    virtual void altaUsuario(string ci, string nomb, string apell, string sexo, DTFecha fechNac, TipoUsuario tUsr[2], CategoriaUsuario *catUsr[MAX_TIPO_USUARIO])= 0;
     virtual void cancelarIntento()= 0;
     virtual DTDatosUsuario buscarUser()= 0;
     virtual void activarUsr()= 0;

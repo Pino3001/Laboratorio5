@@ -19,13 +19,14 @@ public:
     CUsuario();
     // metodos controlador
     DTDatosUsuario buscarUser(string ci);
-    bool verificarContraseña(string contraseña);
+    bool verificarContraseña(string ci,string contraseña);
     bool primerContraseña(string contraseña);
+    void altaUsuario();
     void cancelarIntento();
     void asignarSesion();
     void cerrarSesion();
-    void existeUsuario(string ci );
-    void altaUsuario(string nombre, string sexo, DTFecha nacimiento, TipoUsuario tipo[MAX_TIPO_USUARIO]);
+    bool existeUsuario(string ci );
+    void altaUsuario(string ci, string nomb, string apell, string sexo, DTFecha fechNac, TipoUsuario tUsr[2], CategoriaUsuario *catUsr[MAX_TIPO_USUARIO]);
     void cancelarIntento();
     DTDatosUsuario buscarUser();
     void activarUsr();

@@ -21,7 +21,7 @@ public:
     string getCi();
     string getNombre();
     DTFecha getFechaNacimiento();
-    TipoUsuario **getTipoUsuario();
+    TipoUsuario *getTipoUsuario();
     bool getActivo();
 
     void mostrarDatosUsuario();
