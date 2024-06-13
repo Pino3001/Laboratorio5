@@ -23,13 +23,13 @@ private:
     DTFecha fechaNacimiento;
     int edad;
     bool activo;
-    TipoUsuario tipoUsr[2];
+    TipoUsuario tipoUsr[MAX_TIPO_USUARIO];
     list<Actividad *> *actividadesUsr;
-    CategoriaUsuario *catUsr[2];
+    CategoriaUsuario *catUsr[MAX_TIPO_USUARIO];
 
 public:
     Usuario();
-    Usuario(string ci, string nomb, string apell, string sex, DTFecha fechNac, TipoUsuario tUsr[2]);
+    Usuario(string ci, string nomb, string apell, string sex, DTFecha fechNac, TipoUsuario tUsr[2], CategoriaUsuario *catUsr[MAX_TIPO_USUARIO]);
     Usuario(Usuario &usr);
 
     void setCedula(string cedula);
@@ -56,9 +56,9 @@ public:
     bool getActivo();
     TipoUsuario* getTipoUsr();
     list<Actividad *> *getActividadesUsr();
-    CategoriaUsuario[*] getCatUsr();
+    CategoriaUsuario** getCatUsr();
 
-    DTDatosUsuario getDatosUsuario();
+    DTDatosUsuario getDatosUsuario(); //lista
     bool contraValida(string contra);
     void registrarAsistencia(EstadoConsulta estC);
     Actividad altaConsultaEmergencia(DTFecha fecha, DTHora hora, string descripcion);
@@ -69,7 +69,7 @@ public:
     set(DTHistorial) mostrarHistorialPorMedico();
     set(DTConsulta) mostrarDatosConsulta(DTFecha fecha);
     void buscarConsulta(string idConsulta);
-    void addCatUsuario(CategoriaUsuario cat);
+    void addCatUsuario(CategoriaUsuario *cat);//lista
 
     ~Usuario();
 };

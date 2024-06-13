@@ -8,6 +8,10 @@
 using namespace std;
 
 // Constructores
+Actividad :: Actividad(){
+    this->socioTiene = NULL;
+    this->medicoRealiza = NULL;
+}
 Actividad ::Actividad(Socio *socio, Medico *medico)
 {
     this->socioTiene = socio;

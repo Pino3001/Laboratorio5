@@ -3,6 +3,7 @@
 
 #include "Usuario.h"
 #include "Actividad.h"
+#include "Consulta.h"
 
 #include <string>
 
@@ -10,7 +11,7 @@ using namespace std;
 
 class CategoriaUsuario
 {
-private:
+protected:
     Usuario *usuarioVinculado;
 public:
     CategoriaUsuario(Usuario *usr);

@@ -76,9 +76,16 @@ list<Historial *> Socio ::getHistorialSocio()
     return this->historialSocio;
 }
 
+string Socio ::verNombre(){
+    return this->usuarioVinculado->getNombre();
+}
+
+string Socio ::verCi(){
+    return this->usuarioVinculado->getCedula();
+}
 // Para implementar
 void addActividad(Actividad actividad);
-string verNombre();
+
 string verCi();
 TipoUsuario Socio :: obtenerTipo(){}
 Consulta buscarConsulta(string idConsulta);

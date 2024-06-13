@@ -3,7 +3,7 @@
 #include "CategoriaUsuario.h"
 #include "Socio.h"
 #include "Medico.h"
-//#include "Administrativo.h"
+// #include "Administrativo.h"
 #include "DTDatosUsuario.h"
 #include <list>
 #include <string>
@@ -18,61 +18,51 @@ Usuario ::Usuario()
     this->primeraContraseña = true;
     this->sexo = "0";
     DTFecha fn();
-    this->fechaNacimiento = fd;
+    this->fechaNacimiento = fn;
     this->edad = 0;
     this->activo = false;
-    TipoUsuario tu[2] = new TipoUsuario[2];
-    this->tipoUsr * = tu;
-    for (size i = 0; i < 2; i++)
+    //Inicializa los tipos de usuario en none
+    for (int i = 0; i < MAX_TIPO_USUARIO; i++)
     {
-        tu[i] = none;
+        this->tipoUsr[i] = none;
     }
     list<Actividad *> *actUsr = new list<Actividad *>;
-    this->actividadesUsr * = actUsr;
-    // array de CategoriaUsuario
+    this->actividadesUsr = actUsr;
+    //Inicializa el array de CategoriaUsuario con NULL.
+        for (int i = 0; i < MAX_TIPO_USUARIO; i++)
+    {
+        this->catUsr[i] = NULL;
+    }
 }
 
-Usuario ::Usuario(string ci, string nomb, string apell, string sex, DTFecha fechNac, TipoUsuario tUsr[2])
+Usuario ::Usuario(string ci, string nomb, string apell, string sexo, DTFecha fechNac, TipoUsuario tUsr[2], CategoriaUsuario *catUsr[MAX_TIPO_USUARIO])
 {
     this->cedula = ci;
     this->nombre = nomb;
     this->apellido = apell;
     this->contraseña = "0";
     this->primeraContraseña = true;
-    this->sexo = sex;
+    this->sexo = sexo;
     this->fechaNacimiento = fechNac;
     // this->edad = 0;
     this->activo = false;
+    // Setear el arreglo de tipo de usuarios
     for (int i = 0; i < MAX_TIPO_USUARIO; i++)
     {
         this->tipoUsr[i] = tUsr[i];
     }
-    CategoriaUsuario *cu = new *CategoriaUsuario[2];
-    this->catUsr * = *cu;
+    // Crear las categorias de usuario a las que pertenece el Usuario
     for (int i = 0; i < MAX_TIPO_USUARIO; i++)
     {
-        if (tipoUsr[i] == Socio)
-        {
-            Socio *s = new Socio(this);
-            this->catUsr[i] = s;
-        }
-        else if (tipoUsr[i] == Medico)
-        {
-            Medico *m = new Medico(this);
-            this->catUsr[i] = m;
-        }
-        else if (tipoUsr[i] == Administrativo)
-        {
-            Administrativo *a = new Administrativo(this);
-            this->catUsr[i] = *a;
-        }
+        this->catUsr[i] = catUsr[i];
     }
     list<Actividad *> *actUsr = new list<Actividad *>;
-    this->actividadesUsr * = actUsr;
+    this->actividadesUsr = actUsr;
 }
 
 Usuario::Usuario(Usuario &usr)
 {
+    this->cedula = usr.getCedula();
     this->nombre = usr.getNombre();
     this->apellido = usr.getApellido();
     this->contraseña = usr.getContraseña();
@@ -81,11 +71,16 @@ Usuario::Usuario(Usuario &usr)
     this->fechaNacimiento = usr.getFechaNacimiento();
     this->edad = usr.getEdad();
     this->activo = usr.getActivo();
-    this->tipoUsr[0] = usr.getTipoUsr()[0];
-    this->tipoUsr[1] = usr.getTipoUsr()[1];
+    for (int i = 0; i < MAX_TIPO_USUARIO; i++)
+    {
+        this->tipoUsr[i] = usr.getTipoUsr()[i];
+    }
+    CategoriaUsuario ** cu =  usr.getCatUsr();
+    for (int i = 0; i < MAX_TIPO_USUARIO; i++)
+    {
+        this->catUsr[i] =cu[i];
+    }
     this->actividadesUsr = usr.getActividadesUsr();
-    this->catUsr[0] = usr.getCatUsr()[0];
-    this->catUsr[1] = usr.getCatUsr()[1];
 }
 
 // SETTERS
@@ -122,15 +117,40 @@ TipoUsuario[*] Usuario::getTipoUsr() { return this->tipoUsr; }
 list<Actividad *> *Usuario::getActividadesUsr() { return this->actividadesUsr; }
 CategoriaUsuario[*] Usuario::getCatUsr() { return this->catUsr; }
 
-DTDatosUsuario Usuario:: getDatosUsuario()
+//Dat un datatype con los datos del Usuario.
+DTDatosUsuario Usuario::getDatosUsuario()
 {
     DTDatosUsuario dtu = DTDatosUsuario(this->getCedula(), this->getNombre(), this->getFechaNacimiento(), this->getTipoUsr, this->getActivo());
     return dtu;
 }
+//Verificar la contraseña.
+bool Usuario ::contraValida(string contra){
+    
+    if (this->contraseña == contra)
+    {
+        return true;
+    }else{
+        return false;
+    }
+    
+}
 
+//Agregar una categoria mas al usuario, agrega categorias repetidas
+void Usuario ::addCatUsuario(CategoriaUsuario *cat){
+    for (int i = 0; i < MAX_TIPO_USUARIO; i++)
+    {
+        if (this->getCatUsr()[i] == NULL)
+        {
+            this->getCatUsr()[i] = cat;
+            break;
+        }
+        
+    }
+    
+}
 // paraimplementar
 
-/* bool contraValida(string contra);
+/* 
 void registrarAsistencia(EstadoConsulta estC);
 Actividad altaConsultaEmergencia(DTFecha fecha, DTHora hora, string descripcion);
 void addActividad(Actividad actividad);
@@ -140,6 +160,5 @@ bool esSocio();
 set(DTHistorial) mostrarHistorialPorMedico();
 set(DTConsulta) mostrarDatosConsulta(DTFecha fecha);
 void buscarConsulta(string idConsulta);
-void addCatUsuario(CategoriaUsuario cat);
 
 ~Usuario(){} */

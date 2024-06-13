@@ -3,7 +3,14 @@
 
 enum TipoUsuario{
     none,
-    Socio,
-    Medico,
-    Administrativo
+    Tipo_Socio,
+    Tipo_Medico,
+    Tipo_Administrativo
+};
+
+enum EstadoConsulta{
+   Reservada,
+   Cancelada,
+   Asistio,
+   NoAsistio 
 };

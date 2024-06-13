@@ -8,9 +8,6 @@
 #include <string>
 using namespace std;
 
-list<Actividad *> *actividadMedico;
-vector<Socio *> *sociosAtendidos;
-list<Historial *> *historialesCreados;
 
 Medico ::Medico(Usuario *usr) : CategoriaUsuario(usr)
 {

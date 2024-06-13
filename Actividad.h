@@ -15,6 +15,7 @@ private:
     Medico *medicoRealiza;
 
 public:
+    Actividad();
     Actividad(Socio *socio, Medico *medico);
     Actividad(Actividad &actividad);
 
