@@ -5,6 +5,8 @@
 #include "Medico.h"
 #include "Socio.h"
 #include "definiciones.h"
+#include "DTFecha.h"
+#include "DTHora.h"
 #include <list>
 #include <string>
 
@@ -18,7 +20,7 @@ Consulta ::Consulta() : Actividad()
     DTHora hc = DTHora();
     this->horaConsulta = hc;
 }
-Consulta ::Consulta(string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico) : Actividad(socio, medico)
+Consulta ::Consulta(string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio) : Actividad(socio, medico, nombreMedico, ciMedico, nombreSocio, ciSocio)
 {
     // this->idConsulta =
     this->fechaConsulta = fecha;

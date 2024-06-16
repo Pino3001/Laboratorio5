@@ -1,6 +1,8 @@
 #ifndef DTDATOSUSUARIO_H
 #define DTDATOSUSUARIO_H
 
+#include "DTFecha.h"
+#include "DTHora.h"
 #include <string>
 using namespace std;
 
@@ -15,7 +17,7 @@ private:
 
 public:
     DTDatosUsuario();
-    DTDatosUsuario(string ci, string nombre, DTFecha fechaNacimiento, TipoUsuario tipoUsuario[2], bool activo);
+    DTDatosUsuario(string ci, string nombre, DTFecha fechaNacimiento, TipoUsuario *tipoUsuario, bool activo);
     DTDatosUsuario(DTDatosUsuario &dtu);
 
     string getCi();

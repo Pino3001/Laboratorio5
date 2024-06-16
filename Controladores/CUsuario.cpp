@@ -1,9 +1,11 @@
 #include "CUsuario.h"
-#include "CategoriaUsuario.h"
-#include "Socio.h"
-#include "Administrativo.h"
-#include "Medico.h"
-#include "definiciones.h"
+#include "../Objetos/CategoriaUsuario.h"
+#include "../Objetos/Socio.h"
+#include "../Objetos/Administrativo.h"
+#include "../Objetos/Medico.h"
+#include "../definiciones.h"
+#include "../Datatypes/DTFecha.h"
+#include "../Datatypes/DTHora.h"
 #include <iostream>
 #include <string>
 #include "iostream"
@@ -63,7 +65,14 @@ bool CUsuario::verificarContraseña(string ci, string contraseña)
 
 bool CUsuario::primerContraseña(string contraseña)
 {
-    this->usrActivo->setContraseña(contraseña);
+    if (this->usrActivo->getPrimeraContraseña())
+    {
+        this->usrActivo->setContraseña(contraseña);
+    }
+    else
+    {
+        return false;
+    }
 }
 
 void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, DTFecha fechNac, TipoUsuario tUsr[MAX_TIPO_USUARIO])
@@ -76,7 +85,7 @@ void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, DT
         if (catU[i] != nullptr)
         {
             // Casteo para ver que tipo de socio esta intentando hacer un ingreso.
-            if (Administrativo *admin = dynamic_cast<Administrativo *>(catU[i]))
+            if (dynamic_cast<Administrativo *>(catU[i]))
             {
                 // Creo las categorias de usuario que tendra el Usuario.
                 CategoriaUsuario *catUsr[MAX_TIPO_USUARIO];
@@ -86,7 +95,7 @@ void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, DT
                     {
                         catUsr[i] = new Socio();
                     }
-                    else if (tUsr[i] == Tipo_Administrativo)
+                    else if (tUsr[i] == Tipo_Administrativo || tUsr[i] == Administrativo_defecto)
                     {
                         catUsr[i] = new Administrativo();
                     }
@@ -100,9 +109,10 @@ void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, DT
                     }
                 }
                 // Creo Usuario
-                Usuario *newUsr = new Usuario(ci, nomb, apell, sexo, fechNac, tUsr[MAX_TIPO_USUARIO], catUsr);
+                Usuario *newUsr = new Usuario(ci, nomb, apell, sexo, fechNac, catUsr);
+                newUsr->addVisibilityCatUsr();
                 // Inserto Usuario en la coleccion de usuarios en memoria
-                auto incerto = this->memColUsuario.insert(std::make_pair(ci, *newUsr));
+                auto incerto = this->memColUsuario->insert(make_pair(ci, newUsr));
                 if (incerto.second)
                 {
                     std::cout << "\n Se a creado el Usuario exitosamente!! ";
@@ -128,7 +138,7 @@ void CUsuario::asignarSesion(string ci)
     auto itu = this->memColUsuario->find(ci);
     if (itu != memColUsuario->end())
     {
-       this->usrActivo = itu->second;
+        this->usrActivo = itu->second;
     }
     else
     {
@@ -136,12 +146,62 @@ void CUsuario::asignarSesion(string ci)
     }
 }
 
-void CUsuario::cerrarSesion() 
+void CUsuario::cerrarSesion()
 {
     this->usrActivo = nullptr;
-    cout << "\n Secion terminada!"
+    cout << "\n Sesion terminada!"
 }
 
+void CUsuario::registroConsulta(string ci, string idConsulta)
+{
+    // Ver de comprobar antes si el usuario es un socio
+    auto itu = this->memColUsuario->find(ci);
+    if (itu != memColUsuario->end())
+    {
+        Usuario *usr = itu->second;
+        CategoriaUsuario **catU = usr->getCatUsr();
+        for (int i = 0; i < MAX_TIPO_USUARIO; ++i)
+        {
+            if (catU[i] != nullptr)
+            {
+                if (Socio *paciente = dynamic_cast<Socio *>(catU[i]))
+                {
+                    EstadoConsulta asistio = Asistio;
+                    // usr->registrarAsistencia(asistio, idConsulta);
+                    paciente->registrarAsistencia(asistio, idConsulta);
+                }
+            }
+        }
+    }
+    else
+    {
+        cout << "\n No se encontro el usuario en el sistema.";
+    }
+}
+
+set<DTHistorial> CUsuario::mostrarHistorialPorMedico(string ci)
+{
+    auto itu = this->memColUsuario->find(ci);
+    if (itu != memColUsuario->end())
+    {
+        Usuario *usr = itu->second;
+        CategoriaUsuario **catU = usr->getCatUsr();
+        for (int i = 0; i < MAX_TIPO_USUARIO; ++i)
+        {
+            if (catU[i] != nullptr)
+            {
+                if (Socio *paciente = dynamic_cast<Socio *>(catU[i]))
+                {
+                    set <DTHistorial> serDth = paciente->mostrarHistorialPorMedico(usr);
+                }
+            }
+        }
+    }
+    else
+    {
+        cout << "\n No se encontro el usuario en el sistema.";
+    }
+}
 
 void CUsuario::cancelarIntento() {}
 void CUsuario::cancelarIntento() {}
@@ -149,11 +209,9 @@ DTDatosUsuario CUsuario::buscarUser() {}
 void CUsuario::activarUsr() {}
 set<DTReserva> CUsuario::mostrarReservasActivas() {}
 void CUsuario::camcelarReserva(string idConsulta) {}
-void CUsuario::registroConsulta(string ci, string idConsulta) {}
 void CUsuario::registroConsultaEmergencia(string ci, string ciMedico, DTFecha fecha, DTHora hora, string descrpcion) {}
 bool CUsuario::buscarSocio(string ci) {}
 DTDatosUsuario CUsuario::obtenerDatosSocio() {}
-set<DTHistorial> CUsuario::mostrarHistorialPorMedico() {}
 
 CUsuario::~CUsuario()
 {

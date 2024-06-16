@@ -17,12 +17,12 @@ private:
     list <Socio*> *sociosAtendidos;
     list <Historial*> *historialesCreados;
 public:
-    Medico(Usuario *usr);
+    Medico();
     Medico(Medico &medico, CategoriaUsuario &catUsr);
 
     void setActividadMedico(list <Actividad*> *actividadMedico);
     void setSociosAtendidos(list <Socio*> *sociosAtendidos);
-    void setHistorialesCreados(lis <Historial*> * historialesCreados);
+    void setHistorialesCreados(list <Historial*> * historialesCreados);
 
     list <Actividad*> getActividadMedico();
     list <Socio*> getSociosAtendidos();

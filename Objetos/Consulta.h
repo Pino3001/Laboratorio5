@@ -2,10 +2,11 @@
 #define CONSULTA_H
 
 #include "Actividad.h"
-
 #include "Medico.h"
 #include "Socio.h"
 #include "definiciones.h"
+#include "DTFecha.h"
+#include "DTHora.h"
 #include <list>
 #include <string>
 
@@ -20,7 +21,7 @@ private:
     DTHora horaConsulta;
 public:
     Consulta();
-    Consulta(string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico);
+    Consulta(string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico, );
     Consulta(Consulta &consulta, Actividad &actividad);
 
     void setFechaConsulta(DTFecha fecha);

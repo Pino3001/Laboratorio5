@@ -7,9 +7,9 @@
 using namespace std;
 
 //Constructores
-CategoriaUsuario ::CategoriaUsuario(Usuario *usr)
+CategoriaUsuario ::CategoriaUsuario()
 {
-    this->usuarioVinculado = usr;
+    this->usuarioVinculado = nullptr;
 }
 CategoriaUsuario ::CategoriaUsuario(CategoriaUsuario &catUsr)
 {

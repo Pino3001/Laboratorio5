@@ -14,7 +14,7 @@ class CategoriaUsuario
 protected:
     Usuario *usuarioVinculado;
 public:
-    CategoriaUsuario(Usuario *usr);
+    CategoriaUsuario();
     CategoriaUsuario(CategoriaUsuario &catUsr);
     
     void setUsuarioVinculado(Usuario *usr);
@@ -22,9 +22,8 @@ public:
     Usuario* getUsuarioVinculado();
 
     void addActividad(Actividad actividad);
-    string verNombre();
+    virtual string verNombre() = 0;
     string verCi();
-    virtual TipoUsuario obtenertipo()=0;
     Consulta buscarConsulta(string idConsulta);
 
     ~CategoriaUsuario();

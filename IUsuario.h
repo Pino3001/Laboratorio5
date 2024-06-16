@@ -15,10 +15,10 @@ public:
     virtual bool verificarContraseña(string ci, string contraseña)= 0;
     virtual bool primerContraseña(string contraseña)= 0;
     virtual void cancelarIntento()= 0;
-    virtual void asignarSesion()= 0;
+    virtual void asignarSesion(string ci)= 0;
     virtual void cerrarSesion()= 0;
     virtual bool existeUsuario(string ci )= 0;
-    virtual void altaUsuario(string ci, string nomb, string apell, string sexo, DTFecha fechNac, TipoUsuario tUsr[2], CategoriaUsuario *catUsr[MAX_TIPO_USUARIO])= 0;
+    virtual void altaUsuario(string ci, string nomb, string apell, string sexo, DTFecha fechNac, TipoUsuario tUsr[2])= 0;
     virtual void cancelarIntento()= 0;
     virtual DTDatosUsuario buscarUser()= 0;
     virtual void activarUsr()= 0;
@@ -28,7 +28,7 @@ public:
     virtual void registroConsultaEmergencia(string ci, string ciMedico, DTFecha fecha, DTHora hora, string descrpcion)= 0;
     virtual bool buscarSocio(string ci)= 0;
     virtual DTDatosUsuario obtenerDatosSocio()= 0;
-    virtual set<DTHistorial>  mostrarHistorialPorMedico()= 0;
+    virtual set<DTHistorial>  mostrarHistorialPorMedico(string ci)= 0;
     virtual ~IUsuario() = default;
 };
 

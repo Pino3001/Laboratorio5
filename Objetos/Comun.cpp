@@ -1,19 +1,7 @@
 #include "Comun.h"
 
-#include "Consulta.h"
 
-#include "DTFecha.h"
-#include "DTConsulta.h"
-#include "Diagnostico.h"
-#include "ProblemaDeSalud.h"
-#include "DTReserva.h"
-#include "definiciones.h"
-#include <list>
-#include <string>
-
-using namespace std;
-
-Comun::Comun(DTFecha fecha, EstadoConsulta estConsulta, string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico) : Consulta(idConsulta, fecha, hora, socio, medico)
+Comun::Comun(DTFecha fecha, EstadoConsulta estConsulta, string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio) : Consulta(idConsulta, fecha, hora, socio, medico, nombreMedico, ciMedico, nombreSocio, ciSocio)
 {
     this->fechaReserva = fecha;
     this->estadoConsulta = estConsulta;

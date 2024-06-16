@@ -9,7 +9,7 @@
 using namespace std;
 
 
-Medico ::Medico(Usuario *usr) : CategoriaUsuario(usr)
+Medico ::Medico() : CategoriaUsuario()
 {
     list<Actividad *> *actMedico = new list<Actividad *>;
     this->actividadMedico = actMedico;
@@ -52,7 +52,7 @@ void Medico ::setHistorialesCreados(lis<Historial *> *historialesCreados)
 }
 
 //Getters
-list<Actividad *> Medico ::getActividadMedico()
+list<Actividad *> *Medico ::getActividadMedico()
 {
     return this->actividadMedico;
 }

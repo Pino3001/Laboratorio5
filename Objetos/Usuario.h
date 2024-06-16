@@ -4,8 +4,9 @@
 #include "CategoriaUsuario.h"
 #include "Socio.h"
 #include "Medico.h"
-//#include "Administrativo.h"
+#include "Administrativo.h"
 #include "definiciones.h"
+#include "DTDatosUsuario.h"
 #include <list>
 #include <string>
 
@@ -23,14 +24,11 @@ private:
     DTFecha fechaNacimiento;
     int edad;
     bool activo;
-    TipoUsuario tipoUsr[MAX_TIPO_USUARIO];
     list<Actividad *> *actividadesUsr;
     CategoriaUsuario *catUsr[MAX_TIPO_USUARIO];
 
 public:
-    Usuario();
-    Usuario(string ci, string nomb, string apell, string sex, DTFecha fechNac, TipoUsuario tUsr[2], CategoriaUsuario *catUsr[MAX_TIPO_USUARIO]);
-    Usuario(Usuario &usr);
+    Usuario(string ci, string nomb, string apell, string sex, DTFecha fechNac, CategoriaUsuario *catUsr[MAX_TIPO_USUARIO]);
 
     void setCedula(string cedula);
     void setNombre(string nombre);
@@ -41,10 +39,10 @@ public:
     void setFechaNacimiento(DTFecha fechaNacimiento);
     void setEdad(int edad);
     void setActivo(bool activo);
-    void setTipoUsr(TipoUsuario *tipoUsr[2]);
     void setActividadesUsr(list<Actividad *> *actividadesUsr);
     void setCatUsr(CategoriaUsuario *catUsr[2]);
 
+    void addVisibilityCatUsr();
     string getCedula();
     string getNombre();
     string getApellido();
@@ -54,13 +52,13 @@ public:
     DTFecha getFechaNacimiento();
     int getEdad();
     bool getActivo();
-    TipoUsuario* getTipoUsr();
     list<Actividad *> *getActividadesUsr();
-    CategoriaUsuario** getCatUsr();
+    CategoriaUsuario **getCatUsr();
+    DTDatosUsuario getDatosUsuario(); // lista
 
-    DTDatosUsuario getDatosUsuario(); //lista
+    TipoUsuario *listarTipoDeUsuario();
     bool contraValida(string contra);
-    void registrarAsistencia(EstadoConsulta estC);
+    void registrarAsistencia(EstadoConsulta estC, string idConsulta);
     Actividad altaConsultaEmergencia(DTFecha fecha, DTHora hora, string descripcion);
     void addActividad(Actividad actividad);
     set(DTReserva) mostrarReservasActivas();
@@ -69,7 +67,7 @@ public:
     set(DTHistorial) mostrarHistorialPorMedico();
     set(DTConsulta) mostrarDatosConsulta(DTFecha fecha);
     void buscarConsulta(string idConsulta);
-    void addCatUsuario(CategoriaUsuario *cat);//lista
+    void addCatUsuario(CategoriaUsuario *cat); // lista
 
     ~Usuario();
 };

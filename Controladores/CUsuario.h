@@ -3,6 +3,8 @@
 
 #include "IUsuario.h"
 #include "Usuario.h"
+#include "DTFecha.h"
+#include "DTHora.h"
 #include <map>
 #include <list>
 #include <string>
@@ -22,11 +24,14 @@ public:
     bool verificarContraseña(string ci,string contraseña);
     bool primerContraseña(string contraseña);
     void altaUsuario();
-    void cancelarIntento();
-    void asignarSesion();
+    void asignarSesion(string ci);
     void cerrarSesion();
+    void altaUsuario(string ci, string nomb, string apell, string sexo, DTFecha fechNac, TipoUsuario tUsr[2]);
+    set<DTHistorial>  mostrarHistorialPorMedico(string ci);
+
+
+    void cancelarIntento();
     bool existeUsuario(string ci );
-    void altaUsuario(string ci, string nomb, string apell, string sexo, DTFecha fechNac, TipoUsuario tUsr[2], CategoriaUsuario *catUsr[MAX_TIPO_USUARIO]);
     void cancelarIntento();
     DTDatosUsuario buscarUser();
     void activarUsr();
@@ -36,7 +41,6 @@ public:
     void registroConsultaEmergencia(string ci, string ciMedico, DTFecha fecha, DTHora hora, string descrpcion);
     bool buscarSocio(string ci);
     DTDatosUsuario obtenerDatosSocio();
-    set<DTHistorial>  mostrarHistorialPorMedico();
     ~CUsuario();
 
 };

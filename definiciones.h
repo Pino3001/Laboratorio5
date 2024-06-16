@@ -5,7 +5,7 @@
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
 enum TipoUsuario{
-    none,
+    UNKNOWN,
     Tipo_Socio,
     Tipo_Medico,
     Tipo_Administrativo,

@@ -1,20 +1,9 @@
 #include "Emergencia.h"
-#include "Consulta.h"
 
-#include "DTFecha.h"
-#include "DTConsulta.h"
-#include "Diagnostico.h"
-#include "ProblemaDeSalud.h"
-#include "DTReserva.h"
-#include "definiciones.h"
-#include <list>
-#include <string>
-
-using namespace std;
 
 // Constructor con parámetros
-Emergencia::Emergencia(string motivo, string idConsulta, DTFecha fecha, DTHora hora, Socio* socio, Medico* medico)
-    : Consulta(idConsulta, fecha, hora, socio, medico) {
+Emergencia::Emergencia(string motivo, string idConsulta, DTFecha fecha, DTHora hora, Socio* socio, Medico* medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio)
+    : Consulta(idConsulta, fecha, hora, socio, medico, nombreMedico, ciMedico, nombreSocio, ciSocio) {
     this->motivoConsulta = motivo;
 }
 // Constructor por defecto

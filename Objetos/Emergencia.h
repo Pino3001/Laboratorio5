@@ -7,7 +7,7 @@
 #include "DTConsulta.h"
 #include "Diagnostico.h"
 #include "ProblemaDeSalud.h"
-#include "DTReserva.h"
+#include "Datatypes/DTReserva.h"
 #include "definiciones.h"
 #include <list>
 #include <string>
@@ -19,7 +19,7 @@ private:
     string motivoConsulta;
 
 public:
-    Emergencia(string motivo, string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico);
+    Emergencia(string motivo, string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio);
     Emergencia();
 
     // Getters

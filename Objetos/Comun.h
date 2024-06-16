@@ -2,13 +2,13 @@
 #define COMUN_H
 
 #include "Consulta.h"
-
-#include "DTFecha.h"
 #include "DTConsulta.h"
 #include "Diagnostico.h"
 #include "ProblemaDeSalud.h"
 #include "DTReserva.h"
 #include "definiciones.h"
+#include "DTFecha.h"
+#include "DTHora.h"
 #include <list>
 #include <string>
 
@@ -22,7 +22,7 @@ private:
 
 public:
     Comun();
-    Comun(DTFecha fecha, EstadoConsulta estConsulta, string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico);
+    Comun(DTFecha fecha, EstadoConsulta estConsulta, string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio);
 
     // Setters
     void setFechaReserva(DTFecha fechaReserva);
