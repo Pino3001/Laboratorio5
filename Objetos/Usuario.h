@@ -29,7 +29,7 @@ private:
 
 public:
     Usuario(string ci, string nomb, string apell, string sex, DTFecha fechNac, CategoriaUsuario *catUsr[MAX_TIPO_USUARIO]);
-
+    Usuario(string cedula, string nombre, string apellido, string contraseña, CategoriaUsuario *catUsr[MAX_TIPO_USUARIO]);
     void setCedula(string cedula);
     void setNombre(string nombre);
     void setApellido(string apellido);

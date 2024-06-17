@@ -9,7 +9,8 @@ enum TipoUsuario{
     Tipo_Socio,
     Tipo_Medico,
     Tipo_Administrativo,
-    Administrativo_defecto
+    Administrativo_defecto,
+    ERROR
 };
 
 enum EstadoConsulta{

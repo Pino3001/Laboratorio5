@@ -1,11 +1,11 @@
 #include "CUsuario.h"
-#include "../Objetos/CategoriaUsuario.h"
-#include "../Objetos/Socio.h"
-#include "../Objetos/Administrativo.h"
-#include "../Objetos/Medico.h"
-#include "../definiciones.h"
-#include "../Datatypes/DTFecha.h"
-#include "../Datatypes/DTHora.h"
+#include "CategoriaUsuario.h"
+#include "Socio.h"
+#include "Administrativo.h"
+#include "Medico.h"
+#include "definiciones.h"
+#include "Datatypes/DTFecha.h"
+#include "Datatypes/DTHora.h"
 #include <iostream>
 #include <string>
 #include "iostream"
@@ -20,6 +20,26 @@ CUsuario::CUsuario()
 }
 
 // metodos del controlador
+void CUsuario::crearAdminDefecto(string nombre, string cedula, string apellido, string contraseña)
+{
+    // Creo las categorias de usuario que tendra el Usuario.
+    CategoriaUsuario *catUsr[MAX_TIPO_USUARIO];
+    catUsr[0] = new Administrativo();
+    // Creo Usuario
+    Usuario *newUsr = new Usuario(cedula, nombre, apellido, contraseña, catUsr);
+    newUsr->addVisibilityCatUsr();
+    // Inserto Usuario en la coleccion de usuarios en memoria
+    auto incerto = this->memColUsuario->insert(make_pair(cedula, newUsr));
+    if (incerto.second)
+    {
+        cout << "\n Se a creado el Usuario exitosamente!! ";
+    }
+    else
+    {
+        cout << "\n No se a podido crear el Administrativo por defecto. ";
+    }
+}
+
 bool CUsuario::existeUsuario(string ci)
 {
     // Auto para no colocar map<string, Usuario*>::iterator
@@ -31,6 +51,76 @@ bool CUsuario::existeUsuario(string ci)
     else
     {
         return false;
+    }
+}
+
+bool CUsuario::verificarContraseña(string ci, string contraseña)
+{
+    auto itu = this->memColUsuario->find(ci);
+    if (itu != memColUsuario->end())
+    {
+        return this->usrActivo->contraValida(contraseña);
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool CUsuario::asignarSesion(string ci)
+{
+    auto itu = this->memColUsuario->find(ci);
+    if (itu != memColUsuario->end())
+    {
+        this->usrActivo = itu->second;
+        return true;
+    }
+    else
+    {
+        cout << "\n No se ha podido iniciar secion correctamente!!";
+        return false;
+    }
+}
+
+TipoUsuario *CUsuario::tipoDeUsuario(string ci)
+{
+    TipoUsuario *tUsr = new TipoUsuario[MAX_TIPO_USUARIO];
+    auto itu = this->memColUsuario->find(ci);
+    if (itu != memColUsuario->end())
+    {
+        Usuario *usr = itu->second;
+        CategoriaUsuario **catU = usr->getCatUsr();
+        for (int i = 0; i < MAX_TIPO_USUARIO; ++i)
+        {
+            if (catU[i] != nullptr)
+            {
+                if (dynamic_cast<Administrativo *>(catU[i]))
+                {
+                    tUsr[i] = TipoUsuario::Tipo_Administrativo;
+                }
+                if (dynamic_cast<Socio *>(catU[i]))
+                {
+                    tUsr[i] = TipoUsuario::Tipo_Socio;
+                }
+                if (dynamic_cast<Medico *>(catU[i]))
+                {
+                    tUsr[i] = TipoUsuario::Tipo_Medico;
+                }
+                else
+                {
+                    tUsr[i] = TipoUsuario::UNKNOWN;
+                }
+            }
+        }
+        return tUsr;
+    }
+    else
+    {
+        for (int i = 0; i < MAX_TIPO_USUARIO; ++i)
+        {
+            tUsr[i] = TipoUsuario::ERROR;
+        }
+        return tUsr;
     }
 }
 
@@ -47,19 +137,6 @@ DTDatosUsuario CUsuario::buscarUser(string ci)
     {
         DTDatosUsuario dtu = DTDatosUsuario();
         return dtu;
-    }
-}
-
-bool CUsuario::verificarContraseña(string ci, string contraseña)
-{
-    auto itu = this->memColUsuario->find(ci);
-    if (itu != memColUsuario->end())
-    {
-        return this->usrActivo->contraValida(contraseña);
-    }
-    else
-    {
-        return false;
     }
 }
 
@@ -133,19 +210,6 @@ void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, DT
     }
 }
 
-void CUsuario::asignarSesion(string ci)
-{
-    auto itu = this->memColUsuario->find(ci);
-    if (itu != memColUsuario->end())
-    {
-        this->usrActivo = itu->second;
-    }
-    else
-    {
-        cout << "\n No se ha podido iniciar secion correctamente!!";
-    }
-}
-
 void CUsuario::cerrarSesion()
 {
     this->usrActivo = nullptr;
@@ -166,7 +230,7 @@ void CUsuario::registroConsulta(string ci, string idConsulta)
             {
                 if (Socio *paciente = dynamic_cast<Socio *>(catU[i]))
                 {
-                    EstadoConsulta asistio = Asistio;
+                    EstadoConsulta asistio = EstadoConsulta::Asistio;
                     // usr->registrarAsistencia(asistio, idConsulta);
                     paciente->registrarAsistencia(asistio, idConsulta);
                 }
@@ -192,7 +256,7 @@ set<DTHistorial> CUsuario::mostrarHistorialPorMedico(string ci)
             {
                 if (Socio *paciente = dynamic_cast<Socio *>(catU[i]))
                 {
-                    set <DTHistorial> serDth = paciente->mostrarHistorialPorMedico(usr);
+                    set<DTHistorial> serDth = paciente->mostrarHistorialPorMedico(usr);
                 }
             }
         }
@@ -210,7 +274,7 @@ void CUsuario::activarUsr() {}
 set<DTReserva> CUsuario::mostrarReservasActivas() {}
 void CUsuario::camcelarReserva(string idConsulta) {}
 void CUsuario::registroConsultaEmergencia(string ci, string ciMedico, DTFecha fecha, DTHora hora, string descrpcion) {}
-bool CUsuario::buscarSocio(string ci) {}
+// bool CUsuario::buscarSocio(string ci) {}
 DTDatosUsuario CUsuario::obtenerDatosSocio() {}
 
 CUsuario::~CUsuario()

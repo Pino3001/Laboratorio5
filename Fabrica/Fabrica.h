@@ -2,6 +2,7 @@
 #define FABRICA_H
 
 #include "IUsuario.h"
+#include "IRegistroMedico.h"
 
 class Fabrica {
 private:
@@ -10,7 +11,8 @@ private:
 
 public:
     static Fabrica* getInstancia();
-    IUsuario* getIUsuarior();
+    IUsuario* getIUsuario();
+    IRegistroMedico *getIRegistroMedico();
     ~Fabrica();
 };
 

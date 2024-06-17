@@ -24,6 +24,26 @@
         this->catUsr[i] = NULL;
     }
 } */
+Usuario ::Usuario(string cedula, string nombre, string apellido, string contraseña, CategoriaUsuario *catUsr[MAX_TIPO_USUARIO])
+{
+    this->cedula = cedula;
+    this->nombre = nombre;
+    this->apellido = apellido;
+    this->contraseña = contraseña;
+    this->primeraContraseña = false;
+    this->sexo = "---";
+    DTFecha fn = DTFecha();
+    this->fechaNacimiento = fn;
+    // this->edad = 0;
+    this->activo = true;
+    // Crear las categorias de usuario a las que pertenece el Usuario
+    for (int i = 0; i < MAX_TIPO_USUARIO; i++)
+    {
+        this->catUsr[i] = catUsr[i];
+    }
+    this->actividadesUsr = new list<Actividad *>;
+
+}
 
 Usuario ::Usuario(string ci, string nomb, string apell, string sexo, DTFecha fechNac, CategoriaUsuario *catU[MAX_TIPO_USUARIO])
 {
@@ -35,7 +55,7 @@ Usuario ::Usuario(string ci, string nomb, string apell, string sexo, DTFecha fec
     this->sexo = sexo;
     this->fechaNacimiento = fechNac;
     // this->edad = 0;
-    this->activo = false;
+    this->activo = true;
     // Crear las categorias de usuario a las que pertenece el Usuario
     for (int i = 0; i < MAX_TIPO_USUARIO; i++)
     {
@@ -75,7 +95,7 @@ bool Usuario::getActivo() { return this->activo; }
 list<Actividad *> *Usuario::getActividadesUsr() { return this->actividadesUsr; }
 CategoriaUsuario **Usuario::getCatUsr() { return this->catUsr; }
 
-//Setea el usuario a CategoriaUsuario para que exista la doble navegabilidad
+// Setea el usuario a CategoriaUsuario para que exista la doble navegabilidad
 void Usuario ::addVisibilityCatUsr()
 {
     for (int i = 0; i < MAX_TIPO_USUARIO; i++)
@@ -86,7 +106,7 @@ void Usuario ::addVisibilityCatUsr()
         }
     }
 }
-//Devielve un array con las categorias de usuario a las que pertenece el Usuario
+// Devielve un array con las categorias de usuario a las que pertenece el Usuario
 TipoUsuario *Usuario ::listarTipoDeUsuario()
 {
     TipoUsuario arrayTipo[MAX_TIPO_USUARIO];
