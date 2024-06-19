@@ -33,7 +33,7 @@ public:
     string verNombre();
     string verCi();
     TipoUsuario obtenerTipo();
-    Consulta buscarConsulta(string idConsulta);
+    Actividad *buscarConsulta(string idConsulta);
     set<DTHistorial> mostrarHistorialSocio(Usuario usr);
     set<DTConsulta> mostrarDatosConsulta(DTFecha fecha);
 

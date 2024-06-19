@@ -3,6 +3,7 @@
 #include "Socio.h"
 #include "Medico.h"
 #include "DTFecha.h"
+#include <set>
 
 // CONSTRUCTORES
 /* Usuario ::Usuario()
@@ -67,6 +68,7 @@ Usuario ::Usuario(string ci, string nomb, string apell, string sexo, DTFecha fec
     this->actividadesUsr = actUsr;
 }
 // SETTERS
+void Usuario::setCedula(string cedula){this->cedula = cedula;}
 void Usuario::setNombre(string nombre) { this->nombre = nombre; }
 void Usuario::setApellido(string apellido) { this->apellido = apellido; }
 void Usuario::setContraseña(string contraseña) { this->contraseña = contraseña; }
@@ -85,6 +87,7 @@ void Usuario::setCatUsr(CategoriaUsuario *catUsr[MAX_TIPO_USUARIO])
 }
 
 // GETTERS
+string Usuario:: getCedula(){return this->cedula;}
 string Usuario::getNombre() { return this->nombre; }
 string Usuario::getApellido() { return this->apellido; }
 string Usuario::getContraseña() { return this->contraseña; }
@@ -102,6 +105,13 @@ bool Usuario::getActivo() { return this->activo; }
 
 list<Actividad *> *Usuario::getActividadesUsr() { return this->actividadesUsr; }
 CategoriaUsuario **Usuario::getCatUsr() { return this->catUsr; }
+// Dat un datatype con los datos del Usuario.
+DTDatosUsuario& Usuario::getDatosUsuario()
+{
+    DTFecha& fechaNacimiento = this->getFechaNacimiento();
+    DTDatosUsuario dtu(this->cedula, this->getNombre(), this->getFechaNacimiento(), this->listarTipoDeUsuario(), this->getActivo());
+    return dtu;
+}
 
 // Setea el usuario a CategoriaUsuario para que exista la doble navegabilidad
 void Usuario ::addVisibilityCatUsr()
@@ -115,9 +125,9 @@ void Usuario ::addVisibilityCatUsr()
     }
 }
 // Devielve un array con las categorias de usuario a las que pertenece el Usuario
-TipoUsuario *Usuario ::listarTipoDeUsuario()
+list<TipoUsuario> *Usuario ::listarTipoDeUsuario()
 {
-    TipoUsuario arrayTipo[MAX_TIPO_USUARIO];
+    list <TipoUsuario> *tipos = new list<TipoUsuario>;
     for (int i = 0; i < MAX_TIPO_USUARIO; i++)
     {
         if (this->catUsr[i] != nullptr)
@@ -125,34 +135,27 @@ TipoUsuario *Usuario ::listarTipoDeUsuario()
             // Casteo para ver que tipo de socio esta intentando hacer un ingreso.
             if (dynamic_cast<Administrativo *>(catUsr[i]))
             {
-                arrayTipo[i] = TipoUsuario::Tipo_Administrativo;
+                tipos->push_back(TipoUsuario::Tipo_Administrativo);
             }
             else if (dynamic_cast<Socio *>(catUsr[i]))
             {
-                arrayTipo[i] = TipoUsuario::Tipo_Socio;
+                tipos->push_back(TipoUsuario::Tipo_Socio);
             }
             else if (dynamic_cast<Medico *>(catUsr[i]))
             {
-                arrayTipo[i] = TipoUsuario::Tipo_Medico;
+                tipos->push_back(TipoUsuario::Tipo_Medico);
             }
             else
             {
-                arrayTipo[i] = TipoUsuario::UNKNOWN;
+                tipos->push_back(TipoUsuario::UNKNOWN);
             }
         }
         else
         {
-            arrayTipo[i] = TipoUsuario::UNKNOWN;
+            tipos->push_back(TipoUsuario::UNKNOWN);
         }
     }
-    return arrayTipo;
-}
-// Dat un datatype con los datos del Usuario.
-DTDatosUsuario Usuario::getDatosUsuario()
-{
-    DTFecha& fechaNacimiento = this->getFechaNacimiento();
-    DTDatosUsuario dtu(this->getCedula(), this->getNombre(), this->getFechaNacimiento(), this->listarTipoDeUsuario(), this->getActivo());
-    return dtu;
+    return tipos;
 }
 // Verificar la contraseña.
 bool Usuario ::contraValida(string contra)
@@ -180,18 +183,17 @@ void Usuario ::addCatUsuario(CategoriaUsuario *cat)
     }
 }
 
-void registrarAsistencia(EstadoConsulta estC, string idConsulta) {}
+
 // paraimplementar
 
-/*
+void Usuario ::registrarAsistencia(EstadoConsulta estC, string idConsulta) {}
+Actividad Usuario ::altaConsultaEmergencia(DTFecha fecha, DTHora hora, string descripcion){}
+void Usuario ::addActividad(Actividad actividad){}
+set<DTReserva> *Usuario ::mostrarReservasActivas(){}
+void Usuario ::cancelarReserva(string idConsulta){}
+bool Usuario ::esSocio(){}
+set<DTHistorial>* Usuario ::mostrarHistorialPorMedico(){}
+set<DTConsulta>* Usuario ::mostrarDatosConsulta(DTFecha fecha){}
+void Usuario ::buscarConsulta(string idConsulta){}
 
-Actividad altaConsultaEmergencia(DTFecha fecha, DTHora hora, string descripcion);
-void addActividad(Actividad actividad);
-set(DTReserva) mostrarReservasActivas();
-void cancelarReserva(string idConsulta);
-bool esSocio();
-set(DTHistorial) mostrarHistorialPorMedico();
-set(DTConsulta) mostrarDatosConsulta(DTFecha fecha);
-void buscarConsulta(string idConsulta);
-
-~Usuario(){} */
+Usuario ::~Usuario(){} 

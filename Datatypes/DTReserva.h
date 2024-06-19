@@ -30,7 +30,5 @@ public:
     DTHora getHoraConsulta();
 
     void mostrarDatosReserva();
-
-    ~DTReserva();
 };
 #endif

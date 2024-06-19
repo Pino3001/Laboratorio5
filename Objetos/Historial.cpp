@@ -1,29 +1,31 @@
 #include "Historial.h"
+#include "Consulta.h"
+#include "Diagnostico.h"
 
 
 
-Historial ::Historial() : listaDiagnosticos()
+/* Historial ::Historial() : listaDiagnosticos()
 {
     this->historialSocio = NULL;
     this->medicoRealiza = NULL;
-    DTConsulta dtCons = DTConsulta();
+    DTConsulta dtCons;
     this->consulta = dtCons;
-}
+} */
 
-Historial ::Historial(Socio *socio, Medico *medico, DTConsulta consulta, list <DTDiagnostico> diagnosticos)
+Historial ::Historial(Socio *socio, Medico *medico, Consulta *consulta, list <Diagnostico*> *diagnosticos)
 {
     this->historialSocio = socio;
     this->medicoRealiza = medico;
     this->consulta = consulta;
     this->listaDiagnosticos = diagnosticos;
 }
-Historial ::Historial(Historial &historial)
+/* Historial ::Historial(Historial &historial)
 {
     this->historialSocio = historial.getHistorialSocio();
     this->medicoRealiza = historial.getMedicoRealiza();
     this->consulta = historial.getConsulta();
     this->listaDiagnosticos = historial.getDiagnostico();
-}
+} */
 
 void Historial ::setHistorialSocio(Socio *socio)
 {
@@ -33,11 +35,11 @@ void Historial ::setMedicoRealiza(Medico *medico)
 {
     this->medicoRealiza = medico;
 }
-void Historial ::setConsulta(DTConsulta consulta)
+void Historial ::setConsulta(Consulta *consulta)
 {
     this->consulta = consulta;
 }
-void Historial ::setDiagnostico(list <DTDiagnostico>  diagnostico)
+void Historial ::setDiagnostico(list <Diagnostico*>  *diagnostico)
 {
     this->listaDiagnosticos = diagnostico;
 }
@@ -48,10 +50,10 @@ Socio *Historial ::getHistorialSocio(){
 Medico *Historial ::getMedicoRealiza(){
     return this->medicoRealiza;
 }
-DTConsulta Historial ::getConsulta(){
+Consulta* Historial ::getConsulta(){
     return this-> consulta;
 }
-list <DTDiagnostico> Historial ::getDiagnostico(){
+list <Diagnostico*> *Historial ::getDiagnostico(){
     return this->listaDiagnosticos;
 }
 

@@ -5,9 +5,9 @@
 #include <map>
 #include <string>
 #include "CategoriaUsuario.h"
-#include "Actividad.h"
 #include "Historial.h"
 #include "DTReserva.h"
+class Actividad;
 class Consulta;
 using namespace std;
 
@@ -37,12 +37,12 @@ public:
     string verNombre();
     string verCi();
     TipoUsuario obtenerTipo();
-    Consulta *buscarConsulta(string idConsulta);
+    Actividad *buscarConsulta(string idConsulta);
     void registrarAsistencia(EstadoConsulta estC, string idConsulta);
     Actividad AltaConsultaEmergencia(DTFecha fecha, DTHora hora, string descripcion);
     set <DTReserva> mostrarReservasActivas();
     void cancelarReserva(string idConsulta);
-    /* set <DTHistorial> mostrarHistorialPorMedico(Usuario *usr); */
+    set <DTHistorial> mostrarHistorialPorMedico(Usuario *usr);
 
 
 

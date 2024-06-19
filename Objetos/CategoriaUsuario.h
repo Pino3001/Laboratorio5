@@ -1,8 +1,8 @@
 #ifndef CATEGORIAUSUARIO_H
 #define CATEGORIAUSUARIO_H
-#include "Actividad.h"
-#include "Consulta.h"
 #include <string>
+class Actividad;
+class Consulta;
 class Usuario;
 
 using namespace std;
@@ -21,8 +21,8 @@ public:
 
     void addActividad(Actividad actividad);
     virtual string verNombre() = 0;
-    string verCi();
-    Consulta buscarConsulta(string idConsulta);
+    virtual string verCi()=0;
+    virtual Actividad *buscarConsulta(string idConsulta)=0;
 
     ~CategoriaUsuario();
 };

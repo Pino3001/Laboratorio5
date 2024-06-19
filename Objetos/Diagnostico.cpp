@@ -1,4 +1,12 @@
 #include "Diagnostico.h"
+#include "Tratamiento.h"
+#include "Quirurgico.h"
+#include "Farmaco.h"
+#include "ProblemaDeSalud.h"
+#include <list>
+#include <set>
+#include <string>
+using namespace std;
 
 // Constructor por defecto
 Diagnostico::Diagnostico()
@@ -28,11 +36,6 @@ list<ProblemaDeSalud *> *Diagnostico::getProblemaDeSalud()
     return this->problemaDeSalud;
 }
 
-// Para obtener el puntero al conjunto de tratamientos
-set<Tratamiento *> *Diagnostico::getTratamientos()
-{
-    return tratamientos;
-}
 
 // Setter
 void Diagnostico::setDescripcionDiagnostico(string descripcion)

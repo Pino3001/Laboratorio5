@@ -14,7 +14,5 @@ public:
 
     string getCodigo();
     string getEtiqueta();
-
-    ~DTProblemaDeSalud();
 };
 #endif

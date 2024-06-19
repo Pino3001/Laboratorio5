@@ -19,6 +19,6 @@ public:
     void setDescripcionTratamiento(string descripcion);
 
     // Destructor
-    virtual ~Tratamiento() = 0;
+    ~Tratamiento();
 };
 #endif 

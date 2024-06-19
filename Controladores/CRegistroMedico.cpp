@@ -1,4 +1,5 @@
 #include "CRegistroMedico.h"
+#include "ProblemaDeSalud.h"
 #include <list>
 
 CRegistroMedico::CRegistroMedico()
@@ -29,9 +30,9 @@ void CRegistroMedico::altaProblemaDeSalud(string id, string codigo, string etiqu
 
 }
 
+
 set<DTConsulta> CRegistroMedico::mostrarConsultas() {}
 Consulta *CRegistroMedico::seleccionarConsulta(string idConsulta) {}
-
 CategoriaProblemaSalud *CRegistroMedico::seleccionarCategoria(string nombreCat) {}
 set<DTProblemaDeSalud> CRegistroMedico::mostrarProblemaDeSalud() {}
 ProblemaDeSalud *CRegistroMedico::seleccionarProblemaDeSalud(string codigo, string etiqueta) {}

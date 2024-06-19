@@ -1,6 +1,5 @@
 #ifndef CATEGORIAPROBLEMASALUD_H
 #define CATEGORIAPROBLEMASALUD_H
-#include "ProblemaDeSalud.h"
 #include "DTCategoriaRep.h"
 #include "DTProblemaDeSalud.h"
 #include <string>

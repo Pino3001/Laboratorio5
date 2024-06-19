@@ -1,5 +1,16 @@
 #include "CUsuario.h"
-
+#include "Usuario.h"
+#include "DTFecha.h"
+#include "DTHora.h"
+#include "DTReserva.h"
+#include "DTHistorial.h"
+#include "Medico.h"
+#include "Socio.h"
+#include "Administrativo.h"
+#include <map>
+#include <list>
+#include <string>
+using namespace std;
 
 CUsuario::CUsuario()
 {
@@ -126,7 +137,7 @@ DTDatosUsuario CUsuario::buscarUser(string ci)
     }
     else
     {
-        DTDatosUsuario dtu = DTDatosUsuario();
+        DTDatosUsuario dtu;
         return dtu;
     }
 }
@@ -258,7 +269,7 @@ set<DTHistorial> CUsuario::mostrarHistorialPorMedico(string ci)
     }
 }
 
-void CUsuario::cancelarIntento() {}
+
 void CUsuario::cancelarIntento() {}
 DTDatosUsuario CUsuario::buscarUser() {}
 void CUsuario::activarUsr() {}

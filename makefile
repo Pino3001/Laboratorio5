@@ -24,9 +24,9 @@ SRCS = main.cpp \
        Objetos/Historial.cpp \
        Objetos/Diagnostico.cpp \
        Objetos/Tratamiento.cpp \
-       Objetos/Quirúrgico.cpp \
+       Objetos/Quirurgico.cpp \
        Objetos/Farmaco.cpp \
-       Objetos/CategoríaProblemaSalud.cpp \
+       Objetos/CategoriaProblemaSalud.cpp \
        Objetos/ProblemaDeSalud.cpp \
        Controladores/CUsuario.cpp \
        Controladores/CRegistroMedico.cpp \
@@ -50,14 +50,22 @@ all: $(TARGET)
 
 # Regla para compilar el ejecutable
 $(TARGET): $(OBJS)
+	@echo "Enlazando $(TARGET)..."
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $(TARGET) $(OBJS)
+	@echo "Ejecutable $(TARGET) generado."
 
 # Regla para compilar archivos .cpp en archivos .o
 %.o: %.cpp
+	@echo "Compilando $<..."
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
 # Regla para limpiar los archivos generados
 clean:
 	rm -f $(OBJS) $(TARGET)
 
-.PHONY: all clean
+# Regla para depurar: muestra las variables SRCS y OBJS
+print-vars:
+	@echo "SRCS: $(SRCS)"
+	@echo "OBJS: $(OBJS)"
+
+.PHONY: all clean print-vars

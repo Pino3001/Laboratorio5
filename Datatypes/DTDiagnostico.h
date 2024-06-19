@@ -10,17 +10,16 @@ class DTDiagnostico
 {
 private:
     string descripcion;
-    list<DTProblemaDeSalud> pDeSalud;
-    list<DTTratamiento> tratamientos;
+    list<DTProblemaDeSalud> *pDeSalud;
+    list<DTTratamiento> *tratamientos;
 
 public:
     DTDiagnostico();
-    DTDiagnostico(string descripcion, list<DTProblemaDeSalud> problemas, list<DTTratamiento> tratamientos);
+    DTDiagnostico(string descripcion, list<DTProblemaDeSalud> *problemas, list<DTTratamiento> *tratamientos);
 
     string getDescripcion();
-    list<DTProblemaDeSalud> getPDeSalud();
-    list<DTTratamiento> getTratamientos();
+    list<DTProblemaDeSalud> *getPDeSalud();
+    list<DTTratamiento> *getTratamientos();
 
-    ~DTDiagnostico();
 };
 #endif

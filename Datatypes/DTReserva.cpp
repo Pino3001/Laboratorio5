@@ -7,10 +7,10 @@ DTReserva::DTReserva()
     this->nombre = "";
     this->ci = "";
     this->medico = "";
-    DTFecha fc = DTFecha();
+    DTFecha fc;
     this->fechaReserva = fc;
     this->fechaConsulta = fc;
-    DTHora hc = DTHora();
+    DTHora hc;
     this->horaConsulta = hc;
 }
 
@@ -61,7 +61,4 @@ DTHora DTReserva ::getHoraConsulta()
 void DTReserva::mostrarDatosReserva()
 {
     std::cout << "mostrar" << std::endl;
-}
-DTReserva ::~DTReserva()
-{
 }

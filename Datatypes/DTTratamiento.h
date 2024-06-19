@@ -23,9 +23,7 @@ public:
     string getDescripcion();
     TipoTratamiento getTipo();
     list<string> getListMedicamentos();
-    DTFecha getFechaCirugia();
+    DTFecha& getFechaCirugia();
     string getNombreCirujano();
-
-    ~DTTratamiento();
 };
 #endif

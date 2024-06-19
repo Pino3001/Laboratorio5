@@ -2,7 +2,7 @@
 
 
 DTHistorial::DTHistorial(): nombreSocio(""), ciSocio(""), nombreMedico(""), diagnosticos() {
-    DTConsulta c = DTConsulta();
+    DTConsulta c;
     this->consulta = c;
 }
 
@@ -29,7 +29,5 @@ list<DTDiagnostico> DTHistorial::getDiagnosticos() {
     return diagnosticos;
 }
 
-DTHistorial::~DTHistorial()
-{
-}
+
 

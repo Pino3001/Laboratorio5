@@ -87,4 +87,4 @@ string Actividad ::CiMedico()
 }
 
 // Para implementar
-/*~Actividad();*/
+Actividad::~Actividad(){}

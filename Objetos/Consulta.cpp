@@ -1,8 +1,8 @@
 #include "Consulta.h"
-
 #include "Actividad.h"
 #include "Medico.h"
 #include "Socio.h"
+#include "ProblemaDeSalud.h"
 #include "definiciones.h"
 #include "DTFecha.h"
 #include "DTHora.h"
@@ -39,10 +39,10 @@ string Consulta ::getIdConsulta() { return this->idConsulta; }
 DTFecha Consulta ::getFechaConsulta() { return this->fechaConsulta; }
 DTHora Consulta ::getHoraConsulta() { return this->horaConsulta; }
 
-DTConsulta getDatosConsulta();
-Diagnostico *crearDiagnostico(string descripcion, ProblemaDeSalud pds);
-void agregarTratamientoFarmaco(Diagnostico diagnostico, string descripcion, list<string> listaMedicamentos);
-void agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, DTFecha fecha);
-void agregarDiagnosticoConsulta(Diagnostico diagnostico);
+DTConsulta Consulta ::getDatosConsulta(){}
+Diagnostico *Consulta ::crearDiagnostico(string descripcion, ProblemaDeSalud pds){}
+void Consulta ::agregarTratamientoFarmaco(Diagnostico diagnostico, string descripcion, list<string> listaMedicamentos){}
+void Consulta ::agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, DTFecha fecha){}
+void Consulta ::agregarDiagnosticoConsulta(Diagnostico diagnostico){}
 
-//~Consulta();
+Consulta::~Consulta(){}

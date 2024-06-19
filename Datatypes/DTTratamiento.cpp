@@ -1,8 +1,14 @@
 #include "DTTratamiento.h"
+#include "definiciones.h"
+
+DTTratamiento::DTTratamiento() : descripcion(""), tipo(TipoTratamiento::Tipo_Farmaco), listMedicamentos(), nombreCirujano(""){
+    DTFecha f;
+    this->fechaCirujia = f;
+}
 
 DTTratamiento::DTTratamiento(string descripcion, TipoTratamiento trat, list<string> medicamentos)
     : descripcion(descripcion), tipo(trat), listMedicamentos(medicamentos), nombreCirujano("") {
-        DTFecha fc = DTFecha();
+        DTFecha fc;
         this->fechaCirujia = fc;
     }
 
@@ -25,7 +31,7 @@ list<string> DTTratamiento::getListMedicamentos()
     return listMedicamentos;
 }
 
-DTFecha DTTratamiento::getFechaCirugia()
+DTFecha& DTTratamiento::getFechaCirugia()
 {
     return fechaCirujia;
 }

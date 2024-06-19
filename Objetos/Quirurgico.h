@@ -1,7 +1,7 @@
 #ifndef Quirurgico_H
 #define Quirurgico_H
 #include "DTFecha.h"
-class Tratamiento;
+#include "Tratamiento.h"
 class Medico;
 
 class Quirurgico : public Tratamiento

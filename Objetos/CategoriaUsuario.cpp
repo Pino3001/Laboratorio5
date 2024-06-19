@@ -29,9 +29,7 @@ Usuario *CategoriaUsuario ::getUsuarioVinculado()
 }
 
  //Para implementar
-/* void addActividad(Actividad actividad);
-string verNombre();
-string verCi();
-Consulta buscarConsulta(string idConsulta);
+void CategoriaUsuario ::addActividad(Actividad actividad){}
 
-~CategoriaUsuario();  */
+CategoriaUsuario ::~CategoriaUsuario(){}
+

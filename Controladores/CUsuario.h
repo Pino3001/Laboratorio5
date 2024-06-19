@@ -27,22 +27,19 @@ public:
     bool verificarContraseña(string ci, string contraseña);
     bool asignarSesion(string ci);
     TipoUsuario* tipoDeUsuario(string ci);
-
     DTDatosUsuario buscarUser(string ci);
     bool primerContraseña(string contraseña);
     void altaUsuario();
     void cerrarSesion();
     void altaUsuario(string ci, string nomb, string apell, string sexo, DTFecha fechNac, TipoUsuario tUsr[2]);
+    void registroConsulta(string ci, string idConsulta);
     set<DTHistorial> mostrarHistorialPorMedico(string ci);
-
-    void cancelarIntento();
-    bool existeUsuario(string ci);
+   
     void cancelarIntento();
     DTDatosUsuario buscarUser();
     void activarUsr();
     set<DTReserva> mostrarReservasActivas();
     void camcelarReserva(string idConsulta);
-    void registroConsulta(string ci, string idConsulta);
     void registroConsultaEmergencia(string ci, string ciMedico, DTFecha fecha, DTHora hora, string descrpcion);
 
     DTDatosUsuario obtenerDatosSocio();

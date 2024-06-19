@@ -24,6 +24,5 @@ public:
     DTConsulta getConsulta();
     list<DTDiagnostico> getDiagnosticos();
 
-    ~DTHistorial();
 };
 #endif

@@ -2,9 +2,9 @@
 
 DTConsulta::DTConsulta() : idConsulta(""), nombreSocio(""), ciSocio(""), nombreMedico("")
 {
-    DTFecha fc = DTFecha();
+    DTFecha fc;
     this->fechaConsulta = fc;
-    DTHora hc = DTHora();
+    DTHora hc;
     this->horaConsulta = hc;
 }
 DTConsulta::DTConsulta(string id, string nomSocio, string ciSocio, string nombreMedico, DTFecha fechaConsul, DTHora horaConsul)

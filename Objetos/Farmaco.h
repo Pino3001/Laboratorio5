@@ -23,7 +23,7 @@ public:
     void setListaMedicamentos(list <string> *nombreMedicamento);
 
     // Destructor
-    virtual ~Farmaco();
+     ~Farmaco();
 };
 
 #endif

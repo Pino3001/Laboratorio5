@@ -1,6 +1,8 @@
 #include "Socio.h"
 #include "CategoriaUsuario.h"
 #include "Consulta.h"
+#include "Actividad.h"
+
 
 // Constructores
 Socio ::Socio() : CategoriaUsuario()
@@ -82,21 +84,17 @@ string Socio ::verCi()
     return this->usuarioVinculado->getCedula();
 }
 
-/* set<DTHistorial> mostrarHistorialPorMedico(Usuario *usr)
+set<DTHistorial> Socio ::mostrarHistorialPorMedico(Usuario *usr)
 {
-    for (auto *listactividades : *this->medicosConsultados)
-    {
-    } 
-} */
-// Para implementar
-void addActividad(Actividad actividad);
 
-string verCi();
+} 
+// Para implementar
+void Socio ::addActividad(Actividad actividad){}
 TipoUsuario Socio ::obtenerTipo() {}
-Consulta *buscarConsulta(string idConsulta);
-void registrarAsistencia(EstadoConsulta estC, string idConsulta);
-Actividad AltaConsultaEmergencia(DTFecha fecha, DTHora hora, string descripcion);
-set<DTReserva> mostrarReservasActivas();
-void cancelarReserva(string idConsulta);
+Actividad *Socio ::buscarConsulta(string idConsulta){}
+void Socio ::registrarAsistencia(EstadoConsulta estC, string idConsulta){}
+Actividad Socio ::AltaConsultaEmergencia(DTFecha fecha, DTHora hora, string descripcion){}
+set<DTReserva> Socio ::mostrarReservasActivas(){}
+void Socio ::cancelarReserva(string idConsulta){}
 
 Socio ::~Socio(){}

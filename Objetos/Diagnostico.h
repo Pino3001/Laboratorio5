@@ -1,10 +1,10 @@
 #ifndef Diagnostico_H
 #define Diagnostico_H
 #include "DTFecha.h"
-#include "Tratamiento.h"
-#include "Quirurgico.h"
-#include "Farmaco.h"
-#include "ProblemaDeSalud.h"
+class Tratamiento;
+class Quirurgico;
+class Farmaco;
+class ProblemaDeSalud;
 #include <list>
 #include <set>
 #include <string>

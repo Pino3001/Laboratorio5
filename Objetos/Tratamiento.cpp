@@ -21,3 +21,4 @@ string Tratamiento::getDescripcionTratamiento(){
 void Tratamiento::setDescripcionTratamiento(string descripcion){
     this->descripcion = descripcion;
 }
+Tratamiento::~Tratamiento(){}

@@ -8,29 +8,30 @@
 using namespace std;
 class Socio;
 class Medico;
-
+class Consulta;
+class Diagnostico;
 class Historial
 {
 private:
     Socio *historialSocio;
     Medico *medicoRealiza;
-    DTConsulta consulta;
-    list <DTDiagnostico> listaDiagnosticos;
+    Consulta *consulta;
+    list <Diagnostico*> *listaDiagnosticos;
 
 public:
-    Historial();
-    Historial(Socio *socio, Medico *medico, DTConsulta consulta, list <DTDiagnostico> diagnosticos);
-    Historial(Historial &historial);
+    /* Historial(); */
+    Historial(Socio *socio, Medico *medico, Consulta *consulta, list <Diagnostico*> *diagnosticos);
+    /* Historial(Historial &historial); */
 
     void setHistorialSocio(Socio *socio);
     void setMedicoRealiza(Medico *medico);
-    void setConsulta(DTConsulta consulta);
-    void setDiagnostico(list <DTDiagnostico> diagnosticos);
+    void setConsulta(Consulta *consulta);
+    void setDiagnostico(list <Diagnostico*> *diagnosticos);
 
     Socio *getHistorialSocio();
     Medico *getMedicoRealiza();
-    DTConsulta getConsulta();
-    list <DTDiagnostico> getDiagnostico();
+    Consulta *getConsulta();
+    list<Diagnostico*> *getDiagnostico();
 
     DTHistorial getDatosHistorial();
 

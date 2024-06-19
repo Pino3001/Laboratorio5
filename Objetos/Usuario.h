@@ -32,6 +32,7 @@ private:
 public:
     Usuario(string ci, string nomb, string apell, string sex, DTFecha fechNac, CategoriaUsuario *catUsr[MAX_TIPO_USUARIO]);
     Usuario(string cedula, string nombre, string apellido, string contraseña, CategoriaUsuario *catUsr[MAX_TIPO_USUARIO]);
+   
     void setCedula(string cedula);
     void setNombre(string nombre);
     void setApellido(string apellido);
@@ -44,7 +45,6 @@ public:
     void setActividadesUsr(list<Actividad *> *actividadesUsr);
     void setCatUsr(CategoriaUsuario *catUsr[2]);
 
-    void addVisibilityCatUsr();
     string getCedula();
     string getNombre();
     string getApellido();
@@ -56,20 +56,22 @@ public:
     bool getActivo();
     list<Actividad *> *getActividadesUsr();
     CategoriaUsuario **getCatUsr();
-    DTDatosUsuario getDatosUsuario(); // lista
-
-    TipoUsuario *listarTipoDeUsuario();
+    DTDatosUsuario& getDatosUsuario(); // lista
+   
+    void addVisibilityCatUsr();
+    list<TipoUsuario> *listarTipoDeUsuario();
     bool contraValida(string contra);
+    void addCatUsuario(CategoriaUsuario *cat); // lista
+   
     void registrarAsistencia(EstadoConsulta estC, string idConsulta);
     Actividad altaConsultaEmergencia(DTFecha fecha, DTHora hora, string descripcion);
     void addActividad(Actividad actividad);
-    set<DTReserva> mostrarReservasActivas();
+    set<DTReserva> *mostrarReservasActivas();
     void cancelarReserva(string idConsulta);
     bool esSocio();
-    set<DTHistorial> mostrarHistorialPorMedico();
-    set<DTConsulta> mostrarDatosConsulta(DTFecha fecha);
+    set<DTHistorial> *mostrarHistorialPorMedico();
+    set<DTConsulta> *mostrarDatosConsulta(DTFecha fecha);
     void buscarConsulta(string idConsulta);
-    void addCatUsuario(CategoriaUsuario *cat); // lista
 
     ~Usuario();
 };
