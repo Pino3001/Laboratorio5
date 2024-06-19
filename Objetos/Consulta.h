@@ -1,8 +1,6 @@
 #ifndef CONSULTA_H
 #define CONSULTA_H
 #include "Actividad.h"
-#include "Medico.h"
-#include "Socio.h"
 #include "Diagnostico.h"
 #include "definiciones.h"
 #include "DTFecha.h"
@@ -10,7 +8,8 @@
 #include "DTConsulta.h"
 #include <list>
 #include <string>
-
+class Socio;
+class Medico;
 using namespace std;
 
 

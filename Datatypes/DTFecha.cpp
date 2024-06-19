@@ -1,7 +1,9 @@
 #include "DTFecha.h"
 
 // Constructor
+DTFecha::DTFecha() : dia(0), mes(0), anio(0) {}
 DTFecha::DTFecha(int dia, int mes, int anio) : dia(dia), mes(mes), anio(anio) {}
+DTFecha::DTFecha(DTFecha &dtf) : dia(dtf.getDia()), mes(dtf.getMes()), anio(dtf.getAnio()) {}
 
 // Método para imprimir la fecha
 void DTFecha::imprimirDTFecha()

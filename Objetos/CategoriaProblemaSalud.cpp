@@ -1,4 +1,5 @@
 #include "CategoriaProblemaSalud.h"
+#include "ProblemaDeSalud.h"
 
 CategoriaProblemaSalud ::CategoriaProblemaSalud(string id, string descripcion) : idCategoria(id), descripcion(descripcion), problemas() {}
 

@@ -1,10 +1,8 @@
 #ifndef DTRESERVA_H
 #define DTRESERVA_H
-
 #include <string>
 #include "DTFecha.h"
 #include "DTHora.h"
-
 using namespace std;
 
 class DTReserva

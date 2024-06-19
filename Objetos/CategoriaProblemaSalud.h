@@ -6,6 +6,7 @@
 #include <string>
 #include <set>
 #include <list>
+class ProblemaDeSalud;
 using namespace std;
 
 class CategoriaProblemaSalud

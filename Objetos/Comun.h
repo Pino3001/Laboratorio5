@@ -1,17 +1,18 @@
 #ifndef COMUN_H
 #define COMUN_H
-
-#include "Consulta.h"
-#include "DTConsulta.h"
-#include "Diagnostico.h"
-#include "ProblemaDeSalud.h"
-#include "DTReserva.h"
-#include "definiciones.h"
-#include "DTFecha.h"
-#include "DTHora.h"
 #include <list>
+#include <set>
 #include <string>
-
+#include "definiciones.h"
+#include "Consulta.h"
+class DTConsulta;
+class DTReserva;
+class DTFecha;
+class DTHora;
+class ProblemaDeSalud;
+class Diagnostico;
+class Socio;
+class Medico;
 using namespace std;
 
 class Comun : public Consulta
@@ -21,8 +22,8 @@ private:
     EstadoConsulta estadoConsulta;
 
 public:
-    Comun();
-    Comun(DTFecha fecha, EstadoConsulta estConsulta, string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio);
+    /* Comun(); */
+    Comun(DTFecha fechaReserva, EstadoConsulta estConsulta, string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio);
 
     // Setters
     void setFechaReserva(DTFecha fechaReserva);
@@ -37,7 +38,7 @@ public:
     void agregarTratamientoFarmaco(Diagnostico *diagnostico, string descripcion, list<string> *listMedicamentos);
     void agregarTratamientoQuirurgico(Diagnostico *diagnostico, string descripcion, DTFecha fecha);
     void agregarDiagnosticoAConsulta(Diagnostico *diagnostico);
-    set<DTReserva> getDatosReservas();
+    set<DTReserva> *getDatosReservas();
 
     ~Comun();
 };

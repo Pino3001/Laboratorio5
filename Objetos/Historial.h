@@ -1,14 +1,13 @@
 #ifndef HISTORIAL_H
 #define HISTORIAL_H
 #include "Usuario.h"
-#include "Socio.h"
-#include "Medico.h"
 #include "DTDiagnostico.h"
 #include "DTConsulta.h"
 #include "DTHistorial.h"
-
 #include "string.h"
 using namespace std;
+class Socio;
+class Medico;
 
 class Historial
 {

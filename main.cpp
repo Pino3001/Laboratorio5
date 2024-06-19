@@ -175,7 +175,7 @@ int main()
                         cin >> mes;
                         cout << "\n Año: ";
                         cin >> año;
-                        DTFecha fn = DTFecha(dia, mes, año);
+                        DTFecha fn(dia, mes, año);
                         cout << "\n Ingrese el tipo de usuario";
                         while (s && i < MAX_TIPO_USUARIO)
                         {
@@ -226,9 +226,9 @@ int main()
                         // Rellena el arreglo si no se encuentra ya completo con categoria desconocida.
                         if (i < MAX_TIPO_USUARIO)
                         {
-                            for (i; i < MAX_TIPO_USUARIO; i++)
+                            for (int j = i; j < MAX_TIPO_USUARIO; j++)
                             {
-                                tUsr[i] = TipoUsuario::UNKNOWN;
+                                tUsr[j] = TipoUsuario::UNKNOWN;
                             }
                         }
                         usuarios->altaUsuario(ci, nomb, apell, sexo, fn, tUsr);
@@ -306,7 +306,7 @@ int main()
                         cout << "\n\t A continuacion ingrese los datos del Socio a Registrar.";
                         cout << "\n Cedula: ";
                         cin >> ci;
-                        usuarios->registroConsulta(ci, idConsulta);
+                        //usuarios->registroConsulta(ci, idConsulta);
                     }
                     else if (opt == 4)//Cerrar sesion
                     {

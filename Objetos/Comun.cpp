@@ -1,16 +1,25 @@
 #include "Comun.h"
+#include "Diagnostico.h"
+#include "ProblemaDeSalud.h"
+#include "Consulta.h"
+#include "Socio.h"
+#include "Medico.h"
+#include "Diagnostico.h"
+#include "DTConsulta.h"
+#include "DTReserva.h"
+#include "DTFecha.h"
+#include "DTHora.h"
 
-
-Comun::Comun(DTFecha fecha, EstadoConsulta estConsulta, string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio) : Consulta(idConsulta, fecha, hora, socio, medico, nombreMedico, ciMedico, nombreSocio, ciSocio)
+Comun::Comun(DTFecha fechaReserva, EstadoConsulta estConsulta, string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio) : Consulta(idConsulta, fecha, hora, socio, medico, nombreMedico, ciMedico, nombreSocio, ciSocio)
 {
     this->fechaReserva = fecha;
     this->estadoConsulta = estConsulta;
 }
-Comun::Comun(){
-    DTFecha d = DTFecha();
+/* Comun::Comun() : Consulta(){
+    DTFecha f();
     this->fechaReserva = f;
     this->estadoConsulta = Reservada;
-}
+} */
 
 
 // Setters
@@ -52,7 +61,7 @@ void Comun::agregarDiagnosticoAConsulta(Diagnostico *diagnostico)
     // Agregar diagnóstico a la consulta
 }
 
-std::set<DTReserva> Comun::getDatosReservas()
+set<DTReserva> *Comun::getDatosReservas()
 {
     // Implementación del método
     // Retornar un conjunto de DTReserva

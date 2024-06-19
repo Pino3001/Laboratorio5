@@ -17,7 +17,7 @@ public:
     Farmaco(string descripcion, list <string> *nombreMedicamento);
     
     // Getters
-    list<string>* Farmaco::getListaMedicamentos();
+    list<string>* getListaMedicamentos();
 
     // Setters
     void setListaMedicamentos(list <string> *nombreMedicamento);

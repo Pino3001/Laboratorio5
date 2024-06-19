@@ -1,4 +1,8 @@
 #include "Medico.h"
+#include "Socio.h"
+#include "CategoriaUsuario.h"
+#include "Usuario.h"
+#include "Consulta.h"
 
 
 
@@ -14,7 +18,7 @@ Medico ::Medico() : CategoriaUsuario()
     this->historialesCreados = histCreados;
 }
 
-Medico ::Medico(Medico &medico, CategoriaUsuario &catUsr) : CategoriaUsuario(catUsr)
+/* Medico ::Medico(Medico &medico, CategoriaUsuario &catUsr) : CategoriaUsuario(catUsr)
 {// VER SI ESTO ESTA BIEN
     for (Actividad *am : *medico.getActividadMedico())
     {
@@ -28,7 +32,7 @@ Medico ::Medico(Medico &medico, CategoriaUsuario &catUsr) : CategoriaUsuario(cat
     {
         this->historialesCreados->push_back(hc);
     }
-}
+} */
 
 //Setters
 void Medico ::setActividadMedico(list<Actividad *> *actividadMedico)
@@ -60,7 +64,7 @@ list<Historial *> *Medico ::getHistorialesCreados()
 
 //Para implementar
 void addActividad(Actividad actividad);
-string verNombre();
+string Medico::verNombre(){}
 string verCi();
 TipoUsuario Medico :: obtenerTipo(){}
 Consulta buscarConsulta(string idConsulta);

@@ -1,5 +1,7 @@
 #include "Quirurgico.h"
-#include "string.h"
+#include "Tratamiento.h"
+#include "Medico.h"
+#include <string>
 using namespace std;
 
 // Constructor por defecto

@@ -1,15 +1,16 @@
 #ifndef USUARIO_H
 #define USUARIO_H
-
-#include "CategoriaUsuario.h"
-#include "Socio.h"
-#include "Medico.h"
 #include "Administrativo.h"
 #include "definiciones.h"
 #include "DTDatosUsuario.h"
+#include "DTReserva.h"
+#include "DTHistorial.h"
 #include <list>
 #include <set>
 #include <string>
+class CategoriaUsuario;
+class Medico;
+class Socio;
 
 using namespace std;
 
@@ -50,7 +51,7 @@ public:
     string getContraseña();
     bool getPrimeraContraseña();
     string getSexo();
-    DTFecha getFechaNacimiento();
+    DTFecha& getFechaNacimiento();
     int getEdad();
     bool getActivo();
     list<Actividad *> *getActividadesUsr();

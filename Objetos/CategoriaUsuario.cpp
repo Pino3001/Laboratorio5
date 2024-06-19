@@ -1,7 +1,7 @@
 #include "CategoriaUsuario.h"
 #include "Usuario.h"
 #include "Actividad.h"
-
+#include "Consulta.h"
 #include <string>
 
 using namespace std;

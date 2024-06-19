@@ -1,6 +1,5 @@
 #ifndef Diagnostico_H
 #define Diagnostico_H
-
 #include "DTFecha.h"
 #include "Tratamiento.h"
 #include "Quirurgico.h"

@@ -1,5 +1,8 @@
 #include "Usuario.h"
 #include "definiciones.h"
+#include "Socio.h"
+#include "Medico.h"
+#include "DTFecha.h"
 
 // CONSTRUCTORES
 /* Usuario ::Usuario()
@@ -32,7 +35,7 @@ Usuario ::Usuario(string cedula, string nombre, string apellido, string contrase
     this->contraseña = contraseña;
     this->primeraContraseña = false;
     this->sexo = "---";
-    DTFecha fn = DTFecha();
+    DTFecha fn;
     this->fechaNacimiento = fn;
     // this->edad = 0;
     this->activo = true;
@@ -42,7 +45,6 @@ Usuario ::Usuario(string cedula, string nombre, string apellido, string contrase
         this->catUsr[i] = catUsr[i];
     }
     this->actividadesUsr = new list<Actividad *>;
-
 }
 
 Usuario ::Usuario(string ci, string nomb, string apell, string sexo, DTFecha fechNac, CategoriaUsuario *catU[MAX_TIPO_USUARIO])
@@ -88,8 +90,14 @@ string Usuario::getApellido() { return this->apellido; }
 string Usuario::getContraseña() { return this->contraseña; }
 bool Usuario::getPrimeraContraseña() { return this->primeraContraseña; }
 string Usuario::getSexo() { return this->sexo; }
-DTFecha Usuario::getFechaNacimiento() { return this->fechaNacimiento; }
-int Usuario::getEdad() { return this->edad; }
+DTFecha& Usuario::getFechaNacimiento()
+{
+    return this->fechaNacimiento;
+}
+int Usuario::getEdad()
+{
+    return this->edad;
+}
 bool Usuario::getActivo() { return this->activo; }
 
 list<Actividad *> *Usuario::getActividadesUsr() { return this->actividadesUsr; }
@@ -142,7 +150,8 @@ TipoUsuario *Usuario ::listarTipoDeUsuario()
 // Dat un datatype con los datos del Usuario.
 DTDatosUsuario Usuario::getDatosUsuario()
 {
-    DTDatosUsuario dtu = DTDatosUsuario(this->getCedula(), this->getNombre(), this->getFechaNacimiento(), this->listarTipoDeUsuario(), this->getActivo());
+    DTFecha& fechaNacimiento = this->getFechaNacimiento();
+    DTDatosUsuario dtu(this->getCedula(), this->getNombre(), this->getFechaNacimiento(), this->listarTipoDeUsuario(), this->getActivo());
     return dtu;
 }
 // Verificar la contraseña.

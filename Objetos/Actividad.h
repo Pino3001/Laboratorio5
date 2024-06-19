@@ -1,11 +1,10 @@
 #ifndef ACTIVIDAD_H
 #define ACTIVIDAD_H
-
-#include "Usuario.h"
-#include "Socio.h"
-#include "Medico.h"
-
-#include "string.h"
+#include <string>
+class Historial;
+class Usuario;
+class Medico;
+class Socio;
 using namespace std;
 
 class Actividad

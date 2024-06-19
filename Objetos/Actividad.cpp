@@ -1,4 +1,8 @@
 #include "Actividad.h"
+#include "Socio.h"
+#include "Medico.h"
+#include "Usuario.h"
+#include "Historial.h"
 
 // Constructores
 /* Actividad :: Actividad(){

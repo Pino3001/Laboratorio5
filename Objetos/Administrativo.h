@@ -2,7 +2,6 @@
 #define ADMINISTRATIVO_H
 
 #include "CategoriaUsuario.h"
-#include "Usuario.h"
 
 
 class Administrativo : public CategoriaUsuario

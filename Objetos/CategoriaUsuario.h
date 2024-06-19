@@ -1,11 +1,9 @@
 #ifndef CATEGORIAUSUARIO_H
 #define CATEGORIAUSUARIO_H
-
-#include "Usuario.h"
 #include "Actividad.h"
 #include "Consulta.h"
-
 #include <string>
+class Usuario;
 
 using namespace std;
 

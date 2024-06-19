@@ -26,7 +26,6 @@ public:
     virtual void cancelarIntento() = 0;
 
     virtual void cerrarSesion() = 0;
-    virtual bool existeUsuario(string ci) = 0;
     // virtual void cancelarIntento()= 0;
     virtual DTDatosUsuario buscarUser() = 0;
     virtual void activarUsr() = 0;

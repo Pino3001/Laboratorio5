@@ -1,6 +1,5 @@
 #ifndef EMERGENCIA_H
 #define EMERGENCIA_H
-
 #include "Consulta.h"
 #include "DTFecha.h"
 #include "DTConsulta.h"

@@ -1,4 +1,6 @@
 #include "Socio.h"
+#include "CategoriaUsuario.h"
+#include "Consulta.h"
 
 // Constructores
 Socio ::Socio() : CategoriaUsuario()
@@ -7,8 +9,6 @@ Socio ::Socio() : CategoriaUsuario()
 
     map<string, list<Actividad *>> *actSocio = new map<string, list<Actividad *>>;
     this->actividadesSocioXmedico = actSocio;
-    list<Medico *> *medConsult = new list<Medico *>;
-    this->medicosConsultados = medConsult;
     list<Historial *> *histSocio = new list<Historial *>;
     this->historialSocio = histSocio;
 }
@@ -53,10 +53,6 @@ void Socio ::setActividadesSocioXmedico(map <string, list <Actividad*>> *activid
 {
     this->actividadesSocioXmedico = actividadXmedico;
 }
-void Socio ::setMedicosConsultados(list<Medico *> *medicosConsultados)
-{
-    this->medicosConsultados = medicosConsultados;
-}
 void Socio ::setHistorialSocio(list<Historial *> *historialSocio)
 {
     this->historialSocio = historialSocio;
@@ -70,10 +66,6 @@ int Socio ::getCantConsultas()
 map <string, list <Actividad*>> *Socio ::getActividadesSocioXmedico()
 {
     return this->actividadesSocioXmedico;
-}
-list<Medico *> *Socio ::getMedicosConsultados()
-{
-    return this->medicosConsultados;
 }
 list<Historial *> *Socio ::getHistorialSocio()
 {
@@ -90,18 +82,18 @@ string Socio ::verCi()
     return this->usuarioVinculado->getCedula();
 }
 
-set<DTHistorial> mostrarHistorialPorMedico(Usuario *usr)
+/* set<DTHistorial> mostrarHistorialPorMedico(Usuario *usr)
 {
-   /*  for (auto *listactividades : *this->medicosConsultados)
+    for (auto *listactividades : *this->medicosConsultados)
     {
-    } */
-}
+    } 
+} */
 // Para implementar
 void addActividad(Actividad actividad);
 
 string verCi();
 TipoUsuario Socio ::obtenerTipo() {}
-Consulta buscarConsulta(string idConsulta);
+Consulta *buscarConsulta(string idConsulta);
 void registrarAsistencia(EstadoConsulta estC, string idConsulta);
 Actividad AltaConsultaEmergencia(DTFecha fecha, DTHora hora, string descripcion);
 set<DTReserva> mostrarReservasActivas();
