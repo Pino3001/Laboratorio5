@@ -1,6 +1,5 @@
 #ifndef Tratamiento_H
 #define Tratamiento_H
-
 #include <string>
 using namespace std;
 

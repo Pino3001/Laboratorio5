@@ -5,6 +5,7 @@
 #include "Tratamiento.h"
 #include "Quirurgico.h"
 #include "Farmaco.h"
+#include "ProblemaDeSalud.h"
 #include <list>
 #include <set>
 #include <string>
@@ -15,7 +16,7 @@ class Diagnostico {
 private:
     string descripcion;
     set<Tratamiento*> *tratamientos;
-    list <ProblemaDeSalud*> problemaDeSalud;
+    list <ProblemaDeSalud*> *problemaDeSalud;
 
 public:
     // Constructores
@@ -25,7 +26,7 @@ public:
     // Getters
     string getDescripcionDiagnostico();
     set<Tratamiento*>* getTratamientos(); 
-    list <ProblemaDeSalud*> getProblemaDeSalud();
+    list <ProblemaDeSalud*> *getProblemaDeSalud();
 
     // Setters
     void setDescripcionDiagnostico(string descripcion);
@@ -34,8 +35,8 @@ public:
 
     // Métodos adicionales A CHEQUEAR!
     
-    Tratamiento agregarTratamientoQuirurgico(string descripcion, DTFecha fecha);
-    void agregarTratamientoFarmaco(set<string> listMedicamentos);
+    void agregarTratamientoQuirurgico(string descripcion, DTFecha fecha);
+    void agregarTratamientoFarmaco(list<string> *listMedicamentos, string descripcion);
 
     // Destructor
     ~Diagnostico();

@@ -1,6 +1,5 @@
 #ifndef Quirurgico_H
 #define Quirurgico_H
-
 #include "Tratamiento.h"
 #include "DTFecha.h"
 #include "Medico.h"

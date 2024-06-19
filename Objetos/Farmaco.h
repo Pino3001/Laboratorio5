@@ -3,22 +3,24 @@
 
 #include "Tratamiento.h"
 #include "DTFecha.h"
+#include <list>
+#include <string>
+using namespace std;
 
 class Farmaco : public Tratamiento {
 private:
-    string nombreMedicamento;
+    list <string> *nombreMedicamento;
 
 public:
     // Constructores
     Farmaco();
-    Farmaco(string nombreMedicamento);
-    Farmaco(string descripcion, string nombreMedicamento);
+    Farmaco(string descripcion, list <string> *nombreMedicamento);
     
     // Getters
-    string getNombreMedicamento();
+    list<string>* Farmaco::getListaMedicamentos();
 
     // Setters
-    void setNombreMedicamento(string nombreMedicamento);
+    void setListaMedicamentos(list <string> *nombreMedicamento);
 
     // Destructor
     virtual ~Farmaco();

@@ -6,10 +6,10 @@ Emergencia::Emergencia(string motivo, string idConsulta, DTFecha fecha, DTHora h
     : Consulta(idConsulta, fecha, hora, socio, medico, nombreMedico, ciMedico, nombreSocio, ciSocio) {
     this->motivoConsulta = motivo;
 }
-// Constructor por defecto
+/* // Constructor por defecto
 Emergencia::Emergencia() : Consulta() {
     this->motivoConsulta = " ";
-}
+} */
 
 // Setter para motivoConsulta
 void Emergencia::setMotivoConsulta(string motivo) {this->motivoConsulta = motivo;}

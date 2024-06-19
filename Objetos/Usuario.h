@@ -8,6 +8,7 @@
 #include "definiciones.h"
 #include "DTDatosUsuario.h"
 #include <list>
+#include <set>
 #include <string>
 
 using namespace std;
@@ -61,11 +62,11 @@ public:
     void registrarAsistencia(EstadoConsulta estC, string idConsulta);
     Actividad altaConsultaEmergencia(DTFecha fecha, DTHora hora, string descripcion);
     void addActividad(Actividad actividad);
-    set(DTReserva) mostrarReservasActivas();
+    set<DTReserva> mostrarReservasActivas();
     void cancelarReserva(string idConsulta);
     bool esSocio();
-    set(DTHistorial) mostrarHistorialPorMedico();
-    set(DTConsulta) mostrarDatosConsulta(DTFecha fecha);
+    set<DTHistorial> mostrarHistorialPorMedico();
+    set<DTConsulta> mostrarDatosConsulta(DTFecha fecha);
     void buscarConsulta(string idConsulta);
     void addCatUsuario(CategoriaUsuario *cat); // lista
 

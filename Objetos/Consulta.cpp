@@ -1,7 +1,6 @@
 #include "Consulta.h"
 
 #include "Actividad.h"
-
 #include "Medico.h"
 #include "Socio.h"
 #include "definiciones.h"
@@ -12,17 +11,17 @@
 
 using namespace std;
 
-Consulta ::Consulta() : Actividad()
+/* Consulta ::Consulta() : Actividad()
 {
     this->idConsulta = "0";
     DTFecha fc = DTFecha();
     this->fechaConsulta = fc;
     DTHora hc = DTHora();
     this->horaConsulta = hc;
-}
+} */
 Consulta ::Consulta(string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio) : Actividad(socio, medico, nombreMedico, ciMedico, nombreSocio, ciSocio)
 {
-    // this->idConsulta =
+    this->idConsulta = idConsulta;
     this->fechaConsulta = fecha;
     this->horaConsulta = hora;
 }
@@ -46,4 +45,4 @@ void agregarTratamientoFarmaco(Diagnostico diagnostico, string descripcion, list
 void agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, DTFecha fecha);
 void agregarDiagnosticoConsulta(Diagnostico diagnostico);
 
-~Consulta();
+//~Consulta();

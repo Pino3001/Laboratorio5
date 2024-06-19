@@ -13,7 +13,7 @@ private:
     string ciSocio;
     string nombreMedico;
     DTConsulta consulta;
-    list <DTDiagnostico> *diagnosticos;
+    list <DTDiagnostico> diagnosticos;
 public:
     DTHistorial ();
     DTHistorial(string nombreSocio, string ciSocio, string nombreMedico, DTConsulta consulta, list <DTDiagnostico> diagnostico);
@@ -22,7 +22,7 @@ public:
     string getCiSocio();
     string getNombreMedico();
     DTConsulta getConsulta();
-    list<DTDiagnostico> *getDiagnosticos();
+    list<DTDiagnostico> getDiagnosticos();
 
     ~DTHistorial();
 };

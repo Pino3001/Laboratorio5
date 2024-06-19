@@ -23,7 +23,7 @@ set<Tratamiento *> *Diagnostico::getTratamientos()
 {
     return this->tratamientos;
 }
-list<ProblemaDeSalud *> Diagnostico::getProblemaDeSalud()
+list<ProblemaDeSalud *> *Diagnostico::getProblemaDeSalud()
 {
     return this->problemaDeSalud;
 }
@@ -57,19 +57,15 @@ Diagnostico::~Diagnostico()
 // A CHEQUEAR!
 
 // Método para agregar tratamiento quirúrgico
-Tratamiento Diagnostico::agregarTratamientoQuirurgico(string descripcion, DTFecha fecha)
+void Diagnostico::agregarTratamientoQuirurgico(string descripcion, DTFecha fecha)
 {
     Quirurgico *tratamiento = new Quirurgico(descripcion, fecha);
     this->tratamientos->insert(tratamiento);
-    return *tratamiento;
 }
 
 // Método para agregar tratamiento fármaco
-void Diagnostico::agregarTratamientoFarmaco(set<string> listMedicamentos)
+void Diagnostico::agregarTratamientoFarmaco(list<string> *listMedicamentos, string descripcion)
 {
-    for (string nombreMedicamento : listMedicamentos)
-    {
-        Tratamiento *tratamiento = new Farmaco(nombreMedicamento);
+        Farmaco *tratamiento = new Farmaco(descripcion, listMedicamentos);
         tratamientos->insert(tratamiento);
-    }
 }

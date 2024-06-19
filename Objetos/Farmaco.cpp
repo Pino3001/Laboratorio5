@@ -4,25 +4,20 @@ using namespace std;
 
 // Constructor por defecto
 Farmaco::Farmaco(){
-    this->nombreMedicamento = " ";
-}
-// Constructores con parametros
-Farmaco::Farmaco(string nombreMedicamento){
-    this->nombreMedicamento = nombreMedicamento;
+    this->nombreMedicamento = new list<string>;
 }
 
-Farmaco::Farmaco(string descripcion, string nombreMedicamento){
-    this->setDescripcionTratamiento(descripcion) = descripcion;
+Farmaco::Farmaco(string descripcion, list <string> *nombreMedicamento) : Tratamiento(descripcion){
     this->nombreMedicamento = nombreMedicamento;
 }
 
 //Getter
-DTFecha Farmaco::getNombreMedicamento(){
+list<string>* Farmaco::getListaMedicamentos(){
     return this->nombreMedicamento;
 }
 
 // Setter
-void Farmaco::setNombreMedicamento(string nombreMedicamento){
+void Farmaco::setListaMedicamentos(list <string> *nombreMedicamento){
     this->nombreMedicamento = nombreMedicamento;
 }
 

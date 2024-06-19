@@ -1,12 +1,13 @@
 #ifndef CONSULTA_H
 #define CONSULTA_H
-
 #include "Actividad.h"
 #include "Medico.h"
 #include "Socio.h"
+#include "Diagnostico.h"
 #include "definiciones.h"
 #include "DTFecha.h"
 #include "DTHora.h"
+#include "DTConsulta.h"
 #include <list>
 #include <string>
 
@@ -20,8 +21,9 @@ private:
     DTFecha fechaConsulta;
     DTHora horaConsulta;
 public:
-    Consulta();
-    Consulta(string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico, );
+    /* Consulta(); */
+    /* Consulta(string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico); */
+    Consulta(string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio);
     Consulta(Consulta &consulta, Actividad &actividad);
 
     void setFechaConsulta(DTFecha fecha);

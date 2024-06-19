@@ -19,3 +19,8 @@ enum EstadoConsulta{
    Asistio,
    NoAsistio 
 };
+
+enum TipoTratamiento{
+    Tipo_Farmaco,
+    Tipo_Quirurjico
+};

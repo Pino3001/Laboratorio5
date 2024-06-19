@@ -5,7 +5,7 @@
 #include "Actividad.h"
 #include "Medico.h"
 #include "Historial.h"
-
+#include "DTReserva.h"
 #include <list>
 #include <set>
 #include <map>
@@ -23,7 +23,7 @@ private:
     list <Historial*> *historialSocio;
 public:
     Socio();
-    Socio(Socio &socio, CategoriaUsuario &catUsr);
+    /* Socio(Socio &socio, CategoriaUsuario &catUsr); */
 
     void setCantConsultas(int cantConsultas);
     void setActividadesSocioXmedico(map <string, list <Actividad*>> *actividadXmedico);

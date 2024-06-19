@@ -1,13 +1,12 @@
 #include "DTHistorial.h"
 
 
-DTHistorial::DTHistorial(): nombreSocio(""), ciSocio(""), nombreMedico("") {
+DTHistorial::DTHistorial(): nombreSocio(""), ciSocio(""), nombreMedico(""), diagnosticos() {
     DTConsulta c = DTConsulta();
     this->consulta = c;
-    this->diagnosticos = new list<DTDiagnostico>;
 }
 
-DTHistorial ::DTHistorial(string nombreSocio, string ciSocio, string nombreMedico, DTConsulta consulta, list<DTDiagnostico> *diagnosticos)
+DTHistorial ::DTHistorial(string nombreSocio, string ciSocio, string nombreMedico, DTConsulta consulta, list<DTDiagnostico> diagnosticos)
     : nombreSocio(nombreSocio), ciSocio(ciSocio), nombreMedico(nombreMedico), consulta(consulta), diagnosticos(diagnosticos) {}
 
 string DTHistorial::getNombreSocio() {
@@ -26,7 +25,7 @@ DTConsulta DTHistorial::getConsulta() {
     return consulta;
 }
 
-list<DTDiagnostico> *DTHistorial::getDiagnosticos() {
+list<DTDiagnostico> DTHistorial::getDiagnosticos() {
     return diagnosticos;
 }
 

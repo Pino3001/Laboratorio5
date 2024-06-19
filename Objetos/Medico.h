@@ -1,11 +1,11 @@
 #ifndef MEDICO_H
 #define MEDICO_H
-
 #include "CategoriaUsuario.h"
 #include "Actividad.h"
 #include "Socio.h"
-// #include "Historial.h"
+#include "Historial.h"
 #include <string>
+#include <set>
 #include "iostream"
 
 using namespace std;
@@ -24,9 +24,9 @@ public:
     void setSociosAtendidos(list <Socio*> *sociosAtendidos);
     void setHistorialesCreados(list <Historial*> * historialesCreados);
 
-    list <Actividad*> getActividadMedico();
-    list <Socio*> getSociosAtendidos();
-    list <Historial*> getHistorialesCreados();
+    list <Actividad*> *getActividadMedico();
+    list <Socio*> *getSociosAtendidos();
+    list <Historial*> *getHistorialesCreados();
 
 
     void addActividad(Actividad actividad);
@@ -34,10 +34,9 @@ public:
     string verCi();
     TipoUsuario obtenerTipo();
     Consulta buscarConsulta(string idConsulta);
-    set(DTHistorial) mostrarHistorialSocio(Usuario usr);
-    set(DTConsulta) mostrarDatosConsulta(DTFecha fecha);
+    set<DTHistorial> mostrarHistorialSocio(Usuario usr);
+    set<DTConsulta> mostrarDatosConsulta(DTFecha fecha);
 
     ~Medico();
 };
-
 #endif

@@ -5,6 +5,7 @@
 #include "DTFecha.h"
 #include "DTHora.h"
 #include "DTReserva.h"
+#include "DTHistorial.h"
 #include <map>
 #include <list>
 #include <string>
@@ -35,7 +36,7 @@ public:
     set<DTHistorial> mostrarHistorialPorMedico(string ci);
 
     void cancelarIntento();
-    //bool existeUsuario(string ci);
+    bool existeUsuario(string ci);
     void cancelarIntento();
     DTDatosUsuario buscarUser();
     void activarUsr();

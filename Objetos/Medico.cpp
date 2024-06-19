@@ -1,12 +1,5 @@
 #include "Medico.h"
 
-#include "Actividad.h"
-#include "Socio.h"
-// #include "Historial.h"
-
-#include <list>
-#include <string>
-using namespace std;
 
 
 Medico ::Medico() : CategoriaUsuario()
@@ -22,16 +15,16 @@ Medico ::Medico() : CategoriaUsuario()
 }
 
 Medico ::Medico(Medico &medico, CategoriaUsuario &catUsr) : CategoriaUsuario(catUsr)
-{
-    for (Actividad *am : medico.getActividadMedico())
+{// VER SI ESTO ESTA BIEN
+    for (Actividad *am : *medico.getActividadMedico())
     {
         this->actividadMedico->push_back(am);
     }
-    for (Socio *sa : medico.getSociosAtendidos())
+    for (Socio *sa : *medico.getSociosAtendidos())
     {
         this->sociosAtendidos->push_back(sa);
     }
-    for (Historial *hc : medico.getHistorialesCreados())
+    for (Historial *hc : *medico.getHistorialesCreados())
     {
         this->historialesCreados->push_back(hc);
     }
@@ -46,7 +39,7 @@ void Medico ::setSociosAtendidos(list<Socio *> *sociosAtendidos)
 {
     this->sociosAtendidos = sociosAtendidos;
 }
-void Medico ::setHistorialesCreados(lis<Historial *> *historialesCreados)
+void Medico ::setHistorialesCreados(list<Historial *> *historialesCreados)
 {
     this->historialesCreados = historialesCreados;
 }
@@ -56,11 +49,11 @@ list<Actividad *> *Medico ::getActividadMedico()
 {
     return this->actividadMedico;
 }
-list<Socio *> Medico ::getSociosAtendidos()
+list<Socio *> *Medico ::getSociosAtendidos()
 {
     return this->sociosAtendidos;
 }
-list<Historial *> Medico ::getHistorialesCreados()
+list<Historial *> *Medico ::getHistorialesCreados()
 {
     return this->historialesCreados;
 }
@@ -71,7 +64,7 @@ string verNombre();
 string verCi();
 TipoUsuario Medico :: obtenerTipo(){}
 Consulta buscarConsulta(string idConsulta);
-set(DTHistorial) mostrarHistorialSocio(Usuario usr);
-set(DTConsulta) mostrarDatosConsulta(DTFecha fecha);
+set<DTHistorial> mostrarHistorialSocio(Usuario usr);
+set<DTConsulta> mostrarDatosConsulta(DTFecha fecha);
 
-~Medico();
+Medico ::~Medico(){}

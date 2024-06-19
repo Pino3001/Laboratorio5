@@ -1,14 +1,5 @@
 #include "CUsuario.h"
-#include "CategoriaUsuario.h"
-#include "Socio.h"
-#include "Administrativo.h"
-#include "Medico.h"
-#include "definiciones.h"
-#include "Datatypes/DTFecha.h"
-#include "Datatypes/DTHora.h"
-#include <iostream>
-#include <string>
-#include "iostream"
+
 
 CUsuario::CUsuario()
 {
@@ -213,7 +204,7 @@ void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, DT
 void CUsuario::cerrarSesion()
 {
     this->usrActivo = nullptr;
-    cout << "\n Sesion terminada!"
+    cout << "\n Sesion terminada!";
 }
 
 void CUsuario::registroConsulta(string ci, string idConsulta)

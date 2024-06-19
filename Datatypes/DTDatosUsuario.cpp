@@ -14,7 +14,7 @@ DTDatosUsuario ::DTDatosUsuario()
     this->fechaNacimiento = fecha;
     for (int i = 0; i < MAX_TIPO_USUARIO; i++)
     {
-        this->tipoUsuario[i] = none;
+        this->tipoUsuario[i] = UNKNOWN;
     }
     this->activo = true;
 }

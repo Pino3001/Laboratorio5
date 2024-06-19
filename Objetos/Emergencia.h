@@ -2,7 +2,6 @@
 #define EMERGENCIA_H
 
 #include "Consulta.h"
-
 #include "DTFecha.h"
 #include "DTConsulta.h"
 #include "Diagnostico.h"
@@ -20,7 +19,7 @@ private:
 
 public:
     Emergencia(string motivo, string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio);
-    Emergencia();
+    /* Emergencia(); */
 
     // Getters
     string getMotivoConsulta();
