@@ -18,20 +18,24 @@ int main()
     Fabrica *f = Fabrica::getInstancia();
     IUsuario *usuarios = f->getIUsuario();
     IRegistroMedico *registros = f->getIRegistroMedico();
-    //static_cast<CRegistroMedico*>(registros)->setControladorUsuario(static_cast<CUsuario*>(usuarios));
 
-    cout << "\t\t Iniciando el sistema...";
-    cout << "\n\t Ingrese un administrativo por defecto para el sistema.";
-    cout << "\n Nombre: ";
-    cin >> nombre;
-    cout << "\n Apellido: ";
-    cin >> apellido;
-    cout << "\n C.I: ";
-    cin >> cedula;
-    cout << "\n Contraseña: ";
-    cin >> contraseña;
+   /*  DTFecha fch(28, 12, 1988);
+    list<TipoUsuario> *tUsr = new list<TipoUsuario>;
+    tUsr->push_back(TipoUsuario::Tipo_Administrativo);
+    usuarios->altaUsuario("1", "James", "Peer", "Masculino", fch, tUsr);  */
 
-    usuarios->crearAdminDefecto(nombre, cedula, apellido, contraseña);
+      cout << "\t\t Iniciando el sistema...";
+      cout << "\n\t Ingrese un administrativo por defecto para el sistema.";
+      cout << "\n Nombre: ";
+      cin >> nombre;
+      cout << "\n Apellido: ";
+      cin >> apellido;
+      cout << "\n C.I: ";
+      cin >> cedula;
+      cout << "\n Contraseña: ";
+      cin >> contraseña;
+
+      usuarios->crearAdminDefecto(nombre, cedula, apellido, contraseña);
 
     do
     {
@@ -343,4 +347,42 @@ int main()
         }
 
     } while (!salir);
+}
+
+void CargarDatosDefecto(IUsuario *usuarios, IRegistroMedico *registros)
+{
+        //TM
+    DTFecha fch1(01,01,1990);
+    list<TipoUsuario> *tUsr = new list<TipoUsuario>;
+    tUsr->push_back(TipoUsuario::Tipo_Socio);
+    usuarios->altaUsuario("34562345", "Tifany", "McKensey", "Femenino", fch1, tUsr);
+    //DP
+    DTFecha fch2(03,03,1980);
+    list<TipoUsuario> *tUsr1 = new list<TipoUsuario>;
+    tUsr->push_back(TipoUsuario::Tipo_Socio);
+    usuarios->altaUsuario("12345435", "Diego", "Perez", "Masculino", fch2, tUsr1);
+    //JM
+    DTFecha fch3(07,04,1970);
+    list<TipoUsuario> *tUsr2 = new list<TipoUsuario>;
+    tUsr->push_back(TipoUsuario::Tipo_Socio);
+    tUsr->push_back(TipoUsuario::Tipo_Medico);
+    usuarios->altaUsuario("65436667", "Juan", "Montoya", "Masculino", fch3, tUsr2);
+    //DC
+    DTFecha fch4(13,07,1993 );
+    list<TipoUsuario> *tUsr3 = new list<TipoUsuario>;
+    tUsr->push_back(TipoUsuario::Tipo_Medico);
+    usuarios->altaUsuario("43521343", "Debora", "Corral", "Femenino", fch4, tUsr3);
+    //AL
+    DTFecha fch5(24,9,1981);
+    list<TipoUsuario> *tUsr4 = new list<TipoUsuario>;
+    tUsr->push_back(TipoUsuario::Tipo_Medico);
+    usuarios->altaUsuario("98056743", "Ana", "Lopez", "Femenino", fch4, tUsr4);
+
+
+    /* Consultas Comunes
+    C1 21/06/2014 23/06/2014 JM TM
+    C2 22/05/2014 22/06/2014 DC TM
+    C3 15/03/2014 16/03/2014 DC JM
+    C4 28/02/2014 1/03/2014 AL DP */
+
 }

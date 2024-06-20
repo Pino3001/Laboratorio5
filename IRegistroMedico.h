@@ -20,7 +20,7 @@ public:
     virtual list<DTCategoriaRep> *mostrarRepresentaciones() = 0;
     virtual void altaCategoriaRepresentacion(string id, string descripcion) = 0;
     virtual void altaProblemaDeSalud(string id, string codigo, string etiqueta) = 0;
-    virtual void reservaConsulta(string ciMedico, const DTFecha fechaCons, const DTHora horaCosn)=0;
+    virtual void reservaNuevaConsulta(string ciMedico, const DTFecha fechaCons, const DTHora horaCosn)=0;
 
     virtual Consulta *seleccionarConsulta(string idConsulta) = 0;
     virtual CategoriaProblemaSalud *seleccionarCategoria(string nombreCat) = 0;

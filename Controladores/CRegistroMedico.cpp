@@ -117,8 +117,8 @@ void CRegistroMedico::altaProblemaDeSalud(string id, string codigo, string etiqu
 
 list<DTProblemaDeSalud> CRegistroMedico::mostrarProblemaDeSalud() {}
 
-void CRegistroMedico::reservaConsulta(string ciMedico, const DTFecha fechaCons, const DTHora horaCosn){
-
+void CRegistroMedico::reservaNuevaConsulta(string ciMedico, const DTFecha fechaCons, const DTHora horaCosn){
+ 
 }
 
 

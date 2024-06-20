@@ -26,7 +26,7 @@ public:
     list<DTCategoriaRep> *mostrarRepresentaciones();
     void altaCategoriaRepresentacion(string id, string descripcion);
     void altaProblemaDeSalud(string id, string codigo, string etiqueta);
-    void reservaConsulta(string ciMedico, const DTFecha fechaCons, const DTHora horaCosn);
+    void reservaNuevaConsulta(string ciMedico, const DTFecha fechaCons, const DTHora horaCosn);
 
     Consulta *seleccionarConsulta(string idConsulta);
     CategoriaProblemaSalud *seleccionarCategoria(string nombreCat);
