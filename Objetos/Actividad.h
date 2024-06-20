@@ -34,10 +34,10 @@ public:
     Socio *getSocioTiene();
     Medico *getMedicoRealiza();
     Historial *getHistorialAsoc();
-    string getNombreSocio();
-    string getCiSocio();
-    string getNombreMedico();
-    string CiMedico();
+    virtual string getNombreSocio()= 0;
+    virtual string getCiSocio()=0;
+    virtual string getNombreMedico()=0;
+    virtual string CiMedico()=0;
 
     ~Actividad();
 };

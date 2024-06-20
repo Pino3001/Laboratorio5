@@ -29,13 +29,13 @@ public:
     list <Historial*> *getHistorialesCreados();
 
 
-    void addActividad(Actividad actividad);
+/*     void addActividad(Actividad actividad); */
     string verNombre();
     string verCi();
     TipoUsuario obtenerTipo();
     Actividad *buscarConsulta(string idConsulta);
     set<DTHistorial> mostrarHistorialSocio(Usuario usr);
-    set<DTConsulta> mostrarDatosConsulta(DTFecha fecha);
+    set<DTConsulta> mostrarDatosConsulta(const DTFecha fecha);
 
     ~Medico();
 };

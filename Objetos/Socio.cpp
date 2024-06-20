@@ -1,6 +1,7 @@
 #include "Socio.h"
 #include "CategoriaUsuario.h"
 #include "Consulta.h"
+#include "Emergencia.h"
 #include "Actividad.h"
 
 
@@ -89,11 +90,11 @@ set<DTHistorial> Socio ::mostrarHistorialPorMedico(Usuario *usr)
 
 } 
 // Para implementar
-void Socio ::addActividad(Actividad actividad){}
+/* void Socio ::addActividad( actividad){} */
 TipoUsuario Socio ::obtenerTipo() {}
 Actividad *Socio ::buscarConsulta(string idConsulta){}
 void Socio ::registrarAsistencia(EstadoConsulta estC, string idConsulta){}
-Actividad Socio ::AltaConsultaEmergencia(DTFecha fecha, DTHora hora, string descripcion){}
+Emergencia *Socio ::AltaConsultaEmergencia(const DTFecha fecha, const DTHora hora, string descripcion){}
 set<DTReserva> Socio ::mostrarReservasActivas(){}
 void Socio ::cancelarReserva(string idConsulta){}
 

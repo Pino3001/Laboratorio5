@@ -19,7 +19,7 @@ public:
 
     Usuario* getUsuarioVinculado();
 
-    void addActividad(Actividad actividad);
+    /* void addActividad(Actividad actividad); */
     virtual string verNombre() = 0;
     virtual string verCi()=0;
     virtual Actividad *buscarConsulta(string idConsulta)=0;

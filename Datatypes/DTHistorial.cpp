@@ -1,5 +1,11 @@
 #include "DTHistorial.h"
-
+#include "DTConsulta.h"
+#include "DTDiagnostico.h"
+#include "DTHora.h"
+#include "DTFecha.h"
+#include <list>
+#include <string>
+using namespace std;
 
 DTHistorial::DTHistorial(): nombreSocio(""), ciSocio(""), nombreMedico(""), diagnosticos() {
     DTConsulta c;

@@ -18,12 +18,12 @@ private:
 public:
     DTTratamiento();
     DTTratamiento(string descripcion, TipoTratamiento tipo, list<string> listaMedicamentos);
-    DTTratamiento(string descripcion, TipoTratamiento tipo, DTFecha fechaCirujia, string nombreCirujano);
+    DTTratamiento(string descripcion, TipoTratamiento tipo, const DTFecha fechaCirujia, string nombreCirujano);
 
     string getDescripcion();
     TipoTratamiento getTipo();
     list<string> getListMedicamentos();
-    DTFecha& getFechaCirugia();
+    DTFecha getFechaCirugia()const;
     string getNombreCirujano();
 };
 #endif

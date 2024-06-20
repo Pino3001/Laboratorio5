@@ -15,12 +15,20 @@ private:
 
 public:
     DTFecha();
-    DTFecha(DTFecha &dtf);
+    DTFecha(const DTFecha &dtf);
     DTFecha(int dia, int mes, int anio);
 
-    int getDia();
-    int getMes();
-    int getAnio();
+    int getDia() const;
+    int getMes() const;
+    int getAnio() const;
+
+    // Declaración de operadores de comparación
+    bool operator==(const DTFecha& other) const;
+    bool operator!=(const DTFecha& other) const;
+    bool operator<(const DTFecha& other) const;
+    bool operator<=(const DTFecha& other) const;
+    bool operator>(const DTFecha& other) const;
+    bool operator>=(const DTFecha& other) const;
 
     void imprimirDTFecha();
 };

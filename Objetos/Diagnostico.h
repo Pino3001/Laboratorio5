@@ -34,7 +34,7 @@ public:
 
     // Métodos adicionales A CHEQUEAR!
     
-    void agregarTratamientoQuirurgico(string descripcion, DTFecha fecha);
+    void agregarTratamientoQuirurgico(string descripcion, const DTFecha fecha);
     void agregarTratamientoFarmaco(list<string> *listMedicamentos, string descripcion);
 
     // Destructor

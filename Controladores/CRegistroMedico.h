@@ -5,33 +5,38 @@
 #include "CUsuario.h"
 #include <list>
 #include <set>
+#include <map>
 #include <string>
 
 class CRegistroMedico : public IRegistroMedico
 {
 private:
-    CUsuario *controladorUsuario;
+    static CRegistroMedico *instance;
     Consulta *memConsulta;
-    list<CategoriaProblemaSalud *> *problemasDeSalud;
+    map<string, CategoriaProblemaSalud *> *problemasDeSalud;
+    map<DTFecha, list<Actividad *>> *memActividades;
 
-public:
     CRegistroMedico();
 
+public:
+    static CRegistroMedico *getInstance();
+
+    list<DTConsulta> mostrarConsultas(const DTFecha fechaHoy);
+    void registroConsulta(string ci, string ciMedico, const DTFecha fechaHoy);
     list<DTCategoriaRep> *mostrarRepresentaciones();
     void altaCategoriaRepresentacion(string id, string descripcion);
     void altaProblemaDeSalud(string id, string codigo, string etiqueta);
+    void reservaConsulta(string ciMedico, const DTFecha fechaCons, const DTHora horaCosn);
 
-
-    set<DTConsulta> mostrarConsultas();
     Consulta *seleccionarConsulta(string idConsulta);
     CategoriaProblemaSalud *seleccionarCategoria(string nombreCat);
-    set<DTProblemaDeSalud> mostrarProblemaDeSalud();
+    list<DTProblemaDeSalud> mostrarProblemaDeSalud();
     ProblemaDeSalud *seleccionarProblemaDeSalud(string codigo, string etiqueta);
     Diagnostico *crearDiagnostico(ProblemaDeSalud pds, string descripcion);
     void agregarTratamientoFarmaco(Diagnostico diagnostico, string descripcion, set<string> listMedicamentos);
-    void agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, DTFecha fecha);
+    void agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, const DTFecha fecha);
     void agregarDiagnostico(Diagnostico diagnostico);
-    set<DTCategoriaRep> listarRepresentaciones();
+    list<DTCategoriaRep> listarRepresentaciones();
 
     ~CRegistroMedico();
 };

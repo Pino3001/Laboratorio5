@@ -12,7 +12,7 @@ DTTratamiento::DTTratamiento(string descripcion, TipoTratamiento trat, list<stri
         this->fechaCirujia = fc;
     }
 
-DTTratamiento::DTTratamiento(string desc, TipoTratamiento t, DTFecha fecha, string cirujano)
+DTTratamiento::DTTratamiento(string desc, TipoTratamiento t, const DTFecha fecha, string cirujano)
     : descripcion(desc), tipo(t), listMedicamentos(), fechaCirujia(fecha), nombreCirujano(cirujano) {}
 
 // Getters
@@ -31,7 +31,7 @@ list<string> DTTratamiento::getListMedicamentos()
     return listMedicamentos;
 }
 
-DTFecha& DTTratamiento::getFechaCirugia()
+DTFecha DTTratamiento::getFechaCirugia()const
 {
     return fechaCirujia;
 }

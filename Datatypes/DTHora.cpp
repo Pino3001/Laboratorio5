@@ -3,7 +3,7 @@
 // Constructor
 DTHora::DTHora() : hh(0), mm(0), ss(0){}
 DTHora::DTHora(int hh, int mm, int ss) : hh(hh), mm(mm), ss(ss) {}
-DTHora::DTHora(DTHora &dth) : hh(dth.getHora()), mm(dth.getMin()), ss(dth.getSeg()){}
+DTHora::DTHora(const DTHora &dth) : hh(dth.getHora()), mm(dth.getMin()), ss(dth.getSeg()){}
 // Método para imprimir la fecha
 void DTHora::imprimirDTHora()
 {
@@ -13,17 +13,17 @@ void DTHora::imprimirDTHora()
 }
 
 // Getters
-int DTHora::getHora()
+int DTHora::getHora()const
 {
     return hh;
 }
 
-int DTHora::getMin()
+int DTHora::getMin()const
 {
     return mm;
 }
 
-int DTHora::getSeg()
+int DTHora::getSeg()const
 {
     return ss;
 }

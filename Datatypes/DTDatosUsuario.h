@@ -18,12 +18,12 @@ private:
 
 public:
     DTDatosUsuario();
-    DTDatosUsuario(string ci, string nombre, DTFecha fechaNacimiento, list<TipoUsuario> *tipoUsuario, bool activo);
+    DTDatosUsuario(string ci, string nombre, const DTFecha fechaNacimiento, list<TipoUsuario> *tipoUsuario, bool activo);
     DTDatosUsuario(DTDatosUsuario &dtu);
 
     string getCi();
     string getNombre();
-    DTFecha getFechaNacimiento();
+    DTFecha getFechaNacimiento()const;
     list<TipoUsuario> *getTipoUsuario();
     bool getActivo();
 

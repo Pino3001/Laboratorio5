@@ -16,7 +16,7 @@ DTDatosUsuario ::DTDatosUsuario()
     this->activo = true;
 }
 
-DTDatosUsuario ::DTDatosUsuario(string ci, string nombre, DTFecha fechaNacimiento, list<TipoUsuario> *tipo_Usuario, bool activo)
+DTDatosUsuario ::DTDatosUsuario(string ci, string nombre, const DTFecha fechaNacimiento, list<TipoUsuario> *tipo_Usuario, bool activo)
 {
     this->ci = ci;
     this->nombre = nombre;
@@ -43,7 +43,7 @@ DTDatosUsuario ::DTDatosUsuario(DTDatosUsuario &dtu)
 
 string DTDatosUsuario ::getCi() { return this->ci; }
 string DTDatosUsuario ::getNombre() { return this->nombre; }
-DTFecha DTDatosUsuario ::getFechaNacimiento() { return this->fechaNacimiento; }
+DTFecha DTDatosUsuario ::getFechaNacimiento()const { return this->fechaNacimiento; }
 list<TipoUsuario> *DTDatosUsuario ::getTipoUsuario() { return this->tipoUsuario; }
 bool DTDatosUsuario ::getActivo() { return this->activo; }
 

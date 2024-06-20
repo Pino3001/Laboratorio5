@@ -2,7 +2,7 @@
 
 
 // Constructor con parámetros
-Emergencia::Emergencia(string motivo, string idConsulta, DTFecha fecha, DTHora hora, Socio* socio, Medico* medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio)
+Emergencia::Emergencia(string motivo, string idConsulta, const DTFecha fecha, const DTHora hora, Socio* socio, Medico* medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio)
     : Consulta(idConsulta, fecha, hora, socio, medico, nombreMedico, ciMedico, nombreSocio, ciSocio) {
     this->motivoConsulta = motivo;
 }
@@ -30,13 +30,28 @@ void Emergencia::agregarTratamientoFarmaco(Diagnostico diagnostico, string descr
     // Implementación del método
     // Agregar tratamiento farmacológico al diagnóstico
 }
-void Emergencia::agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, DTFecha fecha) {
+void Emergencia::agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, const DTFecha fecha) {
     // Implementación del método
     // Agregar tratamiento quirúrgico al diagnóstico
 }
 void Emergencia::agregarDiagnosticoAConsulta(Diagnostico diagnostico) {
     // Implementación del método
     // Agregar diagnóstico a la consulta
+}
+
+
+//de herencia
+string Emergencia ::getNombreSocio()
+{
+}
+string Emergencia ::getCiSocio()
+{
+}
+string Emergencia ::getNombreMedico()
+{
+}
+string Emergencia ::CiMedico()
+{
 }
 
 // Destructor

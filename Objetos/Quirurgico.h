@@ -12,15 +12,15 @@ private:
 
 public:
     // Constructores
-    Quirurgico(string descripcion, DTFecha fechaCirugia, Medico *cirujano);
+    Quirurgico(string descripcion, const DTFecha fechaCirugia, Medico *cirujano);
     Quirurgico(string descripcion, DTFecha fechaCirugia);
 
     // Getters
-    DTFecha getFechaCirugia();
+    DTFecha getFechaCirugia()const;
     Medico *getCirujanoOperacion();
 
     // Setters
-    void setFechaCirugia(DTFecha fechaCirugia);
+    void setFechaCirugia(const DTFecha fechaCirugia);
     void setCirujanoOperacion(Medico *cirujano);
 
     // Destructor

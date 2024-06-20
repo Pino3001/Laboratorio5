@@ -29,7 +29,7 @@ Usuario *CategoriaUsuario ::getUsuarioVinculado()
 }
 
  //Para implementar
-void CategoriaUsuario ::addActividad(Actividad actividad){}
+/* void CategoriaUsuario ::addActividad(Actividad actividad){} */
 
 CategoriaUsuario ::~CategoriaUsuario(){}
 

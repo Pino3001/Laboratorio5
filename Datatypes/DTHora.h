@@ -15,12 +15,12 @@ private:
 
 public:
     DTHora();
-    DTHora(DTHora &dth);
+    DTHora(const DTHora &dth);
     DTHora(int hh, int mm, int ss);
 
-    int getHora();
-    int getMin();
-    int getSeg();
+    int getHora()const;
+    int getMin()const;
+    int getSeg()const;
 
     void imprimirDTHora();
 };

@@ -16,13 +16,13 @@ private:
     DTHora horaConsulta;
 public:
     DTConsulta();
-    DTConsulta(string id, string nomSocio, string ciSocio, string nombreMedico, DTFecha fechaConsul, DTHora horaConsul);
+    DTConsulta(string id, string nomSocio, string ciSocio, string nombreMedico, const DTFecha fechaConsul, const DTHora horaConsul);
 
     string getIdConsulta();
     string getNombreSocio();
     string getCiSocio();
     string getNombreMedico();
-    DTFecha getFechaConsulta();
-    DTHora getHoraConsulta();
+    DTFecha getFechaConsulta() const;
+    DTHora getHoraConsulta()const;
 };
 #endif

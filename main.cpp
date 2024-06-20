@@ -4,6 +4,8 @@
 #include "DTFecha.h"
 #include "DTCategoriaRep.h"
 #include "definiciones.h"
+#include <list>
+#include <map>
 #include <string>
 #include "iostream"
 using namespace std;
@@ -16,6 +18,7 @@ int main()
     Fabrica *f = Fabrica::getInstancia();
     IUsuario *usuarios = f->getIUsuario();
     IRegistroMedico *registros = f->getIRegistroMedico();
+    //static_cast<CRegistroMedico*>(registros)->setControladorUsuario(static_cast<CUsuario*>(usuarios));
 
     cout << "\t\t Iniciando el sistema...";
     cout << "\n\t Ingrese un administrativo por defecto para el sistema.";
@@ -42,50 +45,60 @@ int main()
         if (opt == 1)
         {
             string ci, contra;
-            bool exist, valida, sesionActiva;
+            bool exist, valida = false, sesionActiva = false, primerIngr = false, socio = false, medico = false, administrativo = false;
+
             cout << "\n\t\t -Iniciar sesion-";
             cout << "\n\t Para iniciar sesion ingrese su cedula y contraseña:";
             cout << "\n Cedula: ";
             cin >> ci;
             exist = usuarios->existeUsuario(ci);
+            // primer contraseña
             if (exist)
             {
                 cout << "\n Contraseña: ";
                 cin >> contra;
-                valida = usuarios->verificarContraseña(ci, contra);
-                if (valida)
+                primerIngr = usuarios->primerContraseña();
+                if (primerIngr)
                 {
-                    sesionActiva = usuarios->asignarSesion(ci);
+                    usuarios->darPrimerContraseña(contra);
                 }
                 else
                 {
-                    cout << "\n\t\t Contraseña no valida!";
+                    valida = usuarios->verificarContraseña(ci, contra);
+                    if (!valida)
+                    {
+                        cout << "\n\t\t Contraseña no valida!\n";
+                    }
+                }
+                if (valida || primerIngr)
+                {
+                    sesionActiva = usuarios->asignarSesion(ci);
+                    list<TipoUsuario> *tu = usuarios->tipoDeUsuario(ci);
+                    for (TipoUsuario t : *tu)
+                    {
+                        if (t == Tipo_Administrativo)
+                        {
+                            administrativo = true;
+                        }
+                        else if (t == Tipo_Socio)
+                        {
+                            socio = true;
+                        }
+                        else if (t == Tipo_Medico)
+                        {
+                            medico = true;
+                        }
+                    }
                 }
             }
             else
             {
                 cout << "\n\t\t No existe el usuario en el sistema!";
             }
-            bool socio = false, medico = false, administrativo = false;
-            TipoUsuario *tu;
-            tu = usuarios->tipoDeUsuario(ci);
-            for (int i = 0; i < MAX_TIPO_USUARIO; i++)
-            {
-                if (tu[i] == Tipo_Administrativo)
-                {
-                    administrativo = true;
-                }
-                else if (tu[i] == Tipo_Socio)
-                {
-                    socio = true;
-                }
-                else if (tu[i] == Tipo_Medico)
-                {
-                    medico = true;
-                }
-            }
+            cout << "\n estoy aca y voy bien!!";
+
             while (sesionActiva)
-            {//Inicio de sesion segun categoria
+            { // Inicio de sesion segun categoria
                 int ingresaComo;
                 if (administrativo && !socio && !medico)
                 { // Solo Administrativo
@@ -95,10 +108,10 @@ int main()
                 { // Administrativo y socio
                     int optAux;
                     cout << "\n\t\t -Mustualista Grupo 5-";
-                    cout << "\n\t Elija el con el tipo de usuario que desea ingresar:";
-                    cout << "\n [1] - Administrativo.";
+                    cout << "\n\t Elija con el tipo de usuario que desea ingresar:";
+                    cout << "\n\n [1] - Administrativo.";
                     cout << "\n [2] - Socio.";
-                    cout << "\n Opcion >> ";
+                    cout << "\n\n Opcion >> ";
                     cin >> optAux;
                     if (optAux == 1)
                     { // Entrar como administrativo
@@ -148,90 +161,91 @@ int main()
                     int opt;
                     cout << "\n\t\t --Administrativo--";
                     cout << "\n\t Opciones del menu Administrativo.";
-                    cout << "\n [1] - Alta Usuario.";
+                    cout << "\n\n [1] - Alta Usuario.";
                     cout << "\n [2] - Alta Representacion Estandarizada de Problemas de Salud";
                     cout << "\n [3] - Registro de Consulta";
                     cout << "\n [4] - Cerrar Sesion";
-                    cout << "\n Opcion >> ";
+                    cout << "\n\n Opcion >> ";
+                    cin >> opt;
                     if (opt == 1) // Alta Usuario
                     {
                         string ci, nomb, apell, sexo;
                         int dia, año, mes, i = 0;
-                        bool s = true, med = false, admin = false;
-                        TipoUsuario tUsr[MAX_TIPO_USUARIO];
+                        bool s = true, med = false, admin = false, existe;
+                        list<TipoUsuario> *tUsr = new list<TipoUsuario>;
                         cout << "\n\t Ingrese los datos del nuevo Usuario.";
                         cout << "\n C.I: ";
                         cin >> ci;
-                        cout << "\n Nombre: ";
-                        cin >> nomb;
-                        cout << "\n Apellido: ";
-                        cin >> apell;
-                        cout << "\n Sexo: ";
-                        cin >> sexo;
-                        cout << "\n Fecha de Nacimiento: ";
-                        cout << "\n Dia: ";
-                        cin >> dia;
-                        cout << "\n Mes: ";
-                        cin >> mes;
-                        cout << "\n Año: ";
-                        cin >> año;
-                        DTFecha fn(dia, mes, año);
-                        cout << "\n Ingrese el tipo de usuario";
-                        while (s && i < MAX_TIPO_USUARIO)
+                        existe = usuarios->esUsuario(ci);
+                        if (!existe)
                         {
-                            int op;
-                            char otra;
-                            cout << "\n\t Elija uno de los siguientes tipos: ";
-                            cout << "\n [1] - Administrativo";
-                            cout << "\n [2] - Medico";
-                            cout << "\n [3] - Socio";
-                            cout << "\n Opcion >> ";
-                            cin >> op;
-                            if (op == 1)
+                            cout << "\n Nombre: ";
+                            cin >> nomb;
+                            cout << "\n Apellido: ";
+                            cin >> apell;
+                            cout << "\n Sexo: ";
+                            cin >> sexo;
+                            cout << "\n Fecha de Nacimiento: ";
+                            cout << "\n Dia: ";
+                            cin >> dia;
+                            cout << "\n Mes: ";
+                            cin >> mes;
+                            cout << "\n Año: ";
+                            cin >> año;
+                            DTFecha fn(dia, mes, año);
+                            cout << "\n Ingrese el tipo de usuario";
+                            while (s && i < MAX_TIPO_USUARIO)
                             {
-                                if (!med)
+                                int op;
+                                char otra;
+                                cout << "\n\t Elija uno de los siguientes tipos: ";
+                                cout << "\n [1] - Administrativo";
+                                cout << "\n [2] - Medico";
+                                cout << "\n [3] - Socio";
+                                cout << "\n Opcion >> ";
+                                cin >> op;
+                                if (op == 1)
                                 {
-                                    tUsr[i] = TipoUsuario::Tipo_Administrativo;
+                                    if (!med)
+                                    {
+                                        tUsr->push_back(TipoUsuario::Tipo_Administrativo);
+                                        i++;
+                                    }
+                                    else
+                                    {
+                                        cout << "\n\t El Usuario es un Usuario Medico!!!";
+                                    }
+                                }
+                                else if (op == 2)
+                                {
+                                    if (!admin)
+                                    {
+                                        tUsr->push_back(TipoUsuario::Tipo_Medico);
+                                        i++;
+                                    }
+                                    else
+                                    {
+                                        cout << "\n\t El Usuario es un Usuario Administrativo!!!";
+                                    }
+                                }
+                                else if (op == 3)
+                                {
+                                    tUsr->push_back(TipoUsuario::Tipo_Socio);
                                     i++;
                                 }
-                                else
+                                cout << "\n\n\t Desea ingresar otra categoria al Usuario? [S/N]: ";
+                                cin >> otra;
+                                if (otra == 'n' || otra == 'N')
                                 {
-                                    cout << "\n\t El Usuario es un Usuario Medico!!!";
+                                    s = false;
                                 }
                             }
-                            else if (op == 2)
-                            {
-                                if (!admin)
-                                {
-                                    tUsr[i] = TipoUsuario::Tipo_Medico;
-                                    i++;
-                                }
-                                else
-                                {
-                                    cout << "\n\t El Usuario es un Usuario Administrativo!!!";
-                                }
-                            }
-                            else if (op == 3)
-                            {
-                                tUsr[i] = TipoUsuario::Tipo_Socio;
-                                i++;
-                            }
-                            cout << "\n\n\t Desea ingresar otra categoria al Usuario? [S/N]: ";
-                            cin >> otra;
-                            if (otra == 'n' || otra == 'N')
-                            {
-                                s = false;
-                            }
+                            usuarios->altaUsuario(ci, nomb, apell, sexo, fn, tUsr);
                         }
-                        // Rellena el arreglo si no se encuentra ya completo con categoria desconocida.
-                        if (i < MAX_TIPO_USUARIO)
+                        else
                         {
-                            for (int j = i; j < MAX_TIPO_USUARIO; j++)
-                            {
-                                tUsr[j] = TipoUsuario::UNKNOWN;
-                            }
+                            cout << "\n\t Ya existe un Usuario con la cedula " << ci << ".";
                         }
-                        usuarios->altaUsuario(ci, nomb, apell, sexo, fn, tUsr);
                     }
                     else if (opt == 2) // Alta Representacion estandarizada de un problema de salud
                     {
@@ -245,13 +259,13 @@ int main()
                         cin >> opcProblema;
                         if (opcProblema == 1)
                         {
-                            list<DTCategoriaRep> *listaCatP = new list<DTCategoriaRep>;
-                            listaCatP = registros->mostrarRepresentaciones();
-                            for (DTCategoriaRep dt : *listaCatP)
+                            /* set<DTCategoriaRep> *setCatP = new set<DTCategoriaRep>;
+                            setCatP = registros->mostrarRepresentaciones();
+                            for (DTCategoriaRep dt : *setCatP)
                             {
                                 dt.mostrarCategoria();
                             }
-                            delete listaCatP;
+                            delete setCatP; */
                         }
                         else if (opcProblema == 2)
                         {
@@ -299,18 +313,17 @@ int main()
                             } while (ingresar == 's' || ingresar == 'S');
                         }
                     }
-                    else if (opt == 3)//Registro Consulta
+                    else if (opt == 3) // Registro Consulta
                     {
                         string ci;
                         cout << "\n\t\t -Registro de Consultas-";
                         cout << "\n\t A continuacion ingrese los datos del Socio a Registrar.";
                         cout << "\n Cedula: ";
                         cin >> ci;
-                        //usuarios->registroConsulta(ci, idConsulta);
                     }
-                    else if (opt == 4)//Cerrar sesion
+                    else if (opt == 4) // Cerrar sesion
                     {
-                        usuarios->cerrarSesion();
+                        sesionActiva = usuarios->cerrarSesion();
                     }
                 }
                 else if (ingresaComo == 2)

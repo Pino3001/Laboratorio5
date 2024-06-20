@@ -7,26 +7,34 @@
 #include "Medico.h"
 #include "Socio.h"
 #include "Administrativo.h"
+#include "Actividad.h"
+#include "Consulta.h"
+#include "Comun.h"
+#include "Emergencia.h"
 #include <map>
 #include <list>
 #include <string>
 using namespace std;
 
-CUsuario::CUsuario()
-{
-    this->usrActivo = usrActivo;
-    map<string, Usuario *> *ColUsuario = new map<string, Usuario *>;
-    this->memColUsuario = ColUsuario;
-    list<Usuario *> *UsrSecion = new list<Usuario *>;
-    this->memUsrSecion = UsrSecion;
+CUsuario* CUsuario::instance = nullptr;
+
+CUsuario::CUsuario() : usrActivo(nullptr), memColUsuario(new map<string, Usuario*>()), memUsrSesion(new list<Usuario*>()) {}
+
+CUsuario* CUsuario::getInstance() {
+    if (instance == nullptr) {
+        instance = new CUsuario();
+    }
+    return instance;
 }
+
 
 // metodos del controlador
 void CUsuario::crearAdminDefecto(string nombre, string cedula, string apellido, string contraseña)
 {
     // Creo las categorias de usuario que tendra el Usuario.
-    CategoriaUsuario *catUsr[MAX_TIPO_USUARIO];
-    catUsr[0] = new Administrativo();
+    list<CategoriaUsuario *> *catUsr = new list<CategoriaUsuario *>;
+    Administrativo *a = new Administrativo();
+    catUsr->push_back(a);
     // Creo Usuario
     Usuario *newUsr = new Usuario(cedula, nombre, apellido, contraseña, catUsr);
     newUsr->addVisibilityCatUsr();
@@ -48,6 +56,20 @@ bool CUsuario::existeUsuario(string ci)
     auto itu = this->memColUsuario->find(ci);
     if (itu != memColUsuario->end())
     {
+        this->usrActivo = itu->second;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool CUsuario::esUsuario(string ci)
+{
+    auto itu = this->memColUsuario->find(ci);
+    if (itu != memColUsuario->end())
+    {
         return true;
     }
     else
@@ -58,15 +80,7 @@ bool CUsuario::existeUsuario(string ci)
 
 bool CUsuario::verificarContraseña(string ci, string contraseña)
 {
-    auto itu = this->memColUsuario->find(ci);
-    if (itu != memColUsuario->end())
-    {
-        return this->usrActivo->contraValida(contraseña);
-    }
-    else
-    {
-        return false;
-    }
+    return this->usrActivo->contraValida(contraseña);
 }
 
 bool CUsuario::asignarSesion(string ci)
@@ -84,46 +98,39 @@ bool CUsuario::asignarSesion(string ci)
     }
 }
 
-TipoUsuario *CUsuario::tipoDeUsuario(string ci)
+list<TipoUsuario> *CUsuario::tipoDeUsuario(string ci)
 {
-    TipoUsuario *tUsr = new TipoUsuario[MAX_TIPO_USUARIO];
+    list<TipoUsuario> *tUsr = new list<TipoUsuario>;
     auto itu = this->memColUsuario->find(ci);
     if (itu != memColUsuario->end())
     {
         Usuario *usr = itu->second;
-        CategoriaUsuario **catU = usr->getCatUsr();
-        for (int i = 0; i < MAX_TIPO_USUARIO; ++i)
+        list<CategoriaUsuario *> *catU = usr->getCatUsr();
+        for (CategoriaUsuario *c : *catU)
         {
-            if (catU[i] != nullptr)
+            if (c != nullptr)
             {
-                if (dynamic_cast<Administrativo *>(catU[i]))
+                if (dynamic_cast<Administrativo *>(c))
                 {
-                    tUsr[i] = TipoUsuario::Tipo_Administrativo;
+                    tUsr->push_back(TipoUsuario::Tipo_Administrativo);
                 }
-                if (dynamic_cast<Socio *>(catU[i]))
+                if (dynamic_cast<Socio *>(c))
                 {
-                    tUsr[i] = TipoUsuario::Tipo_Socio;
+                    tUsr->push_back(TipoUsuario::Tipo_Socio);
                 }
-                if (dynamic_cast<Medico *>(catU[i]))
+                if (dynamic_cast<Medico *>(c))
                 {
-                    tUsr[i] = TipoUsuario::Tipo_Medico;
+                    tUsr->push_back(TipoUsuario::Tipo_Medico);
                 }
                 else
                 {
-                    tUsr[i] = TipoUsuario::UNKNOWN;
+                    tUsr->push_back(TipoUsuario::UNKNOWN);
                 }
             }
         }
         return tUsr;
     }
-    else
-    {
-        for (int i = 0; i < MAX_TIPO_USUARIO; ++i)
-        {
-            tUsr[i] = TipoUsuario::ERROR;
-        }
-        return tUsr;
-    }
+    return nullptr;
 }
 
 DTDatosUsuario CUsuario::buscarUser(string ci)
@@ -142,11 +149,11 @@ DTDatosUsuario CUsuario::buscarUser(string ci)
     }
 }
 
-bool CUsuario::primerContraseña(string contraseña)
+bool CUsuario::primerContraseña()
 {
     if (this->usrActivo->getPrimeraContraseña())
     {
-        this->usrActivo->setContraseña(contraseña);
+        return true;
     }
     else
     {
@@ -154,41 +161,44 @@ bool CUsuario::primerContraseña(string contraseña)
     }
 }
 
-void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, DTFecha fechNac, TipoUsuario tUsr[MAX_TIPO_USUARIO])
+void CUsuario::darPrimerContraseña(string contraseña)
+{
+    this->usrActivo->setContraseña(contraseña);
+    this->usrActivo->setPrimeraContraseña(true);
+}
+
+void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, const DTFecha fechNac, list<TipoUsuario> *tUsr)
 {
     Usuario *usr = this->usrActivo;
-    CategoriaUsuario **catU = usr->getCatUsr();
+    list<CategoriaUsuario *> *catU = usr->getCatUsr();
 
-    for (int i = 0; i < MAX_TIPO_USUARIO; ++i)
+    for (CategoriaUsuario *c : *catU)
     {
-        if (catU[i] != nullptr)
+        if (c != nullptr)
         {
             // Casteo para ver que tipo de socio esta intentando hacer un ingreso.
-            if (dynamic_cast<Administrativo *>(catU[i]))
+            if (dynamic_cast<Administrativo *>(c))
             {
                 // Creo las categorias de usuario que tendra el Usuario.
-                CategoriaUsuario *catUsr[MAX_TIPO_USUARIO];
-                for (int i = 0; i < MAX_TIPO_USUARIO; i++)
+                list<CategoriaUsuario *> *catUsr = new list<CategoriaUsuario *>;
+                for (TipoUsuario t : *tUsr)
                 {
-                    if (tUsr[i] == Tipo_Socio)
+                    if (t == TipoUsuario::Tipo_Socio)
                     {
-                        catUsr[i] = new Socio();
+                        catUsr->push_back(new Socio());
                     }
-                    else if (tUsr[i] == Tipo_Administrativo || tUsr[i] == Administrativo_defecto)
+                    else if (t == TipoUsuario::Tipo_Administrativo || t == TipoUsuario::Administrativo_defecto)
                     {
-                        catUsr[i] = new Administrativo();
+                        catUsr->push_back(new Administrativo());
                     }
-                    else if (tUsr[i] == Tipo_Medico)
+                    else if (t == TipoUsuario::Tipo_Medico)
                     {
-                        catUsr[i] = new Medico();
-                    }
-                    else
-                    {
-                        catUsr[i] = nullptr;
+                        catUsr->push_back(new Medico());
                     }
                 }
                 // Creo Usuario
                 Usuario *newUsr = new Usuario(ci, nomb, apell, sexo, fechNac, catUsr);
+                delete tUsr;
                 newUsr->addVisibilityCatUsr();
                 // Inserto Usuario en la coleccion de usuarios en memoria
                 auto incerto = this->memColUsuario->insert(make_pair(ci, newUsr));
@@ -212,37 +222,11 @@ void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, DT
     }
 }
 
-void CUsuario::cerrarSesion()
+bool CUsuario::cerrarSesion()
 {
     this->usrActivo = nullptr;
+    return false;
     cout << "\n Sesion terminada!";
-}
-
-void CUsuario::registroConsulta(string ci, string idConsulta)
-{
-    // Ver de comprobar antes si el usuario es un socio
-    auto itu = this->memColUsuario->find(ci);
-    if (itu != memColUsuario->end())
-    {
-        Usuario *usr = itu->second;
-        CategoriaUsuario **catU = usr->getCatUsr();
-        for (int i = 0; i < MAX_TIPO_USUARIO; ++i)
-        {
-            if (catU[i] != nullptr)
-            {
-                if (Socio *paciente = dynamic_cast<Socio *>(catU[i]))
-                {
-                    EstadoConsulta asistio = EstadoConsulta::Asistio;
-                    // usr->registrarAsistencia(asistio, idConsulta);
-                    paciente->registrarAsistencia(asistio, idConsulta);
-                }
-            }
-        }
-    }
-    else
-    {
-        cout << "\n No se encontro el usuario en el sistema.";
-    }
 }
 
 set<DTHistorial> CUsuario::mostrarHistorialPorMedico(string ci)
@@ -251,12 +235,12 @@ set<DTHistorial> CUsuario::mostrarHistorialPorMedico(string ci)
     if (itu != memColUsuario->end())
     {
         Usuario *usr = itu->second;
-        CategoriaUsuario **catU = usr->getCatUsr();
-        for (int i = 0; i < MAX_TIPO_USUARIO; ++i)
+        list<CategoriaUsuario *> *catU = usr->getCatUsr();
+        for (CategoriaUsuario *c : *catU)
         {
-            if (catU[i] != nullptr)
+            if (c != nullptr)
             {
-                if (Socio *paciente = dynamic_cast<Socio *>(catU[i]))
+                if (Socio *paciente = dynamic_cast<Socio *>(c))
                 {
                     set<DTHistorial> serDth = paciente->mostrarHistorialPorMedico(usr);
                 }
@@ -269,13 +253,12 @@ set<DTHistorial> CUsuario::mostrarHistorialPorMedico(string ci)
     }
 }
 
-
 void CUsuario::cancelarIntento() {}
 DTDatosUsuario CUsuario::buscarUser() {}
 void CUsuario::activarUsr() {}
 set<DTReserva> CUsuario::mostrarReservasActivas() {}
 void CUsuario::camcelarReserva(string idConsulta) {}
-void CUsuario::registroConsultaEmergencia(string ci, string ciMedico, DTFecha fecha, DTHora hora, string descrpcion) {}
+void CUsuario::registroConsultaEmergencia(string ci, string ciMedico, const DTFecha fecha, const DTHora hora, string descrpcion) {}
 // bool CUsuario::buscarSocio(string ci) {}
 DTDatosUsuario CUsuario::obtenerDatosSocio() {}
 

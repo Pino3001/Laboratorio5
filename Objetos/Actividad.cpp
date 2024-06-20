@@ -69,22 +69,7 @@ Historial *Actividad ::getHistorialAsoc()
 {
     return this->historialAsoc;
 }
-string Actividad ::getNombreSocio()
-{
-    return this->nombreSocio;
-}
-string Actividad ::getCiSocio()
-{
-    return this->ciSocio;
-}
-string Actividad ::getNombreMedico()
-{
-    return this->nombreMedico;
-}
-string Actividad ::CiMedico()
-{
-    return this->ciMedico;
-}
+
 
 // Para implementar
 Actividad::~Actividad(){}

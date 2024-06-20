@@ -60,7 +60,7 @@ Diagnostico::~Diagnostico()
 // A CHEQUEAR!
 
 // Método para agregar tratamiento quirúrgico
-void Diagnostico::agregarTratamientoQuirurgico(string descripcion, DTFecha fecha)
+void Diagnostico::agregarTratamientoQuirurgico(string descripcion, const DTFecha fecha)
 {
     Quirurgico *tratamiento = new Quirurgico(descripcion, fecha);
     this->tratamientos->insert(tratamiento);

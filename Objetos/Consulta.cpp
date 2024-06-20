@@ -19,7 +19,7 @@ using namespace std;
     DTHora hc = DTHora();
     this->horaConsulta = hc;
 } */
-Consulta ::Consulta(string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio) : Actividad(socio, medico, nombreMedico, ciMedico, nombreSocio, ciSocio)
+Consulta ::Consulta(string idConsulta, const DTFecha fecha, const DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio) : Actividad(socio, medico, nombreMedico, ciMedico, nombreSocio, ciSocio)
 {
     this->idConsulta = idConsulta;
     this->fechaConsulta = fecha;
@@ -32,17 +32,17 @@ Consulta ::Consulta(Consulta &consulta, Actividad &actividad) : Actividad(activi
     this->horaConsulta = consulta.getHoraConsulta();
 }
 
-void Consulta ::setFechaConsulta(DTFecha fecha) { this->fechaConsulta = fecha; }
-void Consulta ::setHoraConsulta(DTHora hora) { this->horaConsulta = hora; }
+void Consulta ::setFechaConsulta(const DTFecha fecha) { this->fechaConsulta = fecha; }
+void Consulta ::setHoraConsulta(const DTHora hora) { this->horaConsulta = hora; }
 
 string Consulta ::getIdConsulta() { return this->idConsulta; }
-DTFecha Consulta ::getFechaConsulta() { return this->fechaConsulta; }
-DTHora Consulta ::getHoraConsulta() { return this->horaConsulta; }
+DTFecha Consulta ::getFechaConsulta()const { return this->fechaConsulta; }
+DTHora Consulta ::getHoraConsulta() const { return this->horaConsulta; }
 
 DTConsulta Consulta ::getDatosConsulta(){}
 Diagnostico *Consulta ::crearDiagnostico(string descripcion, ProblemaDeSalud pds){}
 void Consulta ::agregarTratamientoFarmaco(Diagnostico diagnostico, string descripcion, list<string> listaMedicamentos){}
-void Consulta ::agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, DTFecha fecha){}
+void Consulta ::agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, const DTFecha fecha){}
 void Consulta ::agregarDiagnosticoConsulta(Diagnostico diagnostico){}
 
 Consulta::~Consulta(){}

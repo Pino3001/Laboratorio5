@@ -1,4 +1,8 @@
 #include "DTConsulta.h"
+#include "DTFecha.h"
+#include "DTHora.h"
+#include <string>
+using namespace std;
 
 DTConsulta::DTConsulta() : idConsulta(""), nombreSocio(""), ciSocio(""), nombreMedico("")
 {
@@ -7,7 +11,7 @@ DTConsulta::DTConsulta() : idConsulta(""), nombreSocio(""), ciSocio(""), nombreM
     DTHora hc;
     this->horaConsulta = hc;
 }
-DTConsulta::DTConsulta(string id, string nomSocio, string ciSocio, string nombreMedico, DTFecha fechaConsul, DTHora horaConsul)
+DTConsulta::DTConsulta(string id, string nomSocio, string ciSocio, string nombreMedico, const DTFecha fechaConsul, const DTHora horaConsul)
     : idConsulta(id), nombreSocio(nomSocio), ciSocio(ciSocio), nombreMedico(nombreMedico), fechaConsulta(fechaConsul), horaConsulta(horaConsul) {}
 
 string DTConsulta::getIdConsulta()
@@ -30,12 +34,12 @@ string DTConsulta::getNombreMedico()
     return this->nombreMedico;
 }
 
-DTFecha DTConsulta::getFechaConsulta()
+DTFecha DTConsulta::getFechaConsulta() const
 {
     return this->fechaConsulta;
 }
 
-DTHora DTConsulta::getHoraConsulta()
+DTHora DTConsulta::getHoraConsulta() const
 {
     return this->horaConsulta;
 }

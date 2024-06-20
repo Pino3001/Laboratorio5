@@ -23,22 +23,27 @@ private:
 
 public:
     /* Comun(); */
-    Comun(DTFecha fechaReserva, EstadoConsulta estConsulta, string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio);
+    Comun(const DTFecha fechaReserva, EstadoConsulta estConsulta, string idConsulta,const DTFecha fecha, const DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio);
 
     // Setters
-    void setFechaReserva(DTFecha fechaReserva);
+    void setFechaReserva(const DTFecha fechaReserva);
     void setEstadoConsulta(EstadoConsulta estadoConsulta);
 
     // Getters
-    DTFecha getFechaReserva();
+    DTFecha getFechaReserva() const ;
     EstadoConsulta getEstadoConsulta();
 
     DTConsulta getDatosConsulta();
     Diagnostico crearDiagnostico(string descripcion, ProblemaDeSalud *pds);
     void agregarTratamientoFarmaco(Diagnostico *diagnostico, string descripcion, list<string> *listMedicamentos);
-    void agregarTratamientoQuirurgico(Diagnostico *diagnostico, string descripcion, DTFecha fecha);
+    void agregarTratamientoQuirurgico(Diagnostico *diagnostico, string descripcion, const DTFecha fecha);
     void agregarDiagnosticoAConsulta(Diagnostico *diagnostico);
     set<DTReserva> *getDatosReservas();
+
+     string getNombreSocio();
+     string getCiSocio();
+     string getNombreMedico();
+     string CiMedico();
 
     ~Comun();
 };

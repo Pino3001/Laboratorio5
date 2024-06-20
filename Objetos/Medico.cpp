@@ -63,12 +63,12 @@ list<Historial *> *Medico ::getHistorialesCreados()
 }
 
 //Para implementar
-void Medico ::addActividad(Actividad actividad){}
+/* void Medico ::addActividad(Actividad actividad){} */
 string Medico::verNombre(){}
 string Medico ::verCi(){}
 TipoUsuario Medico :: obtenerTipo(){}
 Actividad *Medico ::buscarConsulta(string idConsulta){}
 set<DTHistorial> Medico ::mostrarHistorialSocio(Usuario usr){}
-set<DTConsulta> Medico ::mostrarDatosConsulta(DTFecha fecha){}
+set<DTConsulta> Medico ::mostrarDatosConsulta(const DTFecha fecha){}
 
 Medico ::~Medico(){}

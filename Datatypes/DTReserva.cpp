@@ -14,7 +14,7 @@ DTReserva::DTReserva()
     this->horaConsulta = hc;
 }
 
-DTReserva::DTReserva(string idConsulta, string nombre, string ci, string medico, DTFecha fechaReserva, DTFecha fechaConsulta, DTHora horaConsulta) 
+DTReserva::DTReserva(string idConsulta, string nombre, string ci, string medico, const DTFecha fechaReserva, const DTFecha fechaConsulta, const DTHora horaConsulta) 
 : idConsulta(idConsulta), nombre(nombre), ci(ci), medico(medico), fechaReserva(fechaReserva), fechaConsulta(fechaConsulta), horaConsulta(horaConsulta)
 {}
 
@@ -45,15 +45,15 @@ string DTReserva ::getCi()
 string DTReserva ::getMedico(){
     return this->medico;
 }
-DTFecha DTReserva ::getFechaReserva()
+DTFecha DTReserva ::getFechaReserva()const
 {
     return this->fechaReserva;
 }
-DTFecha DTReserva ::getFechaConsulta()
+DTFecha DTReserva ::getFechaConsulta()const
 {
     return this->fechaConsulta;
 }
-DTHora DTReserva ::getHoraConsulta()
+DTHora DTReserva ::getHoraConsulta()const
 {
     return this->horaConsulta;
 }

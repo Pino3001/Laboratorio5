@@ -5,17 +5,17 @@
 using namespace std;
 
 // Constructor por defecto
-Quirurgico::Quirurgico(string descripcion, DTFecha fechaCirugia) : Tratamiento(descripcion){
+Quirurgico::Quirurgico(string descripcion, const DTFecha fechaCirugia) : Tratamiento(descripcion){
     this->fechaCirugia = fechaCirugia;
 }
-Quirurgico ::Quirurgico(string descripcion, DTFecha fechaCirugia, Medico *cirujano) : Tratamiento(descripcion){
+Quirurgico ::Quirurgico(string descripcion, const DTFecha fechaCirugia, Medico *cirujano) : Tratamiento(descripcion){
     this->fechaCirugia = fechaCirugia;
     this->cirujanoOperacion = cirujano;
 }
 
 
 // Getter
-DTFecha Quirurgico::getFechaCirugia(){
+DTFecha Quirurgico::getFechaCirugia()const{
     return this->fechaCirugia;
 }
 Medico *Quirurgico::getCirujanoOperacion(){
@@ -23,7 +23,7 @@ Medico *Quirurgico::getCirujanoOperacion(){
 }
 
 // Setter
-void Quirurgico::setFechaCirugia(DTFecha fechaCirugia){
+void Quirurgico::setFechaCirugia(const DTFecha fechaCirugia){
     this->fechaCirugia = fechaCirugia;
 }
 void Quirurgico::setCirujanoOperacion(Medico *cirujano){

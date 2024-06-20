@@ -8,6 +8,8 @@
 #include <list>
 #include <set>
 #include <string>
+class Comun;
+class Emergencia;
 class CategoriaUsuario;
 class Medico;
 class Socio;
@@ -27,11 +29,11 @@ private:
     int edad;
     bool activo;
     list<Actividad *> *actividadesUsr;
-    CategoriaUsuario *catUsr[MAX_TIPO_USUARIO];
+    list<CategoriaUsuario*> *catUsr;
 
 public:
-    Usuario(string ci, string nomb, string apell, string sex, DTFecha fechNac, CategoriaUsuario *catUsr[MAX_TIPO_USUARIO]);
-    Usuario(string cedula, string nombre, string apellido, string contraseña, CategoriaUsuario *catUsr[MAX_TIPO_USUARIO]);
+    Usuario(string ci, string nomb, string apell, string sex, const DTFecha fechNac, list<CategoriaUsuario*> *catUsr);
+    Usuario(string cedula, string nombre, string apellido, string contraseña, list<CategoriaUsuario*> *catUsr);
    
     void setCedula(string cedula);
     void setNombre(string nombre);
@@ -39,11 +41,11 @@ public:
     void setContraseña(string contraseña);
     void setPrimeraContraseña(bool primeraContraseña);
     void setSexo(string sexo);
-    void setFechaNacimiento(DTFecha fechaNacimiento);
+    void setFechaNacimiento(const DTFecha fechaNacimiento);
     void setEdad(int edad);
     void setActivo(bool activo);
     void setActividadesUsr(list<Actividad *> *actividadesUsr);
-    void setCatUsr(CategoriaUsuario *catUsr[2]);
+    void setCatUsr(list<CategoriaUsuario*> *catUsr);
 
     string getCedula();
     string getNombre();
@@ -51,11 +53,11 @@ public:
     string getContraseña();
     bool getPrimeraContraseña();
     string getSexo();
-    DTFecha& getFechaNacimiento();
+    DTFecha getFechaNacimiento()const;
     int getEdad();
     bool getActivo();
     list<Actividad *> *getActividadesUsr();
-    CategoriaUsuario **getCatUsr();
+    list<CategoriaUsuario*> *getCatUsr();
     DTDatosUsuario& getDatosUsuario(); // lista
    
     void addVisibilityCatUsr();
@@ -64,13 +66,13 @@ public:
     void addCatUsuario(CategoriaUsuario *cat); // lista
    
     void registrarAsistencia(EstadoConsulta estC, string idConsulta);
-    Actividad altaConsultaEmergencia(DTFecha fecha, DTHora hora, string descripcion);
-    void addActividad(Actividad actividad);
+    Emergencia altaConsultaEmergencia(const DTFecha fecha, const DTHora hora, string descripcion);
+    void addActividad(Comun actividad);
     set<DTReserva> *mostrarReservasActivas();
     void cancelarReserva(string idConsulta);
     bool esSocio();
     set<DTHistorial> *mostrarHistorialPorMedico();
-    set<DTConsulta> *mostrarDatosConsulta(DTFecha fecha);
+    set<DTConsulta> *mostrarDatosConsulta(const DTFecha fecha);
     void buscarConsulta(string idConsulta);
 
     ~Usuario();

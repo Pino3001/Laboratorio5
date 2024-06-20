@@ -34,6 +34,7 @@ DTCategoriaRep CategoriaProblemaSalud ::getDatosCategoria()
 {
 }
 
+//Revisar!!
 list<DTProblemaDeSalud> CategoriaProblemaSalud ::getDTProblemas(){
     list<DTProblemaDeSalud> ldtProb;
     for (ProblemaDeSalud *p : *this->problemas)
@@ -45,13 +46,15 @@ list<DTProblemaDeSalud> CategoriaProblemaSalud ::getDTProblemas(){
     
 
 }
-
 // Crear problema de salud
 void CategoriaProblemaSalud ::altaProblemas(string codigo, string etiqueta)
 {
     ProblemaDeSalud *pds = new ProblemaDeSalud(codigo, etiqueta);
     this->problemas->push_back(pds);
 }
+
+
+
 // Mostrar problemas de salud
 set<DTProblemaDeSalud> *mostrarProblemasDeSalud()
 {

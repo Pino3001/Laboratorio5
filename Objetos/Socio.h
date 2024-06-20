@@ -4,6 +4,7 @@
 #include <set>
 #include <map>
 #include <string>
+#include "DTHora.h"
 #include "CategoriaUsuario.h"
 #include "Historial.h"
 #include "DTReserva.h"
@@ -33,13 +34,13 @@ public:
     //list <Actividades*>* getActividadesSinRealizar();
     list <Historial*> *getHistorialSocio();
 
-    void addActividad(Actividad actividad);
+  /*   void addActividad(Consulta actividad); */
     string verNombre();
     string verCi();
     TipoUsuario obtenerTipo();
     Actividad *buscarConsulta(string idConsulta);
     void registrarAsistencia(EstadoConsulta estC, string idConsulta);
-    Actividad AltaConsultaEmergencia(DTFecha fecha, DTHora hora, string descripcion);
+    Emergencia *AltaConsultaEmergencia(const DTFecha fecha, const DTHora hora, string descripcion);
     set <DTReserva> mostrarReservasActivas();
     void cancelarReserva(string idConsulta);
     set <DTHistorial> mostrarHistorialPorMedico(Usuario *usr);

@@ -15,10 +15,10 @@ Fabrica* Fabrica::getInstancia() {
 }
 
 IUsuario* Fabrica::getIUsuario() {
-    return new CUsuario();  // Devuelve una instancia de Controlador que implementa IControlador
+    return CUsuario::getInstance(); 
 }
-IRegistroMedico* Fabrica::getIRegistroMedico(){
-    return new CRegistroMedico();
+IRegistroMedico * Fabrica::getIRegistroMedico(){
+    return CRegistroMedico::getInstance();
 }
 Fabrica::~Fabrica() {
     // Destructor
