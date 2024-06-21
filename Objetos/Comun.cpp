@@ -4,26 +4,33 @@
 #include "Consulta.h"
 #include "Socio.h"
 #include "Medico.h"
-#include "Diagnostico.h"
 #include "DTConsulta.h"
 #include "DTReserva.h"
 #include "DTFecha.h"
 #include "DTHora.h"
+#include "definiciones.h"
+#include <string>
 
 Comun::Comun(const DTFecha fechaReserva, EstadoConsulta estConsulta, const DTFecha fecha, const DTHora hora, Socio *socio, Medico *medico) : Consulta(fecha, hora, socio, medico)
 {
     this->fechaReserva = fecha;
     this->estadoConsulta = estConsulta;
 }
-/* Comun::Comun() : Consulta(){
-    DTFecha f();
-    this->fechaReserva = f;
-    this->estadoConsulta = Reservada;
-} */
+Comun::Comun(Comun &comun, Consulta &consulta, Actividad &actividad) : Consulta(consulta, actividad)
+{
+    this->fechaReserva = comun.getFechaReserva();
+    this->estadoConsulta = comun.getEstadoConsulta();
+}
 
 // Setters
-void Comun::setFechaReserva(const DTFecha fechaReserva) { this->fechaReserva = fechaReserva; }
-void Comun::setEstadoConsulta(EstadoConsulta estadoConsulta) { this->estadoConsulta = estadoConsulta; }
+void Comun::setFechaReserva(const DTFecha fechaReserva)
+{
+    this->fechaReserva = fechaReserva;
+}
+void Comun::setEstadoConsulta(EstadoConsulta estadoConsulta)
+{
+    this->estadoConsulta = estadoConsulta;
+}
 
 // Getters
 DTFecha Comun::getFechaReserva() const
@@ -36,7 +43,7 @@ EstadoConsulta Comun::getEstadoConsulta()
 }
 DTConsulta Comun::getDatosConsulta()
 {
-    DTConsulta dtc(this->nombreSocio(), this->cedulaSocio(), this->nombreMedico(), this->getFechaConsulta(), this->getHoraConsulta());
+    DTConsulta dtc(this->nombreSocio(), this->cedulaSocio(), this->nombreMedico(), this->getFechaConsulta(), this->getHoraConsulta(), TipoConsulta::Tipo_Comun);
     return dtc;
 }
 
@@ -48,8 +55,10 @@ string Comun::obtenerCiMedico()
 {
     return this->cedulaMedico();
 }
-
-
+TipoConsulta Comun::obtenerTipoConsulta()
+{
+    return TipoConsulta::Tipo_Comun;
+}
 
 Diagnostico Comun::crearDiagnostico(std::string descripcion, ProblemaDeSalud *pds)
 {

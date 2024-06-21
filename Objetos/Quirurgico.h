@@ -15,13 +15,13 @@ public:
     Quirurgico(string descripcion, const DTFecha fechaCirugia, Medico *cirujano);
     Quirurgico(string descripcion, DTFecha fechaCirugia);
 
-    // Getters
-    DTFecha getFechaCirugia()const;
-    Medico *getCirujanoOperacion();
-
     // Setters
     void setFechaCirugia(const DTFecha fechaCirugia);
     void setCirujanoOperacion(Medico *cirujano);
+    // Getters
+    DTFecha getFechaCirugia()const;
+    Medico *getCirujanoOperacion();
+    DTTratamiento getDatoTratamiento();
 
     // Destructor
     ~Quirurgico();

@@ -2,11 +2,14 @@
 #include "Actividad.h"
 #include "Medico.h"
 #include "Socio.h"
+#include "Historial.h"
 #include "ProblemaDeSalud.h"
 #include "Diagnostico.h"
 #include "definiciones.h"
 #include "DTFecha.h"
 #include "DTHora.h"
+#include "DTDiagnostico.h"
+#include "DTConsulta.h"
 #include <list>
 #include <string>
 
@@ -27,11 +30,11 @@ Consulta ::Consulta(const DTFecha fechaConsulta, const DTHora horaConsulta, Soci
     this->horaConsulta = horaConsulta;
     this->diagnosticosConsulta = new list<Diagnostico *>;
 }
-/* Consulta ::Consulta(Consulta &consulta, Actividad &actividad) : Actividad(actividad)
+Consulta ::Consulta(Consulta &consulta, Actividad &actividad) : Actividad(actividad)
 {
     this->fechaConsulta = consulta.getFechaConsulta();
     this->horaConsulta = consulta.getHoraConsulta();
-} */
+}
 
 // Setters
 void Consulta ::setFechaConsulta(const DTFecha fecha)
@@ -61,8 +64,22 @@ list<Diagnostico *> *Consulta ::getDiagnosticoConsulta()
     return this->diagnosticosConsulta;
 }
 
+DTConsulta Consulta ::getDatosConsulta() 
+{
+    DTConsulta dc(this->nombreSocio(), this->cedulaSocio(), this->nombreMedico(), this->fechaConsulta, this->horaConsulta, this->obtenerTipoConsulta() );
+    return dc;
+}
 
-DTConsulta Consulta ::getDatosConsulta() {}
+list<DTDiagnostico> Consulta ::getDatosDiagnosticoConsulta()
+{
+    list<DTDiagnostico> ldtd;
+    for (Diagnostico *d : *this->diagnosticosConsulta)
+    {
+        DTDiagnostico dtd = d->getDatosDiagnostico();
+        ldtd.push_back(dtd);
+    }
+    return ldtd;
+}
 
 void Consulta ::crearDiagnostico(string descripcion, list<ProblemaDeSalud *> *lPds)
 {
@@ -84,7 +101,11 @@ void Consulta ::crearDiagnosticoTratQuirurjico(string descripcion, list<Problema
     d->agregarTratamientoQuirurgico(descrTrat, fechaCiruj, med);
 }
 
-
+void Consulta::crearHistorial()
+{
+    Historial *h = new Historial(this->getSocioConsulta(), this->getMedicoRealiza(), this, this->diagnosticosConsulta);
+    this->addHistorialAsoc(h);
+}
 
 void Consulta ::agregarTratamientoFarmaco(Diagnostico diagnostico, string descripcion, list<string> listaMedicamentos) {}
 void Consulta ::agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, const DTFecha fecha) {}

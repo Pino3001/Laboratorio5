@@ -1,6 +1,8 @@
 #include "Historial.h"
 #include "Consulta.h"
 #include "Diagnostico.h"
+#include "Medico.h"
+#include "Socio.h"
 
 
 
@@ -19,14 +21,8 @@ Historial ::Historial(Socio *socio, Medico *medico, Consulta *consulta, list <Di
     this->consulta = consulta;
     this->listaDiagnosticos = diagnosticos;
 }
-/* Historial ::Historial(Historial &historial)
-{
-    this->historialSocio = historial.getHistorialSocio();
-    this->medicoRealiza = historial.getMedicoRealiza();
-    this->consulta = historial.getConsulta();
-    this->listaDiagnosticos = historial.getDiagnostico();
-} */
-
+Historial ::Historial(Historial &historial) : historialSocio(historial.getHistorialSocio()), medicoRealiza(historial.getMedicoRealiza()), consulta(historial.getConsulta()), listaDiagnosticos(historial.getDiagnostico()){}
+//Setters
 void Historial ::setHistorialSocio(Socio *socio)
 {
     this->historialSocio = socio;
@@ -43,7 +39,7 @@ void Historial ::setDiagnostico(list <Diagnostico*>  *diagnostico)
 {
     this->listaDiagnosticos = diagnostico;
 }
-
+//Getters
 Socio *Historial ::getHistorialSocio(){
     return this->historialSocio;
 }
@@ -57,6 +53,21 @@ list <Diagnostico*> *Historial ::getDiagnostico(){
     return this->listaDiagnosticos;
 }
 
-DTHistorial Historial ::getDatosHistorial(){}
+
+
+DTHistorial Historial ::getDatosHistorial(){
+    DTHistorial dth(this->historialSocio->verNombre(), this->historialSocio->verNombre(), this->medicoRealiza->verNombre(), this->consulta->getDatosConsulta(), this->consulta->getDatosDiagnosticoConsulta());
+    return dth;
+}
+
+
+bool Historial::operator<(const Historial &hist) const
+{
+    if (this->medicoRealiza->verCi() != hist.medicoRealiza->verCi())
+    {
+        return this->medicoRealiza->verCi() < hist.medicoRealiza->verCi();
+    }
+    return this->consulta->getFechaConsulta() < hist.consulta->getFechaConsulta();
+}
 
 Historial ::~Historial(){}

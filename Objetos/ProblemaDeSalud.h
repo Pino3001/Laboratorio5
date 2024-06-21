@@ -1,6 +1,6 @@
 #ifndef PROBLEMADeSALUD_H
 #define PROBLEMADeSALUD_H
-#include "Diagnostico.h"
+#include "DTProblemaDeSalud.h"
 #include <string>
 
 using namespace std;
@@ -13,12 +13,13 @@ private:
 public:
     ProblemaDeSalud();
     ProblemaDeSalud(string codigo, string etiqueta);
+ 
+    void setCodigo(string codigo);
+    void setEtiqueta(string etiqueta);
 
     string getCodigo();
     string getEtiqueta();
-    
-    void setCodigo(string codigo);
-    void setEtiqueta(string etiqueta);
+    DTProblemaDeSalud getDatoProblema();
 
     ~ProblemaDeSalud();
 };

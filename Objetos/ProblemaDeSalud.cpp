@@ -1,39 +1,45 @@
 #include "ProblemaDeSalud.h"
-#include "Diagnostico.h"
+#include "DTProblemaDeSalud.h"
 #include <string>
 
 using namespace std;
-//Constructores
+// Constructores
 
-ProblemaDeSalud::ProblemaDeSalud() {
+ProblemaDeSalud::ProblemaDeSalud()
+{
     this->codigo = "";
     this->etiqueta = "";
 }
 
-
-ProblemaDeSalud::ProblemaDeSalud(string codigo, string etiqueta) {
+ProblemaDeSalud::ProblemaDeSalud(string codigo, string etiqueta)
+{
     this->codigo = codigo;
     this->etiqueta = etiqueta;
 }
 
-//Getters y Setters
-string ProblemaDeSalud::getCodigo() {
+// Setters
+void ProblemaDeSalud::setCodigo(string codigo)
+{
+    this->codigo = codigo;
+}
+
+void ProblemaDeSalud::setEtiqueta(string etiqueta)
+{
+    this->etiqueta = etiqueta;
+}
+// Getters
+string ProblemaDeSalud::getCodigo()
+{
     return this->codigo;
 }
-
-
-string ProblemaDeSalud::getEtiqueta() {
+string ProblemaDeSalud::getEtiqueta()
+{
     return this->etiqueta;
 }
-
-
-void ProblemaDeSalud::setCodigo(string codigo) {
-    this->codigo = codigo;
+DTProblemaDeSalud ProblemaDeSalud::getDatoProblema()
+{
+    DTProblemaDeSalud dtp(this->codigo, this->etiqueta);
+    return dtp;
 }
-
-void ProblemaDeSalud::setEtiqueta(string etiqueta) {
-    this->etiqueta = etiqueta;
-}
-
 
 ProblemaDeSalud::~ProblemaDeSalud() {}

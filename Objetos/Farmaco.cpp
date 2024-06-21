@@ -3,23 +3,31 @@
 using namespace std;
 
 // Constructor por defecto
-Farmaco::Farmaco(){
+Farmaco::Farmaco()
+{
     this->nombreMedicamento = new list<string>;
 }
 
-Farmaco::Farmaco(string descripcion, list <string> *nombreMedicamento) : Tratamiento(descripcion){
+Farmaco::Farmaco(string descripcion, list<string> *nombreMedicamento) : Tratamiento(descripcion)
+{
     this->nombreMedicamento = nombreMedicamento;
 }
-
-//Getter
-list<string>* Farmaco::getListaMedicamentos(){
+// Setter
+void Farmaco::setListaMedicamentos(list<string> *nombreMedicamento)
+{
+    this->nombreMedicamento = nombreMedicamento;
+}
+// Getter
+list<string> *Farmaco::getListaMedicamentos()
+{
     return this->nombreMedicamento;
 }
-
-// Setter
-void Farmaco::setListaMedicamentos(list <string> *nombreMedicamento){
-    this->nombreMedicamento = nombreMedicamento;
+DTTratamiento Farmaco::getDatoTratamiento()
+{
+    list<string> ls = *this->nombreMedicamento;
+    DTTratamiento dtt(this->getDescripcionTratamiento(), TipoTratamiento::Tipo_Farmaco, ls);
+    return dtt;
 }
 
-//Destructor
-Farmaco::~Farmaco(){}
+// Destructor
+Farmaco::~Farmaco() {}

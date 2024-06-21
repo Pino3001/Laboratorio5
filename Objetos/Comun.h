@@ -22,8 +22,8 @@ private:
     EstadoConsulta estadoConsulta;
 
 public:
-    /* Comun(); */
     Comun(const DTFecha fechaReserva, EstadoConsulta estConsulta, const DTFecha fecha, const DTHora hora, Socio *socio, Medico *medico);
+    Comun(Comun &comun, Consulta &consulta, Actividad &actividad);
 
     // Setters
     void setFechaReserva(const DTFecha fechaReserva);
@@ -33,7 +33,10 @@ public:
     DTFecha getFechaReserva() const ;
     EstadoConsulta getEstadoConsulta();
     DTConsulta getDatosConsulta();
-    
+
+    TipoConsulta obtenerTipoConsulta();
+
+
     Diagnostico crearDiagnostico(string descripcion, ProblemaDeSalud *pds);
     void agregarTratamientoFarmaco(Diagnostico *diagnostico, string descripcion, list<string> *listMedicamentos);
     void agregarTratamientoQuirurgico(Diagnostico *diagnostico, string descripcion, const DTFecha fecha);

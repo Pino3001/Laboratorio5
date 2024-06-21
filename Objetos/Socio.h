@@ -18,21 +18,23 @@ class Socio : public CategoriaUsuario
 private:
     int cantConsultas;
     map <string, list <Actividad*>> *actividadesSocio;
-    list <Historial*> *historialSocio;
+    set <Historial*> *historialSocio;
 public:
     Socio();
 
     void setCantConsultas(int cantConsultas);
     void setActividadesSocio(map <string, list <Actividad*>> *actividadesSocio);
-    void setHistorialSocio(list <Historial*> *historialSocio);
+    void setHistorialSocio(set <Historial*> *historialSocio);
 
     int getCantConsultas();
     map <string, list <Actividad*>> *getActividadesSocio();
-    list <Historial*> *getHistorialSocio();
+    set <Historial*> *getHistorialSocio();
 
-    void addActividad(Comun *ConsComun, string ciMedico);
+    void addActividad(Consulta *Cons, string ciMedico);
+    void addHistorialSocio(Historial *h);
     string verNombre();
     string verCi();
+    list <DTHistorial> mostrarHistorialPorMedico();
 
 
     TipoUsuario obtenerTipo();
@@ -41,7 +43,6 @@ public:
     Emergencia *AltaConsultaEmergencia(const DTFecha fecha, const DTHora hora, string descripcion);
     set <DTReserva> mostrarReservasActivas();
     void cancelarReserva(string idConsulta);
-    set <DTHistorial> mostrarHistorialPorMedico(Usuario *usr);
 
 
 

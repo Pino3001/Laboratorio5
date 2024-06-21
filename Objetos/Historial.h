@@ -21,7 +21,7 @@ private:
 public:
     /* Historial(); */
     Historial(Socio *socio, Medico *medico, Consulta *consulta, list <Diagnostico*> *diagnosticos);
-    /* Historial(Historial &historial); */
+    Historial(Historial &historial); 
 
     void setHistorialSocio(Socio *socio);
     void setMedicoRealiza(Medico *medico);
@@ -33,6 +33,7 @@ public:
     Consulta *getConsulta();
     list<Diagnostico*> *getDiagnostico();
 
+    bool operator<(const Historial &hist) const;
     DTHistorial getDatosHistorial();
 
     ~Historial();

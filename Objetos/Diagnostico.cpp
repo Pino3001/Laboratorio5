@@ -4,6 +4,8 @@
 #include "Medico.h"
 #include "Farmaco.h"
 #include "ProblemaDeSalud.h"
+#include "DTProblemaDeSalud.h"
+#include "DTTratamiento.h"
 #include <list>
 #include <set>
 #include <string>
@@ -16,11 +18,26 @@ Diagnostico::Diagnostico()
     this->tratamientos = new set<Tratamiento *>;
 } */
 // Constructor con parametros
-Diagnostico::Diagnostico(string descripcion, list <ProblemaDeSalud*> *problemaDeSalud)
+Diagnostico::Diagnostico(string descripcion, list<ProblemaDeSalud *> *problemaDeSalud)
 {
     this->descripcion = descripcion;
     this->tratamientos = new list<Tratamiento *>;
     this->problemaDeSalud = problemaDeSalud;
+}
+
+// Setter
+void Diagnostico::setDescripcionDiagnostico(string descripcion)
+{
+    this->descripcion = descripcion;
+}
+void Diagnostico::setTratamiento(list<Tratamiento *> *tratamientos)
+{
+
+    this->tratamientos = tratamientos;
+}
+void Diagnostico::setProblemaDeSalud(list<ProblemaDeSalud *> *pds)
+{
+    this->problemaDeSalud = pds;
 }
 
 // Getters
@@ -36,20 +53,29 @@ list<ProblemaDeSalud *> *Diagnostico::getProblemaDeSalud()
 {
     return this->problemaDeSalud;
 }
-
-
-// Setter
-void Diagnostico::setDescripcionDiagnostico(string descripcion)
+DTDiagnostico Diagnostico::getDatosDiagnostico()
 {
-    this->descripcion = descripcion;
+    DTDiagnostico dtd(this->descripcion, this->getDatosProblemasAsociados(), this->getDatosTratamientosAsocioados());
 }
-void Diagnostico::setTratamiento(list<Tratamiento *> *tratamientos)
+list<DTProblemaDeSalud> Diagnostico::getDatosProblemasAsociados()
 {
-
-    this->tratamientos = tratamientos;
+    list<DTProblemaDeSalud> listPDS;
+    for (ProblemaDeSalud *ps : *this->problemaDeSalud)
+    {
+        DTProblemaDeSalud dps = ps->getDatoProblema();
+        listPDS.push_back(dps);
+    }
+    return listPDS;
 }
-void Diagnostico::setProblemaDeSalud(list<ProblemaDeSalud *> *pds){
-    this->problemaDeSalud = pds;
+list<DTTratamiento> Diagnostico::getDatosTratamientosAsocioados()
+{
+    list<DTTratamiento> lTra;
+    for (Tratamiento *t : *this->tratamientos)
+    {
+        DTTratamiento dtt = t->getDatoTratamiento();
+        lTra.push_back(dtt);
+    }
+    return lTra;
 }
 
 // Destructor
@@ -61,7 +87,7 @@ Diagnostico::~Diagnostico()
 // A CHEQUEAR!
 
 // Método para agregar tratamiento quirúrgico
-void Diagnostico::agregarTratamientoQuirurgico(string descripcion, const DTFecha fecha, Medico * med)
+void Diagnostico::agregarTratamientoQuirurgico(string descripcion, const DTFecha fecha, Medico *med)
 {
     Quirurgico *tratamiento = new Quirurgico(descripcion, fecha, med);
     this->tratamientos->push_back(tratamiento);
@@ -70,6 +96,6 @@ void Diagnostico::agregarTratamientoQuirurgico(string descripcion, const DTFecha
 // Método para agregar tratamiento fármaco
 void Diagnostico::agregarTratamientoFarmaco(list<string> *listMedicamentos, string descripcion)
 {
-        Farmaco *tratamiento = new Farmaco(descripcion, listMedicamentos);
-        tratamientos->push_back(tratamiento);
+    Farmaco *tratamiento = new Farmaco(descripcion, listMedicamentos);
+    tratamientos->push_back(tratamiento);
 }

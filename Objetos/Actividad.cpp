@@ -3,6 +3,7 @@
 #include "Medico.h"
 #include "Usuario.h"
 #include "Historial.h"
+#include "DTFecha.h"
 
 // Constructores
 Actividad ::Actividad(Socio *socio, Medico *medico)
@@ -10,6 +11,13 @@ Actividad ::Actividad(Socio *socio, Medico *medico)
     this->socioConsulta = socio;
     this->medicoRealiza = medico;
     this->historialAsoc = nullptr;
+}
+
+Actividad ::Actividad(Actividad &actividad)
+{
+    this->socioConsulta = actividad.getSocioConsulta();
+    this->medicoRealiza = actividad.getMedicoRealiza();
+    this->historialAsoc = actividad.getHistorialAsoc();
 }
 
 // Setters
@@ -35,12 +43,22 @@ Medico *Actividad ::getMedicoRealiza()
 {
     return this->medicoRealiza;
 }
+Historial *Actividad::getHistorialAsoc()
+{
+    return this->historialAsoc;
+}
 
-string Actividad ::cedulaSocio()
+void Actividad::addHistorialAsoc(Historial *h)
+{
+    this->historialAsoc = h;
+    this->socioConsulta->addHistorialSocio(h);
+}
+
+string Actividad ::cedulaSocio() const
 {
     return this->socioConsulta->verCi();
 }
-string Actividad ::cedulaMedico()
+string Actividad ::cedulaMedico() const
 {
     return this->medicoRealiza->verCi();
 }
@@ -51,6 +69,15 @@ string Actividad ::nombreSocio()
 string Actividad ::nombreMedico()
 {
     return this->medicoRealiza->verNombre();
+}
+
+bool Actividad::operator<(const Actividad &act) const
+{
+    if (cedulaMedico() != act.cedulaMedico())
+    {
+        return cedulaMedico() < act.cedulaMedico();
+    }
+    return getFechaConsulta() < act.getFechaConsulta();
 }
 // Para implementar
 Actividad::~Actividad() {}

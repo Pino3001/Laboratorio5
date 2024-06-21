@@ -1,9 +1,4 @@
-#define MAX_TIPO_USUARIO 2
-
-// Colores
-#define ANSI_COLOR_RED     "\x1b[31m"
-#define ANSI_COLOR_RESET   "\x1b[0m"
-
+#include "definiciones.h"
 #ifndef TIPOUARIO_ENUM
 #define TIPOUARIO_ENUM
 enum TipoUsuario{
@@ -29,12 +24,5 @@ enum EstadoConsulta{
 enum TipoTratamiento{
     Tipo_Farmaco,
     Tipo_Quirurjico
-};
-#endif
-#ifndef TTIPOCONSULTA_ENUM
-#define TTIPOCONSULTA_ENUM
-enum TipoConsulta{
-    Tipo_Emergencia,
-    Tipo_Comun
 };
 #endif

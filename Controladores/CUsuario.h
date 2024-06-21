@@ -15,7 +15,7 @@ using namespace std;
 class CUsuario : public IUsuario
 {
 private:
-    static CUsuario* instance;
+    static CUsuario *instance;
     Usuario *usrActivo;
     map<string, Usuario *> *memColUsuario;
     list<Usuario *> *memUsrSesion;
@@ -23,9 +23,9 @@ private:
     CUsuario();
 
 public:
-    static CUsuario* getInstance();
+    static CUsuario *getInstance();
     // ver si pasar como parametro al usuario administrativo por defecto
-    
+
     // metodos controlador
     void crearAdminDefecto(string nombre, string cedula, string apellido, string contraseña);
     bool existeUsuario(string ci);
@@ -38,16 +38,16 @@ public:
     void darPrimerContraseña(string contrasenia);
     bool cerrarSesion();
     void altaUsuario(string ci, string nomb, string apell, string sexo, const DTFecha fechNac, list<TipoUsuario> *tUsr);
-    set<DTHistorial> mostrarHistorialPorMedico(string ci);
 
     Usuario *darUsuario(string ci);
+    Medico *darMedico(string ci);
+    Socio *darSocio(string ci);
 
     void cancelarIntento();
     DTDatosUsuario buscarUser();
     void activarUsr();
     set<DTReserva> mostrarReservasActivas();
     void camcelarReserva(string idConsulta);
-    void registroConsultaEmergencia(string ci, string ciMedico, const DTFecha fecha, const DTHora hora, string descrpcion);
 
     DTDatosUsuario obtenerDatosSocio();
     ~CUsuario();

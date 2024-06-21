@@ -1,6 +1,9 @@
 #ifndef Diagnostico_H
 #define Diagnostico_H
 #include "DTFecha.h"
+#include "DTDiagnostico.h"
+#include "DTProblemaDeSalud.h"
+#include "DTTratamiento.h"
 class Tratamiento;
 class Quirurgico;
 class Farmaco;
@@ -12,29 +15,33 @@ class Medico;
 
 using namespace std;
 
-class Diagnostico {
+class Diagnostico
+{
 private:
     string descripcion;
-    list<Tratamiento*> *tratamientos;
-    list <ProblemaDeSalud*> *problemaDeSalud;
+    list<Tratamiento *> *tratamientos;
+    list<ProblemaDeSalud *> *problemaDeSalud;
 
 public:
     // Constructores
-    Diagnostico(string descripcion, list <ProblemaDeSalud*> *problemaDeSalud);
+    Diagnostico(string descripcion, list<ProblemaDeSalud *> *problemaDeSalud);
     Diagnostico();
-
-    // Getters
-    string getDescripcionDiagnostico();
-    list<Tratamiento*>* getTratamientos(); 
-    list <ProblemaDeSalud*> *getProblemaDeSalud();
 
     // Setters
     void setDescripcionDiagnostico(string descripcion);
-    void setTratamiento(list <Tratamiento*> *tratamientos);
-    void setProblemaDeSalud(list <ProblemaDeSalud*> *pds);
+    void setTratamiento(list<Tratamiento *> *tratamientos);
+    void setProblemaDeSalud(list<ProblemaDeSalud *> *pds);
+
+    // Getters
+    string getDescripcionDiagnostico();
+    list<Tratamiento *> *getTratamientos();
+    list<ProblemaDeSalud *> *getProblemaDeSalud();
+    DTDiagnostico getDatosDiagnostico();
+    list<DTProblemaDeSalud> getDatosProblemasAsociados();
+    list<DTTratamiento> getDatosTratamientosAsocioados();
 
     // Métodos adicionales A CHEQUEAR!
-    
+
     void agregarTratamientoQuirurgico(string descripcion, const DTFecha fecha, Medico *medico);
     void agregarTratamientoFarmaco(list<string> *listMedicamentos, string descripcion);
 
@@ -42,4 +49,4 @@ public:
     ~Diagnostico();
 };
 
-#endif 
+#endif

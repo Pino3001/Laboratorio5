@@ -215,31 +215,8 @@ bool CUsuario::cerrarSesion()
     cout << "\n Sesion terminada!";
 }
 
-set<DTHistorial> CUsuario::mostrarHistorialPorMedico(string ci)
+Usuario *CUsuario::darUsuario(string ci)
 {
-    auto itu = this->memColUsuario->find(ci);
-    if (itu != memColUsuario->end())
-    {
-        Usuario *usr = itu->second;
-        list<CategoriaUsuario *> *catU = usr->getCatUsr();
-        for (CategoriaUsuario *c : *catU)
-        {
-            if (c != nullptr)
-            {
-                if (Socio *paciente = dynamic_cast<Socio *>(c))
-                {
-                    set<DTHistorial> serDth = paciente->mostrarHistorialPorMedico(usr);
-                }
-            }
-        }
-    }
-    else
-    {
-        cout << "\n No se encontro el usuario en el sistema.";
-    }
-}
-
-Usuario *CUsuario::darUsuario(string ci){
     auto itUsr = this->memColUsuario->find(ci);
     if (itUsr != memColUsuario->end())
     {
@@ -248,12 +225,55 @@ Usuario *CUsuario::darUsuario(string ci){
     return nullptr;
 }
 
+Medico *CUsuario::darMedico(string ci)
+{
+    Usuario *usrMed = darUsuario(ci);
+    if (usrMed != nullptr)
+    {
+        list<CategoriaUsuario *> *catUm = usrMed->getCatUsr();
+        for (CategoriaUsuario *c : *catUm)
+        {
+            if (Medico *med = dynamic_cast<Medico *>(c))
+            {
+                return med;
+            }
+        }
+    }
+    else
+    {
+        return nullptr;
+    }
+    return nullptr;
+}
+
+Socio *CUsuario::darSocio(string ci)
+{
+    Usuario *usrSocio = darUsuario(ci);
+    if (usrSocio != nullptr)
+    {
+        list<CategoriaUsuario *> *catUm = usrSocio->getCatUsr();
+        for (CategoriaUsuario *c : *catUm)
+        {
+            if (Socio *soc = dynamic_cast<Socio *>(c))
+            {
+                return soc;
+            }
+        }
+    }
+    else
+    {
+        return nullptr;
+    }
+    return nullptr;
+}
+
+
+
 void CUsuario::cancelarIntento() {}
 DTDatosUsuario CUsuario::buscarUser() {}
 void CUsuario::activarUsr() {}
 set<DTReserva> CUsuario::mostrarReservasActivas() {}
 void CUsuario::camcelarReserva(string idConsulta) {}
-void CUsuario::registroConsultaEmergencia(string ci, string ciMedico, const DTFecha fecha, const DTHora hora, string descrpcion) {}
 // bool CUsuario::buscarSocio(string ci) {}
 DTDatosUsuario CUsuario::obtenerDatosSocio() {}
 

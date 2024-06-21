@@ -9,11 +9,9 @@
 Socio ::Socio() : CategoriaUsuario()
 {
     this->cantConsultas = 0;
-
     map<string, list<Actividad *>> *actSocio = new map<string, list<Actividad *>>;
     this->actividadesSocio = actSocio;
-    list<Historial *> *histSocio = new list<Historial *>;
-    this->historialSocio = histSocio;
+    this->historialSocio = new set<Historial *>;
 }
 
 // Setters
@@ -25,7 +23,7 @@ void Socio ::setActividadesSocio(map<string, list<Actividad *>> *actividadesSoci
 {
     this->actividadesSocio = actividadesSocio;
 }
-void Socio ::setHistorialSocio(list<Historial *> *historialSocio)
+void Socio ::setHistorialSocio(set<Historial *> *historialSocio)
 {
     this->historialSocio = historialSocio;
 }
@@ -39,37 +37,53 @@ map<string, list<Actividad *>> *Socio ::getActividadesSocio()
 {
     return this->actividadesSocio;
 }
-list<Historial *> *Socio ::getHistorialSocio()
+set<Historial *> *Socio ::getHistorialSocio()
 {
     return this->historialSocio;
 }
+
 // Metodos Socio
 string Socio ::verNombre()
 {
     return this->usuarioVinculado->getNombre();
 }
+
 string Socio ::verCi()
 {
     return this->usuarioVinculado->getCedula();
 }
-void Socio ::addActividad(Comun *ConsComun, string ciMedico)
+
+void Socio::addHistorialSocio(Historial *h)
+{
+    this->historialSocio->insert(h);
+}
+
+void Socio ::addActividad(Consulta *Cons, string ciMedico)
 {
     auto itAct = this->actividadesSocio->find(ciMedico);
     if (itAct != this->actividadesSocio->end())
     {
-        itAct->second.push_back(ConsComun);
+        itAct->second.push_back(Cons);
     }
     else
     {
         list<Actividad *> *a = new list<Actividad *>;
-        a->push_back(ConsComun);
+        a->push_back(Cons);
         this->actividadesSocio->insert(make_pair(ciMedico, *a));
     }
 }
 
-set<DTHistorial> Socio ::mostrarHistorialPorMedico(Usuario *usr)
+list<DTHistorial> Socio ::mostrarHistorialPorMedico()
 {
+    list<DTHistorial> listDth;
+    for (Historial *h : *this->historialSocio)
+    {
+        DTHistorial dth = h->getDatosHistorial();
+        listDth.push_back(dth);
+    }
+    return listDth;
 }
+
 // Para implementar
 /* void Socio ::addActividad( actividad){} */
 TipoUsuario Socio ::obtenerTipo() {}

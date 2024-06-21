@@ -12,22 +12,26 @@
 
 using namespace std;
 
-class Emergencia : public Consulta{
+class Emergencia : public Consulta
+{
 private:
     string motivoConsulta;
 
 public:
     Emergencia(string motivo, const DTFecha fecha, DTHora const hora, Socio *socio, Medico *medico);
+    Emergencia(Emergencia &emergencia, Consulta &consulta, Actividad &actividad);
     /* Emergencia(); */
-
-    // Getters
-    string getMotivoConsulta();
 
     // Setters
     void setMotivoConsulta(string motivo);
-
-    // Métodos adicionales
+    // Getters
+    string getMotivoConsulta();
     DTConsulta getDatosConsulta();
+    // Métodos adicionales
+    string obtenerCiSocio();
+    string obtenerCiMedico();
+    TipoConsulta obtenerTipoConsulta();
+
     Diagnostico crearDiagnostico(string descripcion, ProblemaDeSalud pds);
     void agregarTratamientoFarmaco(Diagnostico diagnostico, string descripcion, set<std::string> *listMedicamentos);
     void agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, const DTFecha fecha);
@@ -35,9 +39,7 @@ public:
 
     Historial *getHistorialAsoc();
 
-
-
     ~Emergencia();
 };
 
-#endif 
+#endif

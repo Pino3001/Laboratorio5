@@ -1,6 +1,7 @@
 #ifndef ACTIVIDAD_H
 #define ACTIVIDAD_H
 #include <string>
+#include "DTFecha.h"
 class Historial;
 class Usuario;
 class Medico;
@@ -15,9 +16,9 @@ private:
     Historial *historialAsoc;
 
 public:
-    //Actividad();
+    // Actividad();
     Actividad(Socio *socio, Medico *medico);
-    //Actividad(Actividad &actividad);
+    Actividad(Actividad &actividad);
 
     void setSocioConsulta(Socio *socio);
     void setMedicoRealiza(Medico *medico);
@@ -25,14 +26,17 @@ public:
 
     Socio *getSocioConsulta();
     Medico *getMedicoRealiza();
+    Historial *getHistorialAsoc();
+    virtual DTFecha getFechaConsulta()const =0;
 
-    string cedulaSocio();
-    string cedulaMedico();
+    void addHistorialAsoc(Historial *h);
+    string cedulaSocio()const;
+    string cedulaMedico()const;
     string nombreSocio();
     string nombreMedico();
 
-    virtual Historial *getHistorialAsoc()=0;
-
+    // Metodo para sobrecargar < y poder comparar en el <set>
+    bool operator<(const Actividad &act) const;
 
 
     ~Actividad();

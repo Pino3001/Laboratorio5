@@ -33,16 +33,20 @@ public:
     list<Diagnostico *> *getDiagnosticoConsulta();
     DTFecha getFechaConsulta() const;
     DTHora getHoraConsulta() const;
-
     DTConsulta getDatosConsulta();
+    list<DTDiagnostico> getDatosDiagnosticoConsulta();
+
     void crearDiagnostico(string descripcion, list<ProblemaDeSalud *> *lPds);
     void crearDiagnosticoTratFarmaco(string descripcion, list<ProblemaDeSalud *> *lPds, list<string> *medicamentos, string descrTrat);
     void crearDiagnosticoTratQuirurjico(string descripcion, list<ProblemaDeSalud *> *lPds, Medico *med, string descrTrat, const DTFecha fechaCiruj);
-
+    void crearHistorial();
+   
     void agregarTratamientoFarmaco(Diagnostico diagnostico, string descripcion, list<string> listaMedicamentos);
     void agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, const DTFecha fecha);
     void agregarDiagnosticoConsulta(Diagnostico diagnostico);
     virtual Historial *getHistorialAsoc() = 0;
+    virtual TipoConsulta obtenerTipoConsulta()=0;
+
 
     ~Consulta();
 };

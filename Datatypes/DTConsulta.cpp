@@ -4,16 +4,15 @@
 #include <string>
 using namespace std;
 
-DTConsulta::DTConsulta() : idConsulta(""), nombreSocio(""), ciSocio(""), nombreMedico("")
+DTConsulta::DTConsulta() : idConsulta(""), nombreSocio(""), ciSocio(""), nombreMedico(""), tipo(TipoConsulta::Tipo_Comun)
 {
     DTFecha fc;
     this->fechaConsulta = fc;
     DTHora hc;
     this->horaConsulta = hc;
 }
-DTConsulta::DTConsulta(string nomSocio, string ciSocio, string nombreMedico, const DTFecha fechaConsul, const DTHora horaConsul)
-    : nombreSocio(nomSocio), ciSocio(ciSocio), nombreMedico(nombreMedico), fechaConsulta(fechaConsul), horaConsulta(horaConsul) {}
-
+DTConsulta::DTConsulta(string nomSocio, string ciSocio, string nombreMedico, const DTFecha fechaConsul, const DTHora horaConsul, TipoConsulta tipo)
+    : nombreSocio(nomSocio), ciSocio(ciSocio), nombreMedico(nombreMedico), fechaConsulta(fechaConsul), horaConsulta(horaConsul), tipo(tipo) {}
 
 string DTConsulta::getNombreSocio()
 {
@@ -38,4 +37,9 @@ DTFecha DTConsulta::getFechaConsulta() const
 DTHora DTConsulta::getHoraConsulta() const
 {
     return this->horaConsulta;
+}
+
+TipoConsulta DTConsulta::getTipo()
+{
+    return this->tipo;
 }

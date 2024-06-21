@@ -1,7 +1,7 @@
 #ifndef Farmaco_H
 #define Farmaco_H
-
 #include "Tratamiento.h"
+#include "DTTratamiento.h"
 #include "DTFecha.h"
 #include <list>
 #include <string>
@@ -15,12 +15,12 @@ public:
     // Constructores
     Farmaco();
     Farmaco(string descripcion, list <string> *nombreMedicamento);
-    
-    // Getters
-    list<string>* getListaMedicamentos();
 
     // Setters
     void setListaMedicamentos(list <string> *nombreMedicamento);
+        // Getters
+    list<string>* getListaMedicamentos();
+    DTTratamiento getDatoTratamiento();
 
     // Destructor
      ~Farmaco();

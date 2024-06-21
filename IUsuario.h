@@ -33,10 +33,8 @@ public:
     virtual set<DTReserva> mostrarReservasActivas() = 0;
     virtual void camcelarReserva(string idConsulta) = 0;
 
-    virtual void registroConsultaEmergencia(string ci, string ciMedico, const DTFecha fecha, DTHora hora, string descrpcion) = 0;
 
     virtual DTDatosUsuario obtenerDatosSocio() = 0;
-    virtual set<DTHistorial> mostrarHistorialPorMedico(string ci) = 0;
     virtual ~IUsuario() = default; 
 };
 #endif
