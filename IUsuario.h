@@ -17,7 +17,7 @@ public:
     virtual bool esUsuario(string ci)=0;
     virtual bool verificarContraseña(string ci, string contraseña) = 0;
     virtual bool primerContraseña() = 0;
-    virtual void darPrimerContraseña(string contraseña)=0;
+    virtual void darPrimerContraseña(string contrasenia)=0;
     virtual bool asignarSesion(string ci) = 0;
     virtual list<TipoUsuario> * tipoDeUsuario(string ci)=0;
     virtual void altaUsuario(string ci, string nomb, string apell, string sexo, const DTFecha fechNac, list<TipoUsuario> *tUsr) = 0;

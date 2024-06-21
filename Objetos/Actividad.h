@@ -10,34 +10,30 @@ using namespace std;
 class Actividad
 {
 private:
-    Socio *socioTiene;
-    string nombreSocio;
-    string ciSocio;
+    Socio *socioConsulta;
     Medico *medicoRealiza;
-    string nombreMedico;
-    string ciMedico;
     Historial *historialAsoc;
 
 public:
     //Actividad();
-    Actividad(Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio);
+    Actividad(Socio *socio, Medico *medico);
     //Actividad(Actividad &actividad);
 
-    void setSocioTiene(Socio *socio);
+    void setSocioConsulta(Socio *socio);
     void setMedicoRealiza(Medico *medico);
     void setHistorialAsoc(Historial *historial);
-    void setNombreSocio(string nombre);
-    void setCiSocio(string ci);
-    void setNombreMedico(string nombre);
-    void setCiMedico(string ci);
 
-    Socio *getSocioTiene();
+    Socio *getSocioConsulta();
     Medico *getMedicoRealiza();
-    Historial *getHistorialAsoc();
-    virtual string getNombreSocio()= 0;
-    virtual string getCiSocio()=0;
-    virtual string getNombreMedico()=0;
-    virtual string CiMedico()=0;
+
+    string cedulaSocio();
+    string cedulaMedico();
+    string nombreSocio();
+    string nombreMedico();
+
+    virtual Historial *getHistorialAsoc()=0;
+
+
 
     ~Actividad();
 };

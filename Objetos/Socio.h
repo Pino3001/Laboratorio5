@@ -9,7 +9,7 @@
 #include "Historial.h"
 #include "DTReserva.h"
 class Actividad;
-class Consulta;
+class Comun;
 using namespace std;
 
 
@@ -17,26 +17,24 @@ class Socio : public CategoriaUsuario
 {
 private:
     int cantConsultas;
-    map <string, list <Actividad*>> *actividadesSocioXmedico;
-    //list <Actividades*> actividadesSinRealizar;
+    map <string, list <Actividad*>> *actividadesSocio;
     list <Historial*> *historialSocio;
 public:
     Socio();
-    /* Socio(Socio &socio, CategoriaUsuario &catUsr); */
 
     void setCantConsultas(int cantConsultas);
-    void setActividadesSocioXmedico(map <string, list <Actividad*>> *actividadXmedico);
-    //void setActividadesSinRealizar(list <Actividades*> sinRealizar);
+    void setActividadesSocio(map <string, list <Actividad*>> *actividadesSocio);
     void setHistorialSocio(list <Historial*> *historialSocio);
 
     int getCantConsultas();
-    map <string, list <Actividad*>> *getActividadesSocioXmedico();
-    //list <Actividades*>* getActividadesSinRealizar();
+    map <string, list <Actividad*>> *getActividadesSocio();
     list <Historial*> *getHistorialSocio();
 
-  /*   void addActividad(Consulta actividad); */
+    void addActividad(Comun *ConsComun, string ciMedico);
     string verNombre();
     string verCi();
+
+
     TipoUsuario obtenerTipo();
     Actividad *buscarConsulta(string idConsulta);
     void registrarAsistencia(EstadoConsulta estC, string idConsulta);

@@ -35,10 +35,12 @@ public:
     list<TipoUsuario> *tipoDeUsuario(string ci);
     DTDatosUsuario buscarUser(string ci);
     bool primerContraseña();
-    void darPrimerContraseña(string contraseña);
+    void darPrimerContraseña(string contrasenia);
     bool cerrarSesion();
     void altaUsuario(string ci, string nomb, string apell, string sexo, const DTFecha fechNac, list<TipoUsuario> *tUsr);
     set<DTHistorial> mostrarHistorialPorMedico(string ci);
+
+    Usuario *darUsuario(string ci);
 
     void cancelarIntento();
     DTDatosUsuario buscarUser();

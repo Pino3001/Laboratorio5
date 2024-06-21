@@ -7,6 +7,7 @@
 #include "Actividad.h"
 #include "Historial.h"
 class Usuario;
+class Comun;
 class Consulta;
 using namespace std;
 
@@ -28,10 +29,10 @@ public:
     list <Socio*> *getSociosAtendidos();
     list <Historial*> *getHistorialesCreados();
 
-
-/*     void addActividad(Actividad actividad); */
     string verNombre();
     string verCi();
+    void addActividad(Comun *ConsComun);
+
     TipoUsuario obtenerTipo();
     Actividad *buscarConsulta(string idConsulta);
     set<DTHistorial> mostrarHistorialSocio(Usuario usr);

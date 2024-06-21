@@ -6,25 +6,25 @@
 #include "DTConsulta.h"
 #include "Actividad.h"
 #include "Comun.h"
+#include "Medico.h"
+#include "Socio.h"
 #include "Emergencia.h"
 #include <list>
 #include <set>
 #include "definiciones.h"
 
+CRegistroMedico *CRegistroMedico::instance = nullptr;
 
+CRegistroMedico::CRegistroMedico() : memConsulta(nullptr), problemasDeSalud(new map<string, CategoriaProblemaSalud *>()), memActividades(new map<DTFecha, list<Actividad *>>()) {}
 
-CRegistroMedico* CRegistroMedico::instance = nullptr;
-
-CRegistroMedico::CRegistroMedico() :  memConsulta(nullptr), problemasDeSalud(new map<string, CategoriaProblemaSalud*>()), memActividades(new map<DTFecha, list<Actividad*>>()) {}
-
-CRegistroMedico* CRegistroMedico::getInstance() {
-    if (instance == nullptr) {
+CRegistroMedico *CRegistroMedico::getInstance()
+{
+    if (instance == nullptr)
+    {
         instance = new CRegistroMedico();
     }
     return instance;
 }
-
-
 
 list<DTConsulta> CRegistroMedico::mostrarConsultas(const DTFecha fechaHoy)
 {
@@ -41,7 +41,7 @@ list<DTConsulta> CRegistroMedico::mostrarConsultas(const DTFecha fechaHoy)
             {
                 if (comun->getEstadoConsulta() == EstadoConsulta::Asistio)
                 {
-                    DTConsulta dtcons(comun->getIdConsulta(), comun->getNombreSocio(), comun->getCiSocio(), comun->getNombreMedico(), comun->getFechaConsulta(), comun->getHoraConsulta());
+                    DTConsulta dtcons = comun->getDatosConsulta();
                     listDTC.push_back(dtcons);
                 }
             }
@@ -63,7 +63,7 @@ void CRegistroMedico::registroConsulta(string ci, string ciMedico, const DTFecha
             if (Comun *comun = dynamic_cast<Comun *>(a))
             {
                 // De las consultas de tipo comun comparo los datos de estas, con los que estoy buscando y compruebo que sean consultas reservadas.
-                if (comun->CiMedico() == ciMedico && comun->getCiSocio() == ci && comun->getEstadoConsulta() == EstadoConsulta::Reservada)
+                if (comun->obtenerCiMedico() == ciMedico && comun->obtenerCiSocio() == ci && comun->getEstadoConsulta() == EstadoConsulta::Reservada)
                 {
                     // Cambio el estado de la consulta para sacarla de la reserva.
                     comun->setEstadoConsulta(EstadoConsulta::Asistio);
@@ -115,17 +115,78 @@ void CRegistroMedico::altaProblemaDeSalud(string id, string codigo, string etiqu
     }
 }
 
-list<DTProblemaDeSalud> CRegistroMedico::mostrarProblemaDeSalud() {}
+list<DTProblemaDeSalud> CRegistroMedico::mostrarProblemaDeSalud() 
+{
 
-void CRegistroMedico::reservaNuevaConsulta(string ciMedico, const DTFecha fechaCons, const DTHora horaCosn){
- 
 }
+
+void CRegistroMedico::reservaNuevaConsulta(string ciMedico, string ciSocio, const DTFecha fechaConsulta, const DTFecha fecReserva, const DTHora horaCosn)
+{
+    Medico *m;
+    Socio *s;
+    bool esSocio = false, esMedico = false;
+    Usuario *usrMed = CUsuario::getInstance()->darUsuario(ciMedico);
+    if (usrMed != nullptr)
+    {
+        list<CategoriaUsuario *> *catUm = usrMed->getCatUsr();
+        for (CategoriaUsuario *c : *catUm)
+        {
+            if (Medico *med = dynamic_cast<Medico *>(c))
+            {
+                m = med;
+                esMedico = true;
+            }
+        }
+    }
+    else
+    {
+        // no existe usuario con esa cedula
+    }
+    Usuario *usrSocio = CUsuario::getInstance()->darUsuario(ciSocio);
+    if (usrSocio != nullptr)
+    {
+        list<CategoriaUsuario *> *catUs = usrSocio->getCatUsr();
+        for (CategoriaUsuario *c : *catUs)
+        {
+            if (Socio *soc = dynamic_cast<Socio *>(c))
+            {
+                s = soc;
+                esSocio = true;
+            }
+        }
+    }
+    else
+    {
+        // no existe usuario con esa cedula
+    }
+    if (esMedico && esSocio)
+    {
+        Comun *cons = new Comun(fecReserva, EstadoConsulta::Reservada, fechaConsulta, horaCosn, s, m);
+        s->addActividad(cons, m->verCi());
+        m->addActividad(cons);
+    }
+    else if (!esMedico)
+    {
+        /* El usuario de la cedula no es medico */
+    }else if (!esSocio)
+    {
+        /* El usuario de la cedula no es socio */
+    }
+    
+    
+}
+
+ProblemaDeSalud *CRegistroMedico::seleccionarProblemaDeSalud(string codigo, string etiqueta) 
+{
+    
+}
+
+
 
 
 Consulta *CRegistroMedico::seleccionarConsulta(string idConsulta) {}
 CategoriaProblemaSalud *CRegistroMedico::seleccionarCategoria(string nombreCat) {}
 
-ProblemaDeSalud *CRegistroMedico::seleccionarProblemaDeSalud(string codigo, string etiqueta) {}
 Diagnostico *CRegistroMedico::crearDiagnostico(ProblemaDeSalud pds, string descripcion) {}
 void CRegistroMedico::agregarTratamientoFarmaco(Diagnostico diagnostico, string descripcion, set<string> listMedicamentos) {}
 void CRegistroMedico::agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, DTFecha fecha) {}

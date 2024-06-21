@@ -16,9 +16,8 @@ private:
     DTHora horaConsulta;
 public:
     DTConsulta();
-    DTConsulta(string id, string nomSocio, string ciSocio, string nombreMedico, const DTFecha fechaConsul, const DTHora horaConsul);
+    DTConsulta(string nomSocio, string ciSocio, string nombreMedico, const DTFecha fechaConsul, const DTHora horaConsul);
 
-    string getIdConsulta();
     string getNombreSocio();
     string getCiSocio();
     string getNombreMedico();

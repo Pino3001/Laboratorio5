@@ -22,13 +22,12 @@ private:
 public:
     /* Consulta(); */
     /* Consulta(string idConsulta, DTFecha fecha, DTHora hora, Socio *socio, Medico *medico); */
-    Consulta(string idConsulta, const DTFecha fecha, const DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio);
+    Consulta( const DTFecha fechaConsulta, const DTHora horaConsulta, Socio *socio, Medico *medico);
     Consulta(Consulta &consulta, Actividad &actividad);
 
     void setFechaConsulta(const DTFecha fecha);
     void setHoraConsulta(const DTHora hora);
 
-    string getIdConsulta();
     DTFecha getFechaConsulta() const;
     DTHora getHoraConsulta()const;
 
@@ -37,11 +36,7 @@ public:
     void agregarTratamientoFarmaco(Diagnostico diagnostico, string descripcion, list<string> listaMedicamentos);
     void agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, const DTFecha fecha);
     void agregarDiagnosticoConsulta(Diagnostico diagnostico);
-
-    virtual string getNombreSocio()= 0;
-    virtual string getCiSocio()=0;
-    virtual string getNombreMedico()=0;
-    virtual string CiMedico()=0;
+    virtual Historial *getHistorialAsoc()=0;
 
     ~Consulta();
 };

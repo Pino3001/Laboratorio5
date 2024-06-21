@@ -10,7 +10,7 @@
 #include "DTFecha.h"
 #include "DTHora.h"
 
-Comun::Comun(const DTFecha fechaReserva, EstadoConsulta estConsulta, string idConsulta, const DTFecha fecha, const DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio) : Consulta(idConsulta, fecha, hora, socio, medico, nombreMedico, ciMedico, nombreSocio, ciSocio)
+Comun::Comun(const DTFecha fechaReserva, EstadoConsulta estConsulta, const DTFecha fecha, const DTHora hora, Socio *socio, Medico *medico) : Consulta(fecha, hora, socio, medico)
 {
     this->fechaReserva = fecha;
     this->estadoConsulta = estConsulta;
@@ -21,21 +21,35 @@ Comun::Comun(const DTFecha fechaReserva, EstadoConsulta estConsulta, string idCo
     this->estadoConsulta = Reservada;
 } */
 
-
 // Setters
-void Comun::setFechaReserva(const DTFecha fechaReserva){this->fechaReserva = fechaReserva;}
-void Comun::setEstadoConsulta(EstadoConsulta estadoConsulta){this->estadoConsulta = estadoConsulta;}
+void Comun::setFechaReserva(const DTFecha fechaReserva) { this->fechaReserva = fechaReserva; }
+void Comun::setEstadoConsulta(EstadoConsulta estadoConsulta) { this->estadoConsulta = estadoConsulta; }
 
 // Getters
-DTFecha Comun::getFechaReserva() const {return this->fechaReserva;}
-EstadoConsulta Comun::getEstadoConsulta(){return this->estadoConsulta;}
-
-// Métodos adicionales
+DTFecha Comun::getFechaReserva() const
+{
+    return this->fechaReserva;
+}
+EstadoConsulta Comun::getEstadoConsulta()
+{
+    return this->estadoConsulta;
+}
 DTConsulta Comun::getDatosConsulta()
 {
-    // Implementación del método
-    // Retornar un objeto DTConsulta con los datos correspondientes
+    DTConsulta dtc(this->nombreSocio(), this->cedulaSocio(), this->nombreMedico(), this->getFechaConsulta(), this->getHoraConsulta());
+    return dtc;
 }
+
+string Comun::obtenerCiSocio()
+{
+    return this->cedulaSocio();
+}
+string Comun::obtenerCiMedico()
+{
+    return this->cedulaMedico();
+}
+
+
 
 Diagnostico Comun::crearDiagnostico(std::string descripcion, ProblemaDeSalud *pds)
 {
@@ -67,24 +81,7 @@ set<DTReserva> *Comun::getDatosReservas()
     // Retornar un conjunto de DTReserva
 }
 
-//de Herencia
-string Comun ::getNombreSocio()
-{
-
-}
-string Comun ::getCiSocio()
-{
-
-}
-string Comun ::getNombreMedico()
-{
-}
-string Comun ::CiMedico()
-{
-}
-
-
-
+Historial *Comun ::getHistorialAsoc() {}
 
 // Destructor
 Comun::~Comun()

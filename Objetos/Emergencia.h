@@ -17,7 +17,7 @@ private:
     string motivoConsulta;
 
 public:
-    Emergencia(string motivo, string idConsulta, const DTFecha fecha, DTHora const hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio);
+    Emergencia(string motivo, const DTFecha fecha, DTHora const hora, Socio *socio, Medico *medico);
     /* Emergencia(); */
 
     // Getters
@@ -33,10 +33,8 @@ public:
     void agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, const DTFecha fecha);
     void agregarDiagnosticoAConsulta(Diagnostico diagnostico);
 
-     string getNombreSocio();
-     string getCiSocio();
-     string getNombreMedico();
-     string CiMedico();
+    Historial *getHistorialAsoc();
+
 
 
     ~Emergencia();

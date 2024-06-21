@@ -19,12 +19,12 @@ int main()
     IUsuario *usuarios = f->getIUsuario();
     IRegistroMedico *registros = f->getIRegistroMedico();
 
-   /*  DTFecha fch(28, 12, 1988);
+    DTFecha fch(28, 12, 1988);
     list<TipoUsuario> *tUsr = new list<TipoUsuario>;
     tUsr->push_back(TipoUsuario::Tipo_Administrativo);
-    usuarios->altaUsuario("1", "James", "Peer", "Masculino", fch, tUsr);  */
+    usuarios->altaUsuario("1", "James", "Peer", "Masculino", fch, tUsr); 
 
-      cout << "\t\t Iniciando el sistema...";
+   /*    cout << "\t\t Iniciando el sistema...";
       cout << "\n\t Ingrese un administrativo por defecto para el sistema.";
       cout << "\n Nombre: ";
       cin >> nombre;
@@ -35,14 +35,14 @@ int main()
       cout << "\n Contraseña: ";
       cin >> contraseña;
 
-      usuarios->crearAdminDefecto(nombre, cedula, apellido, contraseña);
+      usuarios->crearAdminDefecto(nombre, cedula, apellido, contraseña); */
 
     do
     {
         int opt;
 
         cout << "\n\t\t Mutualista Grupo 5";
-        cout << "\n\t [1] - Iniciar secion.";
+        cout << "\n\t [1] - Iniciar sesion.";
         cout << "\n\t [2] - Salir.";
         cout << "\n opt >> ";
         cin >> opt;
@@ -351,7 +351,7 @@ int main()
 
 void CargarDatosDefecto(IUsuario *usuarios, IRegistroMedico *registros)
 {
-        //TM
+    //TM
     DTFecha fch1(01,01,1990);
     list<TipoUsuario> *tUsr = new list<TipoUsuario>;
     tUsr->push_back(TipoUsuario::Tipo_Socio);

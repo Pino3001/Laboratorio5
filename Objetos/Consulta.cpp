@@ -19,15 +19,14 @@ using namespace std;
     DTHora hc = DTHora();
     this->horaConsulta = hc;
 } */
-Consulta ::Consulta(string idConsulta, const DTFecha fecha, const DTHora hora, Socio *socio, Medico *medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio) : Actividad(socio, medico, nombreMedico, ciMedico, nombreSocio, ciSocio)
+Consulta ::Consulta( const DTFecha fechaConsulta, const DTHora horaConsulta, Socio *socio, Medico *medico) : Actividad(socio, medico)
 {
     this->idConsulta = idConsulta;
-    this->fechaConsulta = fecha;
-    this->horaConsulta = hora;
+    this->fechaConsulta = fechaConsulta;
+    this->horaConsulta = horaConsulta;
 }
 Consulta ::Consulta(Consulta &consulta, Actividad &actividad) : Actividad(actividad)
 {
-    this->idConsulta = consulta.getIdConsulta();
     this->fechaConsulta = consulta.getFechaConsulta();
     this->horaConsulta = consulta.getHoraConsulta();
 }
@@ -35,7 +34,6 @@ Consulta ::Consulta(Consulta &consulta, Actividad &actividad) : Actividad(activi
 void Consulta ::setFechaConsulta(const DTFecha fecha) { this->fechaConsulta = fecha; }
 void Consulta ::setHoraConsulta(const DTHora hora) { this->horaConsulta = hora; }
 
-string Consulta ::getIdConsulta() { return this->idConsulta; }
 DTFecha Consulta ::getFechaConsulta()const { return this->fechaConsulta; }
 DTHora Consulta ::getHoraConsulta() const { return this->horaConsulta; }
 

@@ -3,8 +3,7 @@
 #include "CategoriaUsuario.h"
 #include "Usuario.h"
 #include "Consulta.h"
-
-
+#include "Comun.h"
 
 Medico ::Medico() : CategoriaUsuario()
 {
@@ -18,23 +17,7 @@ Medico ::Medico() : CategoriaUsuario()
     this->historialesCreados = histCreados;
 }
 
-/* Medico ::Medico(Medico &medico, CategoriaUsuario &catUsr) : CategoriaUsuario(catUsr)
-{// VER SI ESTO ESTA BIEN
-    for (Actividad *am : *medico.getActividadMedico())
-    {
-        this->actividadMedico->push_back(am);
-    }
-    for (Socio *sa : *medico.getSociosAtendidos())
-    {
-        this->sociosAtendidos->push_back(sa);
-    }
-    for (Historial *hc : *medico.getHistorialesCreados())
-    {
-        this->historialesCreados->push_back(hc);
-    }
-} */
-
-//Setters
+// Setters
 void Medico ::setActividadMedico(list<Actividad *> *actividadMedico)
 {
     this->actividadMedico = actividadMedico;
@@ -48,7 +31,7 @@ void Medico ::setHistorialesCreados(list<Historial *> *historialesCreados)
     this->historialesCreados = historialesCreados;
 }
 
-//Getters
+// Getters
 list<Actividad *> *Medico ::getActividadMedico()
 {
     return this->actividadMedico;
@@ -62,13 +45,23 @@ list<Historial *> *Medico ::getHistorialesCreados()
     return this->historialesCreados;
 }
 
-//Para implementar
-/* void Medico ::addActividad(Actividad actividad){} */
-string Medico::verNombre(){}
-string Medico ::verCi(){}
-TipoUsuario Medico :: obtenerTipo(){}
-Actividad *Medico ::buscarConsulta(string idConsulta){}
-set<DTHistorial> Medico ::mostrarHistorialSocio(Usuario usr){}
-set<DTConsulta> Medico ::mostrarDatosConsulta(const DTFecha fecha){}
+// Metodos medico
+string Medico::verNombre()
+{
+    this->usuarioVinculado->getCedula();
+}
+string Medico ::verCi()
+{
+    this->usuarioVinculado->getCedula();
+}
+void Medico::addActividad(Comun *ConsComun)
+{
+    this->actividadMedico->push_back(ConsComun);
+}
 
-Medico ::~Medico(){}
+TipoUsuario Medico ::obtenerTipo() {}
+Actividad *Medico ::buscarConsulta(string idConsulta) {}
+set<DTHistorial> Medico ::mostrarHistorialSocio(Usuario usr) {}
+set<DTConsulta> Medico ::mostrarDatosConsulta(const DTFecha fecha) {}
+
+Medico ::~Medico() {}

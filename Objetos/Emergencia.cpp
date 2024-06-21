@@ -2,8 +2,8 @@
 
 
 // Constructor con parámetros
-Emergencia::Emergencia(string motivo, string idConsulta, const DTFecha fecha, const DTHora hora, Socio* socio, Medico* medico, string nombreMedico, string ciMedico, string nombreSocio, string ciSocio)
-    : Consulta(idConsulta, fecha, hora, socio, medico, nombreMedico, ciMedico, nombreSocio, ciSocio) {
+Emergencia::Emergencia(string motivo, const DTFecha fecha, const DTHora hora, Socio* socio, Medico* medico)
+    : Consulta(fecha, hora, socio, medico) {
     this->motivoConsulta = motivo;
 }
 /* // Constructor por defecto
@@ -40,19 +40,8 @@ void Emergencia::agregarDiagnosticoAConsulta(Diagnostico diagnostico) {
 }
 
 
-//de herencia
-string Emergencia ::getNombreSocio()
-{
-}
-string Emergencia ::getCiSocio()
-{
-}
-string Emergencia ::getNombreMedico()
-{
-}
-string Emergencia ::CiMedico()
-{
-}
+Historial *Emergencia ::getHistorialAsoc() {}
+
 
 // Destructor
 Emergencia::~Emergencia() {

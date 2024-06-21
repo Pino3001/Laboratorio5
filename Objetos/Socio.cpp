@@ -1,9 +1,9 @@
 #include "Socio.h"
 #include "CategoriaUsuario.h"
 #include "Consulta.h"
+#include "Comun.h"
 #include "Emergencia.h"
 #include "Actividad.h"
-
 
 // Constructores
 Socio ::Socio() : CategoriaUsuario()
@@ -11,50 +11,19 @@ Socio ::Socio() : CategoriaUsuario()
     this->cantConsultas = 0;
 
     map<string, list<Actividad *>> *actSocio = new map<string, list<Actividad *>>;
-    this->actividadesSocioXmedico = actSocio;
+    this->actividadesSocio = actSocio;
     list<Historial *> *histSocio = new list<Historial *>;
     this->historialSocio = histSocio;
 }
-
-/* Socio ::Socio(Socio &socio, CategoriaUsuario &catUsr) : CategoriaUsuario(catUsr)
-{
-    this->cantConsultas = socio.getCantConsultas();
-    //creo un nuevo map
-    map<string, list<Actividad *>> *actSocio = new map<string, list<Actividad *>>;
-    //recorro el map del objeto pasado por referencia
-    for (auto it = socio.getActividadesSocioXmedico()->begin(); it != socio.getActividadesSocioXmedico()->end(); ++it)
-    {
-        list<Actividad *> actividades = it->second;
-        //Creo una nueva lista de actividades.
-        list<Actividad *> *nuevaAct = new list<Actividad *>;
-        //Hago una copia de la lista
-        *nuevaAct = actividades;
-        // Asigno la clave y la nueva lista al map creado anteriormente
-        (*actSocio)[it->first] = actividades;
-    }
-
-    for (Actividad *ac : *socio.getActividadesSocioXmedico())
-    {
-        this->actividadesSocioXmedico->push_back(ac);
-    }
-    for (Medico *mc : *socio.getMedicosConsultados())
-    {
-        this->medicosConsultados->push_back(mc);
-    }
-    for (Historial *hs : *socio.getHistorialSocio())
-    {
-        this->historialSocio->push_back(hs);
-    }
-} */
 
 // Setters
 void Socio ::setCantConsultas(int cantConsultas)
 {
     this->cantConsultas = cantConsultas;
 }
-void Socio ::setActividadesSocioXmedico(map <string, list <Actividad*>> *actividadXmedico)
+void Socio ::setActividadesSocio(map<string, list<Actividad *>> *actividadesSocio)
 {
-    this->actividadesSocioXmedico = actividadXmedico;
+    this->actividadesSocio = actividadesSocio;
 }
 void Socio ::setHistorialSocio(list<Historial *> *historialSocio)
 {
@@ -66,36 +35,48 @@ int Socio ::getCantConsultas()
 {
     return this->cantConsultas;
 }
-map <string, list <Actividad*>> *Socio ::getActividadesSocioXmedico()
+map<string, list<Actividad *>> *Socio ::getActividadesSocio()
 {
-    return this->actividadesSocioXmedico;
+    return this->actividadesSocio;
 }
 list<Historial *> *Socio ::getHistorialSocio()
 {
     return this->historialSocio;
 }
-
+// Metodos Socio
 string Socio ::verNombre()
 {
     return this->usuarioVinculado->getNombre();
 }
-
 string Socio ::verCi()
 {
     return this->usuarioVinculado->getCedula();
 }
+void Socio ::addActividad(Comun *ConsComun, string ciMedico)
+{
+    auto itAct = this->actividadesSocio->find(ciMedico);
+    if (itAct != this->actividadesSocio->end())
+    {
+        itAct->second.push_back(ConsComun);
+    }
+    else
+    {
+        list<Actividad *> *a = new list<Actividad *>;
+        a->push_back(ConsComun);
+        this->actividadesSocio->insert(make_pair(ciMedico, *a));
+    }
+}
 
 set<DTHistorial> Socio ::mostrarHistorialPorMedico(Usuario *usr)
 {
-
-} 
+}
 // Para implementar
 /* void Socio ::addActividad( actividad){} */
 TipoUsuario Socio ::obtenerTipo() {}
-Actividad *Socio ::buscarConsulta(string idConsulta){}
-void Socio ::registrarAsistencia(EstadoConsulta estC, string idConsulta){}
-Emergencia *Socio ::AltaConsultaEmergencia(const DTFecha fecha, const DTHora hora, string descripcion){}
-set<DTReserva> Socio ::mostrarReservasActivas(){}
-void Socio ::cancelarReserva(string idConsulta){}
+Actividad *Socio ::buscarConsulta(string idConsulta) {}
+void Socio ::registrarAsistencia(EstadoConsulta estC, string idConsulta) {}
+Emergencia *Socio ::AltaConsultaEmergencia(const DTFecha fecha, const DTHora hora, string descripcion) {}
+set<DTReserva> Socio ::mostrarReservasActivas() {}
+void Socio ::cancelarReserva(string idConsulta) {}
 
-Socio ::~Socio(){}
+Socio ::~Socio() {}

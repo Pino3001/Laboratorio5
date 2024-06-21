@@ -16,17 +16,18 @@
 #include <string>
 using namespace std;
 
-CUsuario* CUsuario::instance = nullptr;
+CUsuario *CUsuario::instance = nullptr;
 
-CUsuario::CUsuario() : usrActivo(nullptr), memColUsuario(new map<string, Usuario*>()), memUsrSesion(new list<Usuario*>()) {}
+CUsuario::CUsuario() : usrActivo(nullptr), memColUsuario(new map<string, Usuario *>()), memUsrSesion(new list<Usuario *>()) {}
 
-CUsuario* CUsuario::getInstance() {
-    if (instance == nullptr) {
+CUsuario *CUsuario::getInstance()
+{
+    if (instance == nullptr)
+    {
         instance = new CUsuario();
     }
     return instance;
 }
-
 
 // metodos del controlador
 void CUsuario::crearAdminDefecto(string nombre, string cedula, string apellido, string contraseña)
@@ -161,65 +162,50 @@ bool CUsuario::primerContraseña()
     }
 }
 
-void CUsuario::darPrimerContraseña(string contraseña)
+void CUsuario::darPrimerContraseña(string contrasenia)
 {
-    this->usrActivo->setContraseña(contraseña);
+    this->usrActivo->setContraseña(contrasenia);
     this->usrActivo->setPrimeraContraseña(true);
 }
 
 void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, const DTFecha fechNac, list<TipoUsuario> *tUsr)
 {
-    Usuario *usr = this->usrActivo;
-    list<CategoriaUsuario *> *catU = usr->getCatUsr();
 
-    for (CategoriaUsuario *c : *catU)
+    // Creo las categorias de usuario que tendra el Usuario.
+    list<CategoriaUsuario *> *catUsr = new list<CategoriaUsuario *>;
+    for (TipoUsuario t : *tUsr)
     {
-        if (c != nullptr)
+        if (t == TipoUsuario::Tipo_Socio)
         {
-            // Casteo para ver que tipo de socio esta intentando hacer un ingreso.
-            if (dynamic_cast<Administrativo *>(c))
-            {
-                // Creo las categorias de usuario que tendra el Usuario.
-                list<CategoriaUsuario *> *catUsr = new list<CategoriaUsuario *>;
-                for (TipoUsuario t : *tUsr)
-                {
-                    if (t == TipoUsuario::Tipo_Socio)
-                    {
-                        catUsr->push_back(new Socio());
-                    }
-                    else if (t == TipoUsuario::Tipo_Administrativo || t == TipoUsuario::Administrativo_defecto)
-                    {
-                        catUsr->push_back(new Administrativo());
-                    }
-                    else if (t == TipoUsuario::Tipo_Medico)
-                    {
-                        catUsr->push_back(new Medico());
-                    }
-                }
-                // Creo Usuario
-                Usuario *newUsr = new Usuario(ci, nomb, apell, sexo, fechNac, catUsr);
-                delete tUsr;
-                newUsr->addVisibilityCatUsr();
-                // Inserto Usuario en la coleccion de usuarios en memoria
-                auto incerto = this->memColUsuario->insert(make_pair(ci, newUsr));
-                if (incerto.second)
-                {
-                    std::cout << "\n Se a creado el Usuario exitosamente!! ";
-                }
-                else
-                {
-                    std::cout << "El Usuario con la cedula " << ci << " ya existe en el sistema!!";
-                    delete newUsr;
-                }
-                // Corto iteracion por posible incercion repetida.
-                break;
-            }
-            else
-            {
-                cout << ANSI_COLOR_RED << "\n \t No eres un Usuario habilitado para crear nuevos Usuarios!!!" << ANSI_COLOR_RESET;
-            }
+            Socio *s = new Socio();
+            catUsr->push_back(s);
+        }
+        else if (t == TipoUsuario::Tipo_Administrativo || t == TipoUsuario::Administrativo_defecto)
+        {
+            Administrativo *a = new Administrativo();
+            catUsr->push_back(a);
+        }
+        else if (t == TipoUsuario::Tipo_Medico)
+        {
+            catUsr->push_back(new Medico());
         }
     }
+    // Creo Usuario
+    Usuario *newUsr = new Usuario(ci, nomb, apell, sexo, fechNac, catUsr);
+    delete tUsr;
+    newUsr->addVisibilityCatUsr();
+    // Inserto Usuario en la coleccion de usuarios en memoria
+    auto incerto = this->memColUsuario->insert(make_pair(ci, newUsr));
+    if (incerto.second)
+    {
+        std::cout << "\n Se a creado el Usuario exitosamente!! ";
+    }
+    else
+    {
+        std::cout << "El Usuario con la cedula " << ci << " ya existe en el sistema!!";
+        delete newUsr;
+    }
+    // Corto iteracion por posible incercion repetida.
 }
 
 bool CUsuario::cerrarSesion()
@@ -251,6 +237,15 @@ set<DTHistorial> CUsuario::mostrarHistorialPorMedico(string ci)
     {
         cout << "\n No se encontro el usuario en el sistema.";
     }
+}
+
+Usuario *CUsuario::darUsuario(string ci){
+    auto itUsr = this->memColUsuario->find(ci);
+    if (itUsr != memColUsuario->end())
+    {
+        return itUsr->second;
+    }
+    return nullptr;
 }
 
 void CUsuario::cancelarIntento() {}

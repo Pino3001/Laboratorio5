@@ -11,13 +11,9 @@ DTConsulta::DTConsulta() : idConsulta(""), nombreSocio(""), ciSocio(""), nombreM
     DTHora hc;
     this->horaConsulta = hc;
 }
-DTConsulta::DTConsulta(string id, string nomSocio, string ciSocio, string nombreMedico, const DTFecha fechaConsul, const DTHora horaConsul)
-    : idConsulta(id), nombreSocio(nomSocio), ciSocio(ciSocio), nombreMedico(nombreMedico), fechaConsulta(fechaConsul), horaConsulta(horaConsul) {}
+DTConsulta::DTConsulta(string nomSocio, string ciSocio, string nombreMedico, const DTFecha fechaConsul, const DTHora horaConsul)
+    : nombreSocio(nomSocio), ciSocio(ciSocio), nombreMedico(nombreMedico), fechaConsulta(fechaConsul), horaConsulta(horaConsul) {}
 
-string DTConsulta::getIdConsulta()
-{
-    return this->idConsulta;
-}
 
 string DTConsulta::getNombreSocio()
 {
