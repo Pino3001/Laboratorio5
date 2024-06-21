@@ -1,5 +1,8 @@
 #include "CategoriaProblemaSalud.h"
 #include "ProblemaDeSalud.h"
+#include <list>
+#include <string>
+#include "DTProblemaDeSalud.h"
 
 CategoriaProblemaSalud ::CategoriaProblemaSalud(string id, string descripcion) : idCategoria(id), descripcion(descripcion), problemas() {}
 
@@ -52,16 +55,25 @@ void CategoriaProblemaSalud ::altaProblemas(string codigo, string etiqueta)
     ProblemaDeSalud *pds = new ProblemaDeSalud(codigo, etiqueta);
     this->problemas->push_back(pds);
 }
-
+// Selecciona un problema de salud
+ProblemaDeSalud *CategoriaProblemaSalud ::seleccionarProblemaDeSalud(string codigo, string etiqueta)
+{
+    for (ProblemaDeSalud *p : *this->problemas)
+    {
+        if (p->getCodigo() == codigo && p->getEtiqueta() == etiqueta)
+        {
+            return p;
+        }
+    }
+    return nullptr;
+    
+}
 
 
 // Mostrar problemas de salud
-set<DTProblemaDeSalud> *mostrarProblemasDeSalud()
+set<DTProblemaDeSalud> *CategoriaProblemaSalud ::mostrarProblemasDeSalud()
 {
 }
-// Selecciona un problema de salud
-ProblemaDeSalud seleccionarProblemaDeSalud(string codigo, string etiqueta)
-{
-}
+
 
 CategoriaProblemaSalud ::~CategoriaProblemaSalud() {}

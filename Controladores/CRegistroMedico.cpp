@@ -1,14 +1,16 @@
 #include "CRegistroMedico.h"
 #include "CUsuario.h"
 #include "ProblemaDeSalud.h"
+#include "CategoriaProblemaSalud.h"
 #include "DTFecha.h"
 #include "DTHora.h"
 #include "DTConsulta.h"
 #include "Actividad.h"
+#include "Consulta.h"
 #include "Comun.h"
+#include "Emergencia.h"
 #include "Medico.h"
 #include "Socio.h"
-#include "Emergencia.h"
 #include <list>
 #include <set>
 #include "definiciones.h"
@@ -115,9 +117,8 @@ void CRegistroMedico::altaProblemaDeSalud(string id, string codigo, string etiqu
     }
 }
 
-list<DTProblemaDeSalud> CRegistroMedico::mostrarProblemaDeSalud() 
+list<DTProblemaDeSalud> CRegistroMedico::mostrarProblemaDeSalud()
 {
-
 }
 
 void CRegistroMedico::reservaNuevaConsulta(string ciMedico, string ciSocio, const DTFecha fechaConsulta, const DTFecha fecReserva, const DTHora horaCosn)
@@ -164,25 +165,74 @@ void CRegistroMedico::reservaNuevaConsulta(string ciMedico, string ciSocio, cons
         Comun *cons = new Comun(fecReserva, EstadoConsulta::Reservada, fechaConsulta, horaCosn, s, m);
         s->addActividad(cons, m->verCi());
         m->addActividad(cons);
+        cout <<"\n\n Se creo la consulta, o eso parece";
     }
     else if (!esMedico)
     {
         /* El usuario de la cedula no es medico */
-    }else if (!esSocio)
+    }
+    else if (!esSocio)
     {
         /* El usuario de la cedula no es socio */
     }
-    
-    
 }
 
-ProblemaDeSalud *CRegistroMedico::seleccionarProblemaDeSalud(string codigo, string etiqueta) 
+/* ProblemaDeSalud *CRegistroMedico::seleccionarProblemaDeSalud(string codigo, string etiqueta)
 {
-    
+} */
+
+void CRegistroMedico::altaDiagnosticoConsulta(map<string, map<string, string>> *problAsoc, string descripDiagnostico, bool esQuirurgico, bool esFarmaco, list<string> *medicamentos, string descripFarmaco, const DTFecha fechaCirujia, string ciMedicoCirujano, string descripcionQuirurji)
+{
+    Consulta *cons = this->memConsulta;
+    list<ProblemaDeSalud *> *listProb = new list<ProblemaDeSalud *>;
+
+    for (auto &[idCat, problemas] : *problAsoc)
+    {
+        auto itCat = this->problemasDeSalud->find(idCat);
+        if (itCat != problemasDeSalud->end())
+        {
+            for (auto &[codigo, etiqueta] : problemas)
+            {
+                ProblemaDeSalud *p = itCat->second->seleccionarProblemaDeSalud(codigo, etiqueta);
+                if (p != nullptr)
+                {
+                    listProb->push_back(p);
+                }
+                
+                
+            }
+        }
+    }
+    if (esQuirurgico)
+    {
+        bool creado = false;
+        Usuario *usrMed = CUsuario::getInstance()->darUsuario(ciMedicoCirujano);
+        if (usrMed != nullptr)
+        {
+            list<CategoriaUsuario *> *catUm = usrMed->getCatUsr();
+            for (CategoriaUsuario *c : *catUm)
+            {
+                if (Medico *med = dynamic_cast<Medico *>(c))
+                {
+                    this->memConsulta->crearDiagnosticoTratQuirurjico(descripDiagnostico, listProb, med, descripcionQuirurji, fechaCirujia);
+                    creado = true;
+                }
+            }
+        }else if(usrMed == nullptr || creado == false){
+            cout << "\n\n\t No se creo la consulta!";
+        }
+    }
+    else if (esFarmaco)
+    {
+        this->memConsulta->crearDiagnosticoTratFarmaco(descripFarmaco,listProb, medicamentos, descripFarmaco);
+    }
+    else
+    {
+        this->memConsulta->crearDiagnostico(descripDiagnostico, listProb);
+    }
+    //Leberar memoria de los map creados en el main
+    delete problAsoc;
 }
-
-
-
 
 Consulta *CRegistroMedico::seleccionarConsulta(string idConsulta) {}
 CategoriaProblemaSalud *CRegistroMedico::seleccionarCategoria(string nombreCat) {}

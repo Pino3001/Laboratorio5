@@ -8,6 +8,7 @@
 #include "DTConsulta.h"
 #include <set>
 #include <string>
+#include <map>
 #include "definiciones.h"
 #include "DTCategoriaRep.h"
 
@@ -21,9 +22,9 @@ public:
     virtual void altaCategoriaRepresentacion(string id, string descripcion) = 0; 
     virtual void altaProblemaDeSalud(string id, string codigo, string etiqueta) = 0;
     virtual void reservaNuevaConsulta(string ciMedico, string ciSocio, const DTFecha fechaConsulta, const DTFecha fecReserva,const DTHora horaCosn)=0;
-    virtual ProblemaDeSalud *seleccionarProblemaDeSalud(string codigo, string etiqueta) = 0;
     virtual list<DTProblemaDeSalud> mostrarProblemaDeSalud() = 0;
-    
+    virtual void altaDiagnosticoConsulta(map<string,map<string,string>> *problAsoc, string descripDiagnostico, bool esQuirurgico, bool esFarmaco, list<string> *medeicamentos, string descripFarmaco, const DTFecha fechaCirujia, string ciMedicoCirujano, string descripcionQuirurji)=0;
+
     virtual CategoriaProblemaSalud *seleccionarCategoria(string nombreCat) = 0;
     virtual list<DTCategoriaRep> listarRepresentaciones() = 0;
     virtual Consulta *seleccionarConsulta(string idConsulta) = 0;

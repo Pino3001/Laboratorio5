@@ -8,10 +8,7 @@ using namespace std;
 Quirurgico::Quirurgico(string descripcion, const DTFecha fechaCirugia) : Tratamiento(descripcion){
     this->fechaCirugia = fechaCirugia;
 }
-Quirurgico ::Quirurgico(string descripcion, const DTFecha fechaCirugia, Medico *cirujano) : Tratamiento(descripcion){
-    this->fechaCirugia = fechaCirugia;
-    this->cirujanoOperacion = cirujano;
-}
+Quirurgico ::Quirurgico(string descripcion, const DTFecha fechaCirugia, Medico *cirujano) : Tratamiento(descripcion), fechaCirugia(fechaCirugia), cirujanoOperacion(cirujano) {}
 
 
 // Getter

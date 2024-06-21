@@ -10,6 +10,47 @@
 #include "iostream"
 using namespace std;
 
+void CargarDatosDefecto(IUsuario *usuarios, IRegistroMedico *registros)
+{
+    //TM
+    DTFecha fch1(01,01,1990);
+    list<TipoUsuario> *tUsr = new list<TipoUsuario>;
+    tUsr->push_back(TipoUsuario::Tipo_Socio);
+    usuarios->altaUsuario("34562345", "Tifany", "McKensey", "Femenino", fch1, tUsr);
+    //DP
+    DTFecha fch2(03,03,1980);
+    list<TipoUsuario> *tUsr1 = new list<TipoUsuario>;
+    tUsr->push_back(TipoUsuario::Tipo_Socio);
+    usuarios->altaUsuario("12345435", "Diego", "Perez", "Masculino", fch2, tUsr1);
+    //JM
+    DTFecha fch3(07,04,1970);
+    list<TipoUsuario> *tUsr2 = new list<TipoUsuario>;
+    tUsr->push_back(TipoUsuario::Tipo_Socio);
+    tUsr->push_back(TipoUsuario::Tipo_Medico);
+    usuarios->altaUsuario("65436667", "Juan", "Montoya", "Masculino", fch3, tUsr2);
+    //DC
+    DTFecha fch4(13,07,1993 );
+    list<TipoUsuario> *tUsr3 = new list<TipoUsuario>;
+    tUsr->push_back(TipoUsuario::Tipo_Medico);
+    usuarios->altaUsuario("43521343", "Debora", "Corral", "Femenino", fch4, tUsr3);
+    //AL
+    DTFecha fch5(24,9,1981);
+    list<TipoUsuario> *tUsr4 = new list<TipoUsuario>;
+    tUsr->push_back(TipoUsuario::Tipo_Medico);
+    usuarios->altaUsuario("98056743", "Ana", "Lopez", "Femenino", fch4, tUsr4);
+
+    DTFecha fC(23,6,2014);
+    DTFecha fR(21,6,2014);
+    DTHora hC(17,00,00);
+    registros->reservaNuevaConsulta("65436667", "34562345", fC, fR, hC);
+    /* Consultas Comunes
+    C1 21/06/2014 23/06/2014 JM TM
+    C2 22/05/2014 22/06/2014 DC TM
+    C3 15/03/2014 16/03/2014 DC JM
+    C4 28/02/2014 1/03/2014 AL DP */
+
+}
+
 int main()
 {
     string nombre, cedula, apellido, contraseña;
@@ -24,6 +65,7 @@ int main()
     tUsr->push_back(TipoUsuario::Tipo_Administrativo);
     usuarios->altaUsuario("1", "James", "Peer", "Masculino", fch, tUsr); 
 
+    CargarDatosDefecto(usuarios, registros);
    /*    cout << "\t\t Iniciando el sistema...";
       cout << "\n\t Ingrese un administrativo por defecto para el sistema.";
       cout << "\n Nombre: ";
@@ -349,40 +391,3 @@ int main()
     } while (!salir);
 }
 
-void CargarDatosDefecto(IUsuario *usuarios, IRegistroMedico *registros)
-{
-    //TM
-    DTFecha fch1(01,01,1990);
-    list<TipoUsuario> *tUsr = new list<TipoUsuario>;
-    tUsr->push_back(TipoUsuario::Tipo_Socio);
-    usuarios->altaUsuario("34562345", "Tifany", "McKensey", "Femenino", fch1, tUsr);
-    //DP
-    DTFecha fch2(03,03,1980);
-    list<TipoUsuario> *tUsr1 = new list<TipoUsuario>;
-    tUsr->push_back(TipoUsuario::Tipo_Socio);
-    usuarios->altaUsuario("12345435", "Diego", "Perez", "Masculino", fch2, tUsr1);
-    //JM
-    DTFecha fch3(07,04,1970);
-    list<TipoUsuario> *tUsr2 = new list<TipoUsuario>;
-    tUsr->push_back(TipoUsuario::Tipo_Socio);
-    tUsr->push_back(TipoUsuario::Tipo_Medico);
-    usuarios->altaUsuario("65436667", "Juan", "Montoya", "Masculino", fch3, tUsr2);
-    //DC
-    DTFecha fch4(13,07,1993 );
-    list<TipoUsuario> *tUsr3 = new list<TipoUsuario>;
-    tUsr->push_back(TipoUsuario::Tipo_Medico);
-    usuarios->altaUsuario("43521343", "Debora", "Corral", "Femenino", fch4, tUsr3);
-    //AL
-    DTFecha fch5(24,9,1981);
-    list<TipoUsuario> *tUsr4 = new list<TipoUsuario>;
-    tUsr->push_back(TipoUsuario::Tipo_Medico);
-    usuarios->altaUsuario("98056743", "Ana", "Lopez", "Femenino", fch4, tUsr4);
-
-
-    /* Consultas Comunes
-    C1 21/06/2014 23/06/2014 JM TM
-    C2 22/05/2014 22/06/2014 DC TM
-    C3 15/03/2014 16/03/2014 DC JM
-    C4 28/02/2014 1/03/2014 AL DP */
-
-}
