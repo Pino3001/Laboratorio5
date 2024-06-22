@@ -6,6 +6,7 @@
 #include "DTHora.h"
 #include "DTReserva.h"
 #include "DTHistorial.h"
+#include "DTDatosUsuario.h"
 #include <map>
 #include <list>
 #include <string>
@@ -24,32 +25,30 @@ private:
 
 public:
     static CUsuario *getInstance();
-    // ver si pasar como parametro al usuario administrativo por defecto
 
     // metodos controlador
     void crearAdminDefecto(string nombre, string cedula, string apellido, string contraseña);
     bool existeUsuario(string ci);
     bool esUsuario(string ci);
     bool verificarContraseña(string ci, string contraseña);
+    bool primerContraseña();
+    void darPrimerContraseña(string contrasenia);
     bool asignarSesion(string ci);
     list<TipoUsuario> *tipoDeUsuario(string ci);
     DTDatosUsuario buscarUser(string ci);
-    bool primerContraseña();
-    void darPrimerContraseña(string contrasenia);
-    bool cerrarSesion();
     void altaUsuario(string ci, string nomb, string apell, string sexo, const DTFecha fechNac, list<TipoUsuario> *tUsr);
+    bool cerrarSesion();
+    DTDatosUsuario obtenerDatosSocio(string ci);
 
     Usuario *darUsuario(string ci);
     Medico *darMedico(string ci);
     Socio *darSocio(string ci);
 
     void cancelarIntento();
-    DTDatosUsuario buscarUser();
     void activarUsr();
     set<DTReserva> mostrarReservasActivas();
     void camcelarReserva(string idConsulta);
 
-    DTDatosUsuario obtenerDatosSocio();
     ~CUsuario();
 };
 

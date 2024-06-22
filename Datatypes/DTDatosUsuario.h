@@ -13,19 +13,19 @@ private:
     string ci;
     string nombre;
     DTFecha fechaNacimiento;
-    list<TipoUsuario> *tipoUsuario;
+    list<TipoUsuario> tipoUsuario;
     bool activo;
 
 public:
     DTDatosUsuario();
-    DTDatosUsuario(string ci, string nombre, const DTFecha fechaNacimiento, list<TipoUsuario> *tipoUsuario, bool activo);
-    DTDatosUsuario(DTDatosUsuario &dtu);
+    DTDatosUsuario(string ci, string nombre, const DTFecha fechaNacimiento, list<TipoUsuario> tipoUsuario, bool activo);
+    DTDatosUsuario(const DTDatosUsuario &dtu);
 
-    string getCi();
-    string getNombre();
+    string getCi()const;
+    string getNombre()const;
     DTFecha getFechaNacimiento()const;
-    list<TipoUsuario> *getTipoUsuario();
-    bool getActivo();
+    list<TipoUsuario> getTipoUsuario()const;
+    bool getActivo()const;
 
     void mostrarDatosUsuario();
 

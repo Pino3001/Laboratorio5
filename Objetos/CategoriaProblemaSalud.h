@@ -25,7 +25,7 @@ public:
     string getDescripcion();
     list<ProblemaDeSalud*> * getProblemas();
     DTCategoriaRep getDatosCategoria();
-    list <DTProblemaDeSalud> getDTProblemas();
+    list <DTProblemaDeSalud> getDTProblemasAsoc();
 
     void altaProblemas(string codigo, string etiqueta);
     set<DTProblemaDeSalud> *mostrarProblemasDeSalud();

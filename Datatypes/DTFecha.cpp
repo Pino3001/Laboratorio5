@@ -1,4 +1,5 @@
 #include "DTFecha.h"
+#include <iomanip> // Para std::setw y std::setfill
 
 // Constructor
 DTFecha::DTFecha() : dia(0), mes(0), anio(0) {}

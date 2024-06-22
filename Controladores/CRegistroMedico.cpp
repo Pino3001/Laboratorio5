@@ -84,13 +84,13 @@ void CRegistroMedico::registroConsulta(string ci, string ciMedico, const DTFecha
     }
 }
 
-list<DTCategoriaRep> *CRegistroMedico::mostrarRepresentaciones()
+list<DTCategoriaRep> CRegistroMedico::mostrarDatosCategorias()
 {
-    list<DTCategoriaRep> *ldt = new list<DTCategoriaRep>;
+    list<DTCategoriaRep> ldt;
     for (auto &parVal : *this->problemasDeSalud)
     {
         DTCategoriaRep dcr = DTCategoriaRep(parVal.second->getIdCategoria(), parVal.second->getDescripcion());
-        ldt->push_back(dcr);
+        ldt.push_back(dcr);
     }
     return ldt;
 }
@@ -123,31 +123,30 @@ void CRegistroMedico::altaProblemaDeSalud(string id, string codigo, string etiqu
     }
 }
 
-list<DTProblemaDeSalud> CRegistroMedico::mostrarProblemaDeSalud()
-{
-}
-
 void CRegistroMedico::reservaNuevaConsulta(string ciMedico, string ciSocio, const DTFecha fechaConsulta, const DTFecha fecReserva, const DTHora horaCosn)
 {
 
     Medico *m = CUsuario::getInstance()->darMedico(ciMedico);
     Socio *s = CUsuario::getInstance()->darSocio(ciSocio);
-    Usuario *usrSocio = CUsuario::getInstance()->darUsuario(ciSocio);
     if (m != nullptr && s != nullptr)
     {
         Comun *cons = new Comun(fecReserva, EstadoConsulta::Reservada, fechaConsulta, horaCosn, s, m);
-        s->addActividad(cons, m->verCi());
+        s->addActividad(cons);
         m->addActividad(cons);
         cout << "\n\n Se creo la consulta, o eso parece";
     }
     else if (m == nullptr)
     {
+        cout << "\nEl usuario de la cedula no es medico";
         /* El usuario de la cedula no es medico */
     }
     else if (s == nullptr)
     {
+        cout << "\nEl usuario de la cedula no es socio";
         /* El usuario de la cedula no es socio */
     }
+
+    cout << endl;
 }
 
 void CRegistroMedico::altaDiagnosticoConsulta(map<string, map<string, string>> *problAsoc, string descripDiagnostico, bool esQuirurgico, bool esFarmaco, list<string> *medicamentos, string descripFarmaco, const DTFecha fechaCirujia, string ciMedicoCirujano, string descripcionQuirurji)
@@ -235,21 +234,59 @@ void CRegistroMedico::seleccionarConsulta(string ciSocio, string ciMedico, const
     }
 }
 
-void CRegistroMedico::crearHistorialPaciente(){
+void CRegistroMedico::crearHistorialPaciente()
+{
     this->memConsulta->crearHistorial();
 }
 
-list<DTHistorial> CRegistroMedico::obtenerHistorialPaciente(string ciSocio){
+list<DTHistorial> CRegistroMedico::obtenerHistorialPaciente(string ciSocio)
+{
     Socio *s = CUsuario::getInstance()->darSocio(ciSocio);
     return s->mostrarHistorialPorMedico();
 }
 
-void CRegistroMedico::registroConsultaEmergencia(string ci, string ciMedico, const DTFecha fecha, const DTHora hora, string descrpcion) {}
+void CRegistroMedico::registroConsultaEmergencia(string ci, string ciMedico, const DTFecha fecha, const DTHora hora, string descrpcion)
+{
+    Medico *m = CUsuario::getInstance()->darMedico(ciMedico);
+    Socio *s = CUsuario::getInstance()->darSocio(ci);
+    if (m != nullptr && s != nullptr)
+    {
+        cout << "\n marca 1";
+        Emergencia *eme = new Emergencia(descrpcion, fecha, hora, s, m);
+        cout << "\n marca 2";
+
+        s->addActividad(eme);
+        cout << "\n marca 3";
+
+        m->addActividad(eme);
+        cout << "\n\n Se creo la consulta, o eso parece";
+    }
+    else if (m == nullptr)
+    {
+        cout << "\nEl usuario de la cedula no es medico";
+        /* El usuario de la cedula no es medico */
+    }
+    else if (s == nullptr)
+    {
+        cout << "\nEl usuario de la cedula no es socio";
+        /* El usuario de la cedula no es socio */
+    }
+}
+
+list<DTCategoriaRep> CRegistroMedico::listarRepresentacionesEstandarizadas()
+{
+    list<DTCategoriaRep> ldt;
+    for (auto &parVal : *this->problemasDeSalud)
+    {
+        DTCategoriaRep dcr = DTCategoriaRep(parVal.second->getIdCategoria(), parVal.second->getDescripcion(),parVal.second->getDTProblemasAsoc());
+        ldt.push_back(dcr);
+    }
+    return ldt;
+}
 
 void CRegistroMedico::agregarTratamientoFarmaco(Diagnostico diagnostico, string descripcion, set<string> listMedicamentos) {}
 void CRegistroMedico::agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, DTFecha fecha) {}
 void CRegistroMedico::agregarDiagnostico(Diagnostico diagnostico) {}
-list<DTCategoriaRep> CRegistroMedico::listarRepresentaciones() {}
 
 CRegistroMedico::~CRegistroMedico()
 {

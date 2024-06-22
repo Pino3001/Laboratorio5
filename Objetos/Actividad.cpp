@@ -8,9 +8,12 @@
 // Constructores
 Actividad ::Actividad(Socio *socio, Medico *medico)
 {
+    cout << "1";
     this->socioConsulta = socio;
     this->medicoRealiza = medico;
     this->historialAsoc = nullptr;
+    cout << "1";
+
 }
 
 Actividad ::Actividad(Actividad &actividad)

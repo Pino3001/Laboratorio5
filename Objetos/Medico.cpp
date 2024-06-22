@@ -54,9 +54,9 @@ string Medico ::verCi()
 {
     this->usuarioVinculado->getCedula();
 }
-void Medico::addActividad(Comun *ConsComun)
+void Medico::addActividad(Consulta *Cons)
 {
-    this->actividadMedico->push_back(ConsComun);
+    this->actividadMedico->push_back(Cons);
 }
 
 TipoUsuario Medico ::obtenerTipo() {}

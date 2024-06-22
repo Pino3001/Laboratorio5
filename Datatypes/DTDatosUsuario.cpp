@@ -4,6 +4,7 @@
 #include "DTHora.h"
 #include <string>
 #include "iostream"
+#include <iomanip> // Para std::setw y std::setfill
 using namespace std;
 
 DTDatosUsuario ::DTDatosUsuario()
@@ -12,11 +13,10 @@ DTDatosUsuario ::DTDatosUsuario()
     this->nombre = "0";
     DTFecha fecha;
     this->fechaNacimiento = fecha;
-    this->tipoUsuario = new list<TipoUsuario>;
+    this->tipoUsuario;
     this->activo = true;
 }
-
-DTDatosUsuario ::DTDatosUsuario(string ci, string nombre, const DTFecha fechaNacimiento, list<TipoUsuario> *tipo_Usuario, bool activo)
+DTDatosUsuario ::DTDatosUsuario(string ci, string nombre, const DTFecha fechaNacimiento, list<TipoUsuario> tipo_Usuario, bool activo)
 {
     this->ci = ci;
     this->nombre = nombre;
@@ -24,64 +24,67 @@ DTDatosUsuario ::DTDatosUsuario(string ci, string nombre, const DTFecha fechaNac
     this->tipoUsuario = tipo_Usuario;
     this->activo = activo;
 }
-DTDatosUsuario ::DTDatosUsuario(DTDatosUsuario &dtu)
-{
-    this->ci = dtu.getCi();
-    this->nombre = dtu.getNombre();
-    this->fechaNacimiento = dtu.getFechaNacimiento();
-    for (TipoUsuario d : *dtu.getTipoUsuario())
-    {
-        this->tipoUsuario->push_back(d);
-    }
-    
-    for (int i = 0; i < MAX_TIPO_USUARIO; i++)
-    {
-        this->tipoUsuario[i] = dtu.getTipoUsuario()[i];
-    }
-    this->activo = dtu.getActivo();
-}
+ DTDatosUsuario ::DTDatosUsuario(const DTDatosUsuario &dtu)
+        : ci(dtu.ci), nombre(dtu.nombre), fechaNacimiento(dtu.fechaNacimiento), tipoUsuario(dtu.tipoUsuario) {}
 
-string DTDatosUsuario ::getCi() { return this->ci; }
-string DTDatosUsuario ::getNombre() { return this->nombre; }
-DTFecha DTDatosUsuario ::getFechaNacimiento()const { return this->fechaNacimiento; }
-list<TipoUsuario> *DTDatosUsuario ::getTipoUsuario() { return this->tipoUsuario; }
-bool DTDatosUsuario ::getActivo() { return this->activo; }
+string DTDatosUsuario ::getCi()const
+{
+    return this->ci;
+}
+string DTDatosUsuario ::getNombre()const
+{
+    return this->nombre;
+}
+DTFecha DTDatosUsuario ::getFechaNacimiento() const
+{
+    return this->fechaNacimiento;
+}
+list<TipoUsuario> DTDatosUsuario ::getTipoUsuario()const
+{
+    return this->tipoUsuario;
+}
+bool DTDatosUsuario ::getActivo()const
+{
+    return this->activo;
+}
 
 void DTDatosUsuario ::mostrarDatosUsuario()
 {
     cout << "\n";
-    cout << "\t ______________________________________\n";
+    cout << setw(40) << setfill('_') << "\n";
     cout << "\t  C.I: " << this->ci << "\n";
     cout << "\t  Nombre Usuario: " << this->nombre << "\n";
     cout << "\t  Fecha de Nacimiento: " << this->fechaNacimiento.getAnio() << ":" << this->fechaNacimiento.getMes() << ":" << this->fechaNacimiento.getDia() << "\n";
-    cout << "\t  Tipo de Usuario : " << "\n";
-/*     for (int i = 0; i < MAX_TIPO_USUARIO; i++)
+    cout << "\t  Tipo de Usuario : ";
+    for (TipoUsuario t : this->tipoUsuario)
     {
-        if (this->tipoUsuario[i] == Tipo_Socio)
+        if (t == TipoUsuario::Tipo_Socio)
         {
             cout << "-Socio- ";
         }
-        else if (this->tipoUsuario[i] == Tipo_Medico)
+        else if (t == TipoUsuario::Tipo_Medico)
         {
             cout << "-Medico- ";
         }
-        else if (this->tipoUsuario[i] == Tipo_Administrativo)
+        else if (t == TipoUsuario::Tipo_Administrativo)
         {
             cout << "-Administrativo- ";
         }
-        else if (this->tipoUsuario[i] == Administrativo_defecto)
+        else if (t == TipoUsuario::Administrativo_defecto)
         {
             cout << "-Administrativo por defecto- ";
         }
-    } */
+    }
     cout << "\n";
     cout << "\t  Activo: ";
     if (this->activo)
     {
         cout << "SI" << "\n";
-    }else{
+    }
+    else
+    {
         cout << "NO" << "\n";
     }
-    cout << "\t ______________________________________\n";
+    cout << setw(40) << setfill('_') << "\n";
 }
 DTDatosUsuario ::~DTDatosUsuario() {}

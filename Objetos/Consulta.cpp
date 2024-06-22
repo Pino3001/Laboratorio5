@@ -29,6 +29,8 @@ Consulta ::Consulta(const DTFecha fechaConsulta, const DTHora horaConsulta, Soci
     this->fechaConsulta = fechaConsulta;
     this->horaConsulta = horaConsulta;
     this->diagnosticosConsulta = new list<Diagnostico *>;
+    cout << "1";
+
 }
 Consulta ::Consulta(Consulta &consulta, Actividad &actividad) : Actividad(actividad)
 {

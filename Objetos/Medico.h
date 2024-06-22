@@ -7,7 +7,6 @@
 #include "Actividad.h"
 #include "Historial.h"
 class Usuario;
-class Comun;
 class Consulta;
 using namespace std;
 
@@ -31,7 +30,7 @@ public:
 
     string verNombre();
     string verCi();
-    void addActividad(Comun *ConsComun);
+    void addActividad(Consulta *Cons);
 
     TipoUsuario obtenerTipo();
     Actividad *buscarConsulta(string idConsulta);

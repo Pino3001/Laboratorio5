@@ -4,6 +4,7 @@
 #include "DTHora.h"
 #include "DTReserva.h"
 #include "DTHistorial.h"
+#include "DTDatosUsuario.h"
 #include "Medico.h"
 #include "Socio.h"
 #include "Administrativo.h"
@@ -134,7 +135,7 @@ list<TipoUsuario> *CUsuario::tipoDeUsuario(string ci)
     return nullptr;
 }
 
-DTDatosUsuario CUsuario::buscarUser(string ci)
+DTDatosUsuario CUsuario::obtenerDatosSocio(string ci)
 {
     // Auto para no colocar map<string, Usuario*>::iterator
     auto itu = this->memColUsuario->find(ci);
@@ -180,7 +181,7 @@ void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, co
             Socio *s = new Socio();
             catUsr->push_back(s);
         }
-        else if (t == TipoUsuario::Tipo_Administrativo || t == TipoUsuario::Administrativo_defecto)
+        else if (t == TipoUsuario::Tipo_Administrativo)
         {
             Administrativo *a = new Administrativo();
             catUsr->push_back(a);
@@ -203,6 +204,7 @@ void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, co
     else
     {
         std::cout << "El Usuario con la cedula " << ci << " ya existe en el sistema!!";
+        delete catUsr;
         delete newUsr;
     }
     // Corto iteracion por posible incercion repetida.
@@ -270,12 +272,10 @@ Socio *CUsuario::darSocio(string ci)
 
 
 void CUsuario::cancelarIntento() {}
-DTDatosUsuario CUsuario::buscarUser() {}
 void CUsuario::activarUsr() {}
 set<DTReserva> CUsuario::mostrarReservasActivas() {}
 void CUsuario::camcelarReserva(string idConsulta) {}
 // bool CUsuario::buscarSocio(string ci) {}
-DTDatosUsuario CUsuario::obtenerDatosSocio() {}
 
 CUsuario::~CUsuario()
 {

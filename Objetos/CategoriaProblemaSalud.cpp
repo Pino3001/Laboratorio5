@@ -38,7 +38,7 @@ DTCategoriaRep CategoriaProblemaSalud ::getDatosCategoria()
 }
 
 //Revisar!!
-list<DTProblemaDeSalud> CategoriaProblemaSalud ::getDTProblemas(){
+list<DTProblemaDeSalud> CategoriaProblemaSalud ::getDTProblemasAsoc(){
     list<DTProblemaDeSalud> ldtProb;
     for (ProblemaDeSalud *p : *this->problemas)
     {

@@ -22,19 +22,14 @@ public:
     virtual list<TipoUsuario> * tipoDeUsuario(string ci)=0;
     virtual void altaUsuario(string ci, string nomb, string apell, string sexo, const DTFecha fechNac, list<TipoUsuario> *tUsr) = 0;
     virtual bool cerrarSesion() = 0;
-
-    virtual DTDatosUsuario buscarUser(string ci) = 0;
+    virtual DTDatosUsuario obtenerDatosSocio(string ci) = 0;
 
     virtual void cancelarIntento() = 0;
-
-    // virtual void cancelarIntento()= 0;
-    virtual DTDatosUsuario buscarUser() = 0;
     virtual void activarUsr() = 0;
     virtual set<DTReserva> mostrarReservasActivas() = 0;
     virtual void camcelarReserva(string idConsulta) = 0;
 
 
-    virtual DTDatosUsuario obtenerDatosSocio() = 0;
     virtual ~IUsuario() = default; 
 };
 #endif

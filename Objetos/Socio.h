@@ -30,7 +30,7 @@ public:
     map <string, list <Actividad*>> *getActividadesSocio();
     set <Historial*> *getHistorialSocio();
 
-    void addActividad(Consulta *Cons, string ciMedico);
+    void addActividad(Consulta *cons);
     void addHistorialSocio(Historial *h);
     string verNombre();
     string verCi();

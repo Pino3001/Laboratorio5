@@ -58,10 +58,10 @@ public:
     bool getActivo();
     list<Actividad *> *getActividadesUsr();
     list<CategoriaUsuario*> *getCatUsr();
-    DTDatosUsuario& getDatosUsuario(); // lista
+    DTDatosUsuario getDatosUsuario()const; // lista
    
     void addVisibilityCatUsr();
-    list<TipoUsuario> *listarTipoDeUsuario();
+    list<TipoUsuario> listarTipoDeUsuario()const;
     bool contraValida(string contra);
     void addCatUsuario(CategoriaUsuario *cat); // lista
    

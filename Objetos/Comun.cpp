@@ -13,10 +13,15 @@
 
 Comun::Comun(const DTFecha fechaReserva, EstadoConsulta estConsulta, const DTFecha fecha, const DTHora hora, Socio *socio, Medico *medico) : Consulta(fecha, hora, socio, medico)
 {
+    cout << "2";
+    
     this->fechaReserva = fecha;
     this->estadoConsulta = estConsulta;
+    
+    cout << "2";
+
 }
-Comun::Comun(Comun &comun, Consulta &consulta, Actividad &actividad) : Consulta(consulta, actividad)
+Comun::Comun(Comun &comun) : Consulta(comun)
 {
     this->fechaReserva = comun.getFechaReserva();
     this->estadoConsulta = comun.getEstadoConsulta();

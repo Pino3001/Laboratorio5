@@ -6,6 +6,7 @@
 #include "Medico.h"
 #include "DTFecha.h"
 #include <set>
+#include <list>
 
 // CONSTRUCTORES
 /* Usuario ::Usuario()
@@ -155,10 +156,11 @@ list<CategoriaUsuario *> *Usuario::getCatUsr()
 {
     return this->catUsr;
 }
-DTDatosUsuario &Usuario::getDatosUsuario() // Da un datatype con los datos del Usuario.
+DTDatosUsuario Usuario::getDatosUsuario() const// Da un datatype con los datos del Usuario.
 {
     DTFecha fechaNacimiento = this->getFechaNacimiento();
-    DTDatosUsuario dtu(this->cedula, this->getNombre(), this->getFechaNacimiento(), this->listarTipoDeUsuario(), this->getActivo());
+    list<TipoUsuario> pa;
+    DTDatosUsuario dtu(this->cedula, this->nombre, fechaNacimiento,pa, this->activo);
     return dtu;
 }
 
@@ -171,9 +173,9 @@ void Usuario ::addVisibilityCatUsr()
     }
 }
 // Devielve un array con las categorias de usuario a las que pertenece el Usuario
-list<TipoUsuario> *Usuario ::listarTipoDeUsuario()
+list<TipoUsuario> Usuario ::listarTipoDeUsuario() const
 {
-    list<TipoUsuario> *tipos = new list<TipoUsuario>;
+    list<TipoUsuario> tipos;
     for (CategoriaUsuario *c : *this->catUsr)
     {
         if (c != nullptr)
@@ -181,24 +183,24 @@ list<TipoUsuario> *Usuario ::listarTipoDeUsuario()
             // Casteo para ver que tipo de socio esta intentando hacer un ingreso.
             if (dynamic_cast<Administrativo *>(c))
             {
-                tipos->push_back(TipoUsuario::Tipo_Administrativo);
+                tipos.push_back(TipoUsuario::Tipo_Administrativo);
             }
             else if (dynamic_cast<Socio *>(c))
             {
-                tipos->push_back(TipoUsuario::Tipo_Socio);
+                tipos.push_back(TipoUsuario::Tipo_Socio);
             }
             else if (dynamic_cast<Medico *>(c))
             {
-                tipos->push_back(TipoUsuario::Tipo_Medico);
+                tipos.push_back(TipoUsuario::Tipo_Medico);
             }
             else
             {
-                tipos->push_back(TipoUsuario::UNKNOWN);
+                tipos.push_back(TipoUsuario::UNKNOWN);
             }
         }
         else
         {
-            tipos->push_back(TipoUsuario::UNKNOWN);
+            tipos.push_back(TipoUsuario::UNKNOWN);
         }
     }
     return tipos;

@@ -20,7 +20,6 @@ private:
 public:
     Emergencia(string motivo, const DTFecha fecha, DTHora const hora, Socio *socio, Medico *medico);
     Emergencia(Emergencia &emergencia, Consulta &consulta, Actividad &actividad);
-    /* Emergencia(); */
 
     // Setters
     void setMotivoConsulta(string motivo);

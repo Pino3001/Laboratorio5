@@ -23,7 +23,7 @@ private:
 
 public:
     Comun(const DTFecha fechaReserva, EstadoConsulta estConsulta, const DTFecha fecha, const DTHora hora, Socio *socio, Medico *medico);
-    Comun(Comun &comun, Consulta &consulta, Actividad &actividad);
+    Comun(Comun &comun);
 
     // Setters
     void setFechaReserva(const DTFecha fechaReserva);

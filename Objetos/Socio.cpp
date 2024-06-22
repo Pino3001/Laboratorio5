@@ -58,18 +58,18 @@ void Socio::addHistorialSocio(Historial *h)
     this->historialSocio->insert(h);
 }
 
-void Socio ::addActividad(Consulta *Cons, string ciMedico)
+void Socio ::addActividad(Consulta* cons)
 {
-    auto itAct = this->actividadesSocio->find(ciMedico);
+    auto itAct = this->actividadesSocio->find(cons->cedulaMedico());
     if (itAct != this->actividadesSocio->end())
     {
-        itAct->second.push_back(Cons);
+        itAct->second.push_back(cons);
     }
     else
     {
         list<Actividad *> *a = new list<Actividad *>;
-        a->push_back(Cons);
-        this->actividadesSocio->insert(make_pair(ciMedico, *a));
+        a->push_back(cons);
+        this->actividadesSocio->insert(make_pair(cons->cedulaMedico(), *a));
     }
 }
 
