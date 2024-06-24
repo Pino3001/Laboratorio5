@@ -11,9 +11,6 @@ private:
 
 public:
     Administrativo();
-
-    string verNombre();
-    string verCi();
     Actividad *buscarConsulta(string idConsulta);
 
     ~Administrativo();

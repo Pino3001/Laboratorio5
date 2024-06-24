@@ -1,17 +1,18 @@
 #include "Socio.h"
+#include "definiciones.h"
 #include "CategoriaUsuario.h"
 #include "Consulta.h"
 #include "Comun.h"
 #include "Emergencia.h"
 #include "Actividad.h"
+#include <list>
+#include <string>
+#include "Medico.h"
 
 // Constructores
 Socio ::Socio() : CategoriaUsuario()
 {
     this->cantConsultas = 0;
-    map<string, list<Actividad *>> *actSocio = new map<string, list<Actividad *>>;
-    this->actividadesSocio = actSocio;
-    this->historialSocio = new set<Historial *>;
 }
 
 // Setters
@@ -19,13 +20,9 @@ void Socio ::setCantConsultas(int cantConsultas)
 {
     this->cantConsultas = cantConsultas;
 }
-void Socio ::setActividadesSocio(map<string, list<Actividad *>> *actividadesSocio)
+void Socio ::setActividadesSocio(set <Actividad*, ActividadPtrComparator> actividadesSocio)
 {
     this->actividadesSocio = actividadesSocio;
-}
-void Socio ::setHistorialSocio(set<Historial *> *historialSocio)
-{
-    this->historialSocio = historialSocio;
 }
 
 // Getters
@@ -33,64 +30,53 @@ int Socio ::getCantConsultas()
 {
     return this->cantConsultas;
 }
-map<string, list<Actividad *>> *Socio ::getActividadesSocio()
+set <Actividad*, ActividadPtrComparator>  Socio::getActividadesSocio()
 {
     return this->actividadesSocio;
 }
-set<Historial *> *Socio ::getHistorialSocio()
-{
-    return this->historialSocio;
-}
 
 // Metodos Socio
-string Socio ::verNombre()
+
+void Socio ::addActividad(Actividad* cons)
 {
-    return this->usuarioVinculado->getNombre();
+    this->actividadesSocio.insert(cons);
 }
 
-string Socio ::verCi()
+list<DTConsulta> Socio ::mostrarHistorialPorMedico() const
 {
-    return this->usuarioVinculado->getCedula();
-}
-
-void Socio::addHistorialSocio(Historial *h)
-{
-    this->historialSocio->insert(h);
-}
-
-void Socio ::addActividad(Consulta* cons)
-{
-    auto itAct = this->actividadesSocio->find(cons->cedulaMedico());
-    if (itAct != this->actividadesSocio->end())
+    list<DTConsulta> listDth;
+    for(Actividad *ac : this->actividadesSocio)
     {
-        itAct->second.push_back(cons);
-    }
-    else
-    {
-        list<Actividad *> *a = new list<Actividad *>;
-        a->push_back(cons);
-        this->actividadesSocio->insert(make_pair(cons->cedulaMedico(), *a));
-    }
-}
+        if(Comun *cons = dynamic_cast<Comun*>(ac))
+        {
+            if(cons->getEstadoConsulta() == EstadoConsulta::Asistio)
+            {
+                DTConsulta dth = ac->getDatosConsulta();
+                listDth.push_back(dth);
+            }
+        }
+        else
+        {
+            DTConsulta dth = ac->getDatosConsulta();
+            listDth.push_back(dth);
+        }
 
-list<DTHistorial> Socio ::mostrarHistorialPorMedico()
-{
-    list<DTHistorial> listDth;
-    for (Historial *h : *this->historialSocio)
-    {
-        DTHistorial dth = h->getDatosHistorial();
-        listDth.push_back(dth);
     }
     return listDth;
 }
 
-// Para implementar
-/* void Socio ::addActividad( actividad){} */
-TipoUsuario Socio ::obtenerTipo() {}
-Actividad *Socio ::buscarConsulta(string idConsulta) {}
-void Socio ::registrarAsistencia(EstadoConsulta estC, string idConsulta) {}
-Emergencia *Socio ::AltaConsultaEmergencia(const DTFecha fecha, const DTHora hora, string descripcion) {}
-set<DTReserva> Socio ::mostrarReservasActivas() {}
-void Socio ::cancelarReserva(string idConsulta) {}
+list<DTConsulta> Socio::obtenerReservasActivas()const
+{
+    list<DTConsulta> liDTC;
+    for(Actividad *ac : this->actividadesSocio){
+        if(Comun *cons = dynamic_cast<Comun*>(ac)){
+            if(cons->getEstadoConsulta() == EstadoConsulta::Reservada){
+                DTConsulta dc = cons->getDatosConsulta();
+                liDTC.push_back(dc);
+            }
+        }
+    }
+    return liDTC;
+}
 
 Socio ::~Socio() {}

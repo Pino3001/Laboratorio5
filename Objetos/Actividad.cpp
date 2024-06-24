@@ -2,25 +2,20 @@
 #include "Socio.h"
 #include "Medico.h"
 #include "Usuario.h"
-#include "Historial.h"
 #include "DTFecha.h"
 
 // Constructores
 Actividad ::Actividad(Socio *socio, Medico *medico)
 {
-    cout << "1";
     this->socioConsulta = socio;
     this->medicoRealiza = medico;
-    this->historialAsoc = nullptr;
-    cout << "1";
 
 }
 
-Actividad ::Actividad(Actividad &actividad)
+Actividad ::Actividad(const Actividad &actividad)
 {
     this->socioConsulta = actividad.getSocioConsulta();
     this->medicoRealiza = actividad.getMedicoRealiza();
-    this->historialAsoc = actividad.getHistorialAsoc();
 }
 
 // Setters
@@ -32,55 +27,40 @@ void Actividad ::setMedicoRealiza(Medico *medico)
 {
     this->medicoRealiza = medico;
 }
-void Actividad ::setHistorialAsoc(Historial *historial)
-{
-    this->historialAsoc = historial;
-}
 
 // Getters
-Socio *Actividad ::getSocioConsulta()
+Socio *Actividad ::getSocioConsulta()const
 {
     return this->socioConsulta;
 }
-Medico *Actividad ::getMedicoRealiza()
+Medico *Actividad ::getMedicoRealiza()const
 {
     return this->medicoRealiza;
 }
-Historial *Actividad::getHistorialAsoc()
-{
-    return this->historialAsoc;
+
+string Actividad:: getNombreSocioActividad()const{
+    return this->getSocioConsulta()->getUsuarioVinculado()->getNombre();
+}
+string Actividad:: getNombreMedicoActividad()const{
+    return this->getMedicoRealiza()->getUsuarioVinculado()->getNombre();
 }
 
-void Actividad::addHistorialAsoc(Historial *h)
-{
-    this->historialAsoc = h;
-    this->socioConsulta->addHistorialSocio(h);
-}
-
-string Actividad ::cedulaSocio() const
-{
-    return this->socioConsulta->verCi();
-}
-string Actividad ::cedulaMedico() const
-{
-    return this->medicoRealiza->verCi();
-}
-string Actividad ::nombreSocio()
-{
-    return this->socioConsulta->verNombre();
-}
-string Actividad ::nombreMedico()
-{
-    return this->medicoRealiza->verNombre();
-}
-
+//Operador de comparacion para ordenamiento.
 bool Actividad::operator<(const Actividad &act) const
 {
-    if (cedulaMedico() != act.cedulaMedico())
+   if (this->getNombreMedicoActividad() != act.getNombreMedicoActividad())
     {
-        return cedulaMedico() < act.cedulaMedico();
-    }
-    return getFechaConsulta() < act.getFechaConsulta();
+       return this->getNombreMedicoActividad() < act.getNombreMedicoActividad();
+   }
+   return getFechaConsulta() < act.getFechaConsulta();
 }
-// Para implementar
+//Destructor
 Actividad::~Actividad() {}
+
+
+
+
+
+
+
+

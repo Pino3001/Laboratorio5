@@ -5,7 +5,6 @@
 #include "DTConsulta.h"
 #include "Diagnostico.h"
 #include "ProblemaDeSalud.h"
-#include "Datatypes/DTReserva.h"
 #include "definiciones.h"
 #include <list>
 #include <string>
@@ -24,19 +23,9 @@ public:
     // Setters
     void setMotivoConsulta(string motivo);
     // Getters
-    string getMotivoConsulta();
-    DTConsulta getDatosConsulta();
-    // Métodos adicionales
-    string obtenerCiSocio();
-    string obtenerCiMedico();
-    TipoConsulta obtenerTipoConsulta();
-
-    Diagnostico crearDiagnostico(string descripcion, ProblemaDeSalud pds);
-    void agregarTratamientoFarmaco(Diagnostico diagnostico, string descripcion, set<std::string> *listMedicamentos);
-    void agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, const DTFecha fecha);
-    void agregarDiagnosticoAConsulta(Diagnostico diagnostico);
-
-    Historial *getHistorialAsoc();
+    string getMotivoConsulta()const;
+    DTConsulta getDatosConsulta()const;
+    TipoConsulta obtenerTipoConsulta()const;
 
     ~Emergencia();
 };

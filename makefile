@@ -7,6 +7,9 @@ CXX = g++
 # Flags del compilador
 CXXFLAGS = -std=c++11 -Wall -Wextra
 
+# Flags para depuración (agrega -g para incluir símbolos de depuración)
+DEBUGFLAGS = -g
+
 # Directorios de inclusión
 INCLUDES = -I. -IObjetos -IControladores -IFabrica -IDatatypes
 
@@ -21,7 +24,6 @@ SRCS = main.cpp \
        Objetos/Consulta.cpp \
        Objetos/Comun.cpp \
        Objetos/Emergencia.cpp \
-       Objetos/Historial.cpp \
        Objetos/Diagnostico.cpp \
        Objetos/Tratamiento.cpp \
        Objetos/Quirurgico.cpp \
@@ -34,10 +36,8 @@ SRCS = main.cpp \
        Datatypes/DTHora.cpp \
        Datatypes/DTFecha.cpp \
        Datatypes/DTDatosUsuario.cpp \
-       Datatypes/DTHistorial.cpp \
        Datatypes/DTDiagnostico.cpp \
        Datatypes/DTTratamiento.cpp \
-       Datatypes/DTReserva.cpp \
        Datatypes/DTConsulta.cpp \
        Datatypes/DTCategoriaRep.cpp \
        Datatypes/DTProblemaDeSalud.cpp

@@ -6,9 +6,7 @@
 #include <string>
 #include "DTHora.h"
 #include "CategoriaUsuario.h"
-#include "Historial.h"
-#include "DTReserva.h"
-class Actividad;
+#include "Actividad.h"
 class Comun;
 using namespace std;
 
@@ -17,35 +15,20 @@ class Socio : public CategoriaUsuario
 {
 private:
     int cantConsultas;
-    map <string, list <Actividad*>> *actividadesSocio;
-    set <Historial*> *historialSocio;
+    set <Actividad*, ActividadPtrComparator> actividadesSocio;
 public:
     Socio();
 
     void setCantConsultas(int cantConsultas);
-    void setActividadesSocio(map <string, list <Actividad*>> *actividadesSocio);
-    void setHistorialSocio(set <Historial*> *historialSocio);
+    void setActividadesSocio(set <Actividad*, ActividadPtrComparator> actividadesSocio);
 
     int getCantConsultas();
-    map <string, list <Actividad*>> *getActividadesSocio();
-    set <Historial*> *getHistorialSocio();
+    set <Actividad*, ActividadPtrComparator> getActividadesSocio();
 
-    void addActividad(Consulta *cons);
-    void addHistorialSocio(Historial *h);
-    string verNombre();
-    string verCi();
-    list <DTHistorial> mostrarHistorialPorMedico();
+    void addActividad(Actividad *cons);
+    list <DTConsulta> mostrarHistorialPorMedico()const;
 
-
-    TipoUsuario obtenerTipo();
-    Actividad *buscarConsulta(string idConsulta);
-    void registrarAsistencia(EstadoConsulta estC, string idConsulta);
-    Emergencia *AltaConsultaEmergencia(const DTFecha fecha, const DTHora hora, string descripcion);
-    set <DTReserva> mostrarReservasActivas();
-    void cancelarReserva(string idConsulta);
-
-
-
+    list<DTConsulta> obtenerReservasActivas()const;
 
     ~Socio();
 };

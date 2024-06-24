@@ -1,6 +1,7 @@
 #include "Quirurgico.h"
 #include "Tratamiento.h"
 #include "Medico.h"
+#include "Usuario.h"
 #include <string>
 using namespace std;
 
@@ -32,7 +33,7 @@ Medico *Quirurgico::getCirujanoOperacion()
 }
 DTTratamiento Quirurgico::getDatoTratamiento()
 {
-    DTTratamiento dtt(this->getDescripcionTratamiento(), TipoTratamiento::Tipo_Quirurjico, this->fechaCirugia, this->cirujanoOperacion->verNombre());
+    DTTratamiento dtt(this->getDescripcionTratamiento(), TipoTratamiento::Tipo_Quirurjico, this->fechaCirugia, this->cirujanoOperacion->getUsuarioVinculado()->getDatosUsuario());
     return dtt;
 }
 

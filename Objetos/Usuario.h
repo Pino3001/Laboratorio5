@@ -3,8 +3,7 @@
 #include "Administrativo.h"
 #include "definiciones.h"
 #include "DTDatosUsuario.h"
-#include "DTReserva.h"
-#include "DTHistorial.h"
+#include "DTConsulta.h"
 #include <list>
 #include <set>
 #include <string>
@@ -22,56 +21,53 @@ private:
     string cedula;
     string nombre;
     string apellido;
-    string contraseña;
-    bool primeraContraseña;
+    string contrasenia;
+    bool primeraContrasenia;
     string sexo;
     DTFecha fechaNacimiento;
-    int edad;
+    int cantInasistencias;
     bool activo;
     list<Actividad *> *actividadesUsr;
-    list<CategoriaUsuario*> *catUsr;
+    vector<CategoriaUsuario*> *catUsr;
 
 public:
-    Usuario(string ci, string nomb, string apell, string sex, const DTFecha fechNac, list<CategoriaUsuario*> *catUsr);
-    Usuario(string cedula, string nombre, string apellido, string contraseña, list<CategoriaUsuario*> *catUsr);
-   
+    Usuario(string ci, string nomb, string apell, string sex, const DTFecha fechNac, vector<CategoriaUsuario*> *catUsr);
+
     void setCedula(string cedula);
     void setNombre(string nombre);
     void setApellido(string apellido);
-    void setContraseña(string contraseña);
-    void setPrimeraContraseña(bool primeraContraseña);
+    void setContrasenia(string contrasenia);
+    void setPrimeraContrasenia(bool primeraContrasenia);
     void setSexo(string sexo);
     void setFechaNacimiento(const DTFecha fechaNacimiento);
-    void setEdad(int edad);
+    void setCantInasistencias();
     void setActivo(bool activo);
     void setActividadesUsr(list<Actividad *> *actividadesUsr);
-    void setCatUsr(list<CategoriaUsuario*> *catUsr);
+    void setCatUsr(vector<CategoriaUsuario*> *catUsr);
 
-    string getCedula();
-    string getNombre();
-    string getApellido();
-    string getContraseña();
-    bool getPrimeraContraseña();
-    string getSexo();
+    string getCedula()const;
+    string getNombre()const;
+    string getApellido()const;
+    string getContrasenia()const;
+    bool getPrimeraContrasenia()const;
+    string getSexo()const;
     DTFecha getFechaNacimiento()const;
-    int getEdad();
+    int getCantInasistencias();
     bool getActivo();
     list<Actividad *> *getActividadesUsr();
-    list<CategoriaUsuario*> *getCatUsr();
+    vector<CategoriaUsuario*> *getCatUsr();
     DTDatosUsuario getDatosUsuario()const; // lista
-   
+
     void addVisibilityCatUsr();
-    list<TipoUsuario> listarTipoDeUsuario()const;
+    vector<TipoUsuario> listarTipoDeUsuario()const;
     bool contraValida(string contra);
     void addCatUsuario(CategoriaUsuario *cat); // lista
-   
+
     void registrarAsistencia(EstadoConsulta estC, string idConsulta);
     Emergencia altaConsultaEmergencia(const DTFecha fecha, const DTHora hora, string descripcion);
     void addActividad(Comun actividad);
-    set<DTReserva> *mostrarReservasActivas();
     void cancelarReserva(string idConsulta);
     bool esSocio();
-    set<DTHistorial> *mostrarHistorialPorMedico();
     set<DTConsulta> *mostrarDatosConsulta(const DTFecha fecha);
     void buscarConsulta(string idConsulta);
 

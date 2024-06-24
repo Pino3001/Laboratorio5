@@ -1,32 +1,37 @@
 #include "DTTratamiento.h"
 #include "definiciones.h"
 
-DTTratamiento::DTTratamiento() : descripcion(""), tipo(TipoTratamiento::Tipo_Farmaco), listMedicamentos(), nombreCirujano(""){
+DTTratamiento::DTTratamiento() : descripcion(""), tipo(TipoTratamiento::Tipo_Farmaco), listMedicamentos(){
     DTFecha f;
     this->fechaCirujia = f;
+    DTDatosUsuario d;
+    this->cirujano= d;
+
 }
 
 DTTratamiento::DTTratamiento(string descripcion, TipoTratamiento trat, list<string> medicamentos)
-    : descripcion(descripcion), tipo(trat), listMedicamentos(medicamentos), nombreCirujano("") {
+    : descripcion(descripcion), tipo(trat), listMedicamentos(medicamentos) {
         DTFecha fc;
         this->fechaCirujia = fc;
+        DTDatosUsuario d;
+        this->cirujano= d;
     }
 
-DTTratamiento::DTTratamiento(string desc, TipoTratamiento t, const DTFecha fecha, string cirujano)
-    : descripcion(desc), tipo(t), listMedicamentos(), fechaCirujia(fecha), nombreCirujano(cirujano) {}
+DTTratamiento::DTTratamiento(string desc, TipoTratamiento t, const DTFecha fecha, DTDatosUsuario cirujano)
+    : descripcion(desc), tipo(t), listMedicamentos(), fechaCirujia(fecha), cirujano(cirujano) {}
 
 // Getters
-string DTTratamiento::getDescripcion()
+string DTTratamiento::getDescripcion()const
 {
     return descripcion;
 }
 
-TipoTratamiento DTTratamiento::getTipo()
+TipoTratamiento DTTratamiento::getTipo()const
 {
     return tipo;
 }
 
-list<string> DTTratamiento::getListMedicamentos()
+list<string> DTTratamiento::getListMedicamentos()const
 {
     return listMedicamentos;
 }
@@ -36,7 +41,7 @@ DTFecha DTTratamiento::getFechaCirugia()const
     return fechaCirujia;
 }
 
-string DTTratamiento::getNombreCirujano()
+DTDatosUsuario DTTratamiento::getCirujano()const
 {
-    return nombreCirujano;
+    return cirujano;
 }

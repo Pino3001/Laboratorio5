@@ -4,7 +4,7 @@
 #include <string>
 #include "DTProblemaDeSalud.h"
 
-CategoriaProblemaSalud ::CategoriaProblemaSalud(string id, string descripcion) : idCategoria(id), descripcion(descripcion), problemas() {}
+CategoriaProblemaSalud ::CategoriaProblemaSalud(string id, string descripcion) : idCategoria(id), descripcion(descripcion), problemas(new list<ProblemaDeSalud *> ) {}
 
 // Setters
 void CategoriaProblemaSalud ::setIdCategoria(string id)
@@ -56,17 +56,16 @@ void CategoriaProblemaSalud ::altaProblemas(string codigo, string etiqueta)
     this->problemas->push_back(pds);
 }
 // Selecciona un problema de salud
-ProblemaDeSalud *CategoriaProblemaSalud ::seleccionarProblemaDeSalud(string codigo, string etiqueta)
+ProblemaDeSalud *CategoriaProblemaSalud ::seleccionarProblemaDeSalud(string codigo)
 {
     for (ProblemaDeSalud *p : *this->problemas)
     {
-        if (p->getCodigo() == codigo && p->getEtiqueta() == etiqueta)
+        if (p->getCodigo() == codigo)
         {
             return p;
         }
     }
     return nullptr;
-    
 }
 
 

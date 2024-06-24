@@ -1,7 +1,12 @@
 #include "Emergencia.h"
 #include "Diagnostico.h"
+#include "Usuario.h"
+#include "Socio.h"
+#include "Medico.h"
 #include "DTConsulta.h"
 #include <string>
+#include <list>
+
 
 // Constructor con parámetros
 Emergencia::Emergencia(string motivo, const DTFecha fecha, const DTHora hora, Socio *socio, Medico *medico)
@@ -20,56 +25,26 @@ void Emergencia::setMotivoConsulta(string motivo)
 }
 
 // Getter
-string Emergencia::getMotivoConsulta()
+string Emergencia::getMotivoConsulta()const
 {
     return this->motivoConsulta;
 }
 // Retorna un objeto DTConsulta con los datos correspondientes
-DTConsulta Emergencia::getDatosConsulta()
+DTConsulta Emergencia::getDatosConsulta()const
 {
-    DTConsulta dtc(this->nombreSocio(), this->cedulaSocio(), this->nombreMedico(), this->getFechaConsulta(), this->getHoraConsulta(), TipoConsulta::Tipo_Emergencia);
-    return dtc;
+    Usuario * socio = this->getSocioConsulta()->getUsuarioVinculado();
+    Usuario * medico = this->getMedicoRealiza()->getUsuarioVinculado();
+    DTFecha fr;
+    return DTConsulta(socio->getDatosUsuario(), medico->getDatosUsuario(), this->getDatosDiagnosticoConsulta(), this->motivoConsulta, this->getFechaConsulta(), this->getHoraConsulta(), fr, TipoConsulta::Tipo_Emergencia);
 }
 
 // Métodos adicionales
-string Emergencia::obtenerCiSocio()
-{
-    return this->cedulaSocio();
-}
-string Emergencia::obtenerCiMedico()
-{
-    return this->cedulaMedico();
-}
-TipoConsulta Emergencia::obtenerTipoConsulta()
+
+TipoConsulta Emergencia::obtenerTipoConsulta()const
 {
     return TipoConsulta::Tipo_Emergencia;
 }
 
-Diagnostico Emergencia::crearDiagnostico(string descripcion, ProblemaDeSalud pds)
-{
-    // Implementación del método
-    // Crear y retornar un objeto Diagnostico
-}
-void Emergencia::agregarTratamientoFarmaco(Diagnostico diagnostico, string descripcion, set<string> *listMedicamentos)
-{
-    // Implementación del método
-    // Agregar tratamiento farmacológico al diagnóstico
-}
-void Emergencia::agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, const DTFecha fecha)
-{
-    // Implementación del método
-    // Agregar tratamiento quirúrgico al diagnóstico
-}
-void Emergencia::agregarDiagnosticoAConsulta(Diagnostico diagnostico)
-{
-    // Implementación del método
-    // Agregar diagnóstico a la consulta
-}
-
-Historial *Emergencia ::getHistorialAsoc() {}
 
 // Destructor
-Emergencia::~Emergencia()
-{
-    // Liberar recursos si es necesario
-}
+Emergencia::~Emergencia(){}

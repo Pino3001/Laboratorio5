@@ -29,7 +29,7 @@ public:
 
     void altaProblemas(string codigo, string etiqueta);
     set<DTProblemaDeSalud> *mostrarProblemasDeSalud();
-    ProblemaDeSalud *seleccionarProblemaDeSalud(string codigo, string etiqueta);
+    ProblemaDeSalud *seleccionarProblemaDeSalud(string codigo);
 
 
     ~CategoriaProblemaSalud();

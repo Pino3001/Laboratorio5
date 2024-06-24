@@ -1,10 +1,6 @@
 #include "CUsuario.h"
 #include "Usuario.h"
-#include "DTFecha.h"
-#include "DTHora.h"
-#include "DTReserva.h"
-#include "DTHistorial.h"
-#include "DTDatosUsuario.h"
+#include "CategoriaUsuario.h"
 #include "Medico.h"
 #include "Socio.h"
 #include "Administrativo.h"
@@ -12,6 +8,9 @@
 #include "Consulta.h"
 #include "Comun.h"
 #include "Emergencia.h"
+#include "DTFecha.h"
+#include "DTHora.h"
+#include "DTDatosUsuario.h"
 #include <map>
 #include <list>
 #include <string>
@@ -19,7 +18,7 @@ using namespace std;
 
 CUsuario *CUsuario::instance = nullptr;
 
-CUsuario::CUsuario() : usrActivo(nullptr), memColUsuario(new map<string, Usuario *>()), memUsrSesion(new list<Usuario *>()) {}
+CUsuario::CUsuario() : usrActivo(nullptr), memColUsuario(new map<string, Usuario *>()), memUsrSesion(new list<Usuario *>()), memMedicosSistema(new list<Medico *>) {}
 
 CUsuario *CUsuario::getInstance()
 {
@@ -31,26 +30,6 @@ CUsuario *CUsuario::getInstance()
 }
 
 // metodos del controlador
-void CUsuario::crearAdminDefecto(string nombre, string cedula, string apellido, string contraseña)
-{
-    // Creo las categorias de usuario que tendra el Usuario.
-    list<CategoriaUsuario *> *catUsr = new list<CategoriaUsuario *>;
-    Administrativo *a = new Administrativo();
-    catUsr->push_back(a);
-    // Creo Usuario
-    Usuario *newUsr = new Usuario(cedula, nombre, apellido, contraseña, catUsr);
-    newUsr->addVisibilityCatUsr();
-    // Inserto Usuario en la coleccion de usuarios en memoria
-    auto incerto = this->memColUsuario->insert(make_pair(cedula, newUsr));
-    if (incerto.second)
-    {
-        cout << "\n Se a creado el Usuario exitosamente!! ";
-    }
-    else
-    {
-        cout << "\n No se a podido crear el Administrativo por defecto. ";
-    }
-}
 
 bool CUsuario::existeUsuario(string ci)
 {
@@ -80,9 +59,9 @@ bool CUsuario::esUsuario(string ci)
     }
 }
 
-bool CUsuario::verificarContraseña(string ci, string contraseña)
+bool CUsuario::verificarContrasenia(string contrasenia)
 {
-    return this->usrActivo->contraValida(contraseña);
+    return this->usrActivo->contraValida(contrasenia);
 }
 
 bool CUsuario::asignarSesion(string ci)
@@ -107,7 +86,7 @@ list<TipoUsuario> *CUsuario::tipoDeUsuario(string ci)
     if (itu != memColUsuario->end())
     {
         Usuario *usr = itu->second;
-        list<CategoriaUsuario *> *catU = usr->getCatUsr();
+        vector<CategoriaUsuario *> *catU = usr->getCatUsr();
         for (CategoriaUsuario *c : *catU)
         {
             if (c != nullptr)
@@ -141,6 +120,7 @@ DTDatosUsuario CUsuario::obtenerDatosSocio(string ci)
     auto itu = this->memColUsuario->find(ci);
     if (itu != memColUsuario->end())
     {
+
         DTDatosUsuario dtu = itu->second->getDatosUsuario();
         return dtu;
     }
@@ -151,9 +131,9 @@ DTDatosUsuario CUsuario::obtenerDatosSocio(string ci)
     }
 }
 
-bool CUsuario::primerContraseña()
+bool CUsuario::primerContrasenia()
 {
-    if (this->usrActivo->getPrimeraContraseña())
+    if (this->usrActivo->getPrimeraContrasenia())
     {
         return true;
     }
@@ -163,18 +143,18 @@ bool CUsuario::primerContraseña()
     }
 }
 
-void CUsuario::darPrimerContraseña(string contrasenia)
+void CUsuario::darPrimerContrasenia(string contrasenia)
 {
-    this->usrActivo->setContraseña(contrasenia);
-    this->usrActivo->setPrimeraContraseña(true);
+    this->usrActivo->setContrasenia(contrasenia);
+    this->usrActivo->setPrimeraContrasenia(true);
 }
 
-void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, const DTFecha fechNac, list<TipoUsuario> *tUsr)
+void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, const DTFecha fechNac, list<TipoUsuario> tUsr)
 {
 
     // Creo las categorias de usuario que tendra el Usuario.
-    list<CategoriaUsuario *> *catUsr = new list<CategoriaUsuario *>;
-    for (TipoUsuario t : *tUsr)
+    vector<CategoriaUsuario *> *catUsr = new vector<CategoriaUsuario *>;
+    for (TipoUsuario t : tUsr)
     {
         if (t == TipoUsuario::Tipo_Socio)
         {
@@ -184,17 +164,24 @@ void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, co
         else if (t == TipoUsuario::Tipo_Administrativo)
         {
             Administrativo *a = new Administrativo();
+
             catUsr->push_back(a);
         }
         else if (t == TipoUsuario::Tipo_Medico)
         {
-            catUsr->push_back(new Medico());
+            Medico *m = new Medico();
+            catUsr->push_back(m);
+            this->memMedicosSistema->push_back(m);
         }
     }
     // Creo Usuario
     Usuario *newUsr = new Usuario(ci, nomb, apell, sexo, fechNac, catUsr);
-    delete tUsr;
-    newUsr->addVisibilityCatUsr();
+    for (CategoriaUsuario *c : *catUsr)
+    {
+        c->setUsuarioVinculado(newUsr);
+    }
+    // newUsr->addVisibilityCatUsr();
+
     // Inserto Usuario en la coleccion de usuarios en memoria
     auto incerto = this->memColUsuario->insert(make_pair(ci, newUsr));
     if (incerto.second)
@@ -232,11 +219,12 @@ Medico *CUsuario::darMedico(string ci)
     Usuario *usrMed = darUsuario(ci);
     if (usrMed != nullptr)
     {
-        list<CategoriaUsuario *> *catUm = usrMed->getCatUsr();
+        vector<CategoriaUsuario *> *catUm = usrMed->getCatUsr();
         for (CategoriaUsuario *c : *catUm)
         {
             if (Medico *med = dynamic_cast<Medico *>(c))
             {
+                med->setUsuarioVinculado(usrMed);
                 return med;
             }
         }
@@ -253,7 +241,7 @@ Socio *CUsuario::darSocio(string ci)
     Usuario *usrSocio = darUsuario(ci);
     if (usrSocio != nullptr)
     {
-        list<CategoriaUsuario *> *catUm = usrSocio->getCatUsr();
+        vector<CategoriaUsuario *> *catUm = usrSocio->getCatUsr();
         for (CategoriaUsuario *c : *catUm)
         {
             if (Socio *soc = dynamic_cast<Socio *>(c))
@@ -269,15 +257,31 @@ Socio *CUsuario::darSocio(string ci)
     return nullptr;
 }
 
-
-
-void CUsuario::cancelarIntento() {}
-void CUsuario::activarUsr() {}
-set<DTReserva> CUsuario::mostrarReservasActivas() {}
-void CUsuario::camcelarReserva(string idConsulta) {}
-// bool CUsuario::buscarSocio(string ci) {}
-
-CUsuario::~CUsuario()
+list<DTDatosUsuario> CUsuario::listarMedicos()
 {
-    // Destructor
+    list<DTDatosUsuario> lisDTD;
+    for (Medico *med : *this->memMedicosSistema)
+    {
+        DTDatosUsuario dc = med->getUsuarioVinculado()->getDatosUsuario();
+        lisDTD.push_back(dc);
+    }
+    return lisDTD;
 }
+
+list<DTConsulta> CUsuario::obtenerReservas(string ciSocio){
+    list<DTConsulta> liDTC;
+    cout << "CCCCCCEDILA" << ciSocio;
+    auto itu = this->memColUsuario->find(ciSocio);
+    if (itu != memColUsuario->end())
+    {
+        vector<CategoriaUsuario*> *lCU = itu->second->getCatUsr();
+        for(CategoriaUsuario *c : *lCU){
+            if(Socio *socio = dynamic_cast<Socio*>(c)){
+               liDTC = socio->obtenerReservasActivas();
+            }
+        }
+    }
+    return liDTC;
+}
+
+CUsuario::~CUsuario(){}

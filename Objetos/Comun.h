@@ -31,10 +31,10 @@ public:
 
     // Getters
     DTFecha getFechaReserva() const ;
-    EstadoConsulta getEstadoConsulta();
-    DTConsulta getDatosConsulta();
+    EstadoConsulta getEstadoConsulta()const;
+    DTConsulta getDatosConsulta()const;
 
-    TipoConsulta obtenerTipoConsulta();
+    TipoConsulta obtenerTipoConsulta()const;
 
 
     Diagnostico crearDiagnostico(string descripcion, ProblemaDeSalud *pds);
@@ -42,9 +42,6 @@ public:
     void agregarTratamientoQuirurgico(Diagnostico *diagnostico, string descripcion, const DTFecha fecha);
     void agregarDiagnosticoAConsulta(Diagnostico *diagnostico);
     set<DTReserva> *getDatosReservas();
-    string obtenerCiSocio();
-    string obtenerCiMedico();
-    Historial *getHistorialAsoc();
 
     ~Comun();
 };

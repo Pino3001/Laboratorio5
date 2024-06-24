@@ -30,24 +30,18 @@ public:
     void setHoraConsulta(const DTHora hora);
     void setDiagnosticosConsulta(list<Diagnostico *> *diagnosticosConsulta);
 
-    list<Diagnostico *> *getDiagnosticoConsulta();
+    list<Diagnostico *> *getDiagnosticoConsulta()const;
     DTFecha getFechaConsulta() const;
     DTHora getHoraConsulta() const;
-    DTConsulta getDatosConsulta();
-    list<DTDiagnostico> getDatosDiagnosticoConsulta();
+    list<DTDiagnostico> getDatosDiagnosticoConsulta()const;
 
-    void crearDiagnostico(string descripcion, list<ProblemaDeSalud *> *lPds);
-    void crearDiagnosticoTratFarmaco(string descripcion, list<ProblemaDeSalud *> *lPds, list<string> *medicamentos, string descrTrat);
-    void crearDiagnosticoTratQuirurjico(string descripcion, list<ProblemaDeSalud *> *lPds, Medico *med, string descrTrat, const DTFecha fechaCiruj);
-    void crearHistorial();
-   
-    void agregarTratamientoFarmaco(Diagnostico diagnostico, string descripcion, list<string> listaMedicamentos);
-    void agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, const DTFecha fecha);
-    void agregarDiagnosticoConsulta(Diagnostico diagnostico);
-    virtual Historial *getHistorialAsoc() = 0;
-    virtual TipoConsulta obtenerTipoConsulta()=0;
+    Diagnostico* crearDiagnostico(string descripcion, list<ProblemaDeSalud *> *lPds);
+    
+    virtual TipoConsulta obtenerTipoConsulta()const=0;
+    virtual DTConsulta getDatosConsulta()const=0;
 
 
-    ~Consulta();
+
+    virtual ~Consulta()=0;
 };
 #endif

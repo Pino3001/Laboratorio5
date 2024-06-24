@@ -2,17 +2,15 @@
 #include "Actividad.h"
 #include "Medico.h"
 #include "Socio.h"
-#include "Historial.h"
 #include "ProblemaDeSalud.h"
 #include "Diagnostico.h"
-#include "definiciones.h"
 #include "DTFecha.h"
 #include "DTHora.h"
 #include "DTDiagnostico.h"
 #include "DTConsulta.h"
 #include <list>
 #include <string>
-
+#include "definiciones.h"
 using namespace std;
 
 /* Consulta ::Consulta() : Actividad()
@@ -29,7 +27,6 @@ Consulta ::Consulta(const DTFecha fechaConsulta, const DTHora horaConsulta, Soci
     this->fechaConsulta = fechaConsulta;
     this->horaConsulta = horaConsulta;
     this->diagnosticosConsulta = new list<Diagnostico *>;
-    cout << "1";
 
 }
 Consulta ::Consulta(Consulta &consulta, Actividad &actividad) : Actividad(actividad)
@@ -61,18 +58,12 @@ DTHora Consulta ::getHoraConsulta() const
 {
     return this->horaConsulta;
 }
-list<Diagnostico *> *Consulta ::getDiagnosticoConsulta()
+list<Diagnostico *> *Consulta ::getDiagnosticoConsulta()const
 {
     return this->diagnosticosConsulta;
 }
 
-DTConsulta Consulta ::getDatosConsulta() 
-{
-    DTConsulta dc(this->nombreSocio(), this->cedulaSocio(), this->nombreMedico(), this->fechaConsulta, this->horaConsulta, this->obtenerTipoConsulta() );
-    return dc;
-}
-
-list<DTDiagnostico> Consulta ::getDatosDiagnosticoConsulta()
+list<DTDiagnostico> Consulta ::getDatosDiagnosticoConsulta()const
 {
     list<DTDiagnostico> ldtd;
     for (Diagnostico *d : *this->diagnosticosConsulta)
@@ -83,34 +74,13 @@ list<DTDiagnostico> Consulta ::getDatosDiagnosticoConsulta()
     return ldtd;
 }
 
-void Consulta ::crearDiagnostico(string descripcion, list<ProblemaDeSalud *> *lPds)
+Diagnostico * Consulta ::crearDiagnostico(string descripcion, list<ProblemaDeSalud *> *lPds)
 {
+
     Diagnostico *d = new Diagnostico(descripcion, lPds);
     this->diagnosticosConsulta->push_back(d);
+    return d;
 }
 
-void Consulta ::crearDiagnosticoTratFarmaco(string descripcion, list<ProblemaDeSalud *> *lPds, list<string> *medicamentos, string descrTrat)
-{
-    Diagnostico *d = new Diagnostico(descripcion, lPds);
-    this->diagnosticosConsulta->push_back(d);
-    d->agregarTratamientoFarmaco(medicamentos, descrTrat);
-}
-
-void Consulta ::crearDiagnosticoTratQuirurjico(string descripcion, list<ProblemaDeSalud *> *lPds, Medico *med, string descrTrat, const DTFecha fechaCiruj)
-{
-    Diagnostico *d = new Diagnostico(descripcion, lPds);
-    this->diagnosticosConsulta->push_back(d);
-    d->agregarTratamientoQuirurgico(descrTrat, fechaCiruj, med);
-}
-
-void Consulta::crearHistorial()
-{
-    Historial *h = new Historial(this->getSocioConsulta(), this->getMedicoRealiza(), this, this->diagnosticosConsulta);
-    this->addHistorialAsoc(h);
-}
-
-void Consulta ::agregarTratamientoFarmaco(Diagnostico diagnostico, string descripcion, list<string> listaMedicamentos) {}
-void Consulta ::agregarTratamientoQuirurgico(Diagnostico diagnostico, string descripcion, const DTFecha fecha) {}
-void Consulta ::agregarDiagnosticoConsulta(Diagnostico diagnostico) {}
 
 Consulta::~Consulta() {}

@@ -22,6 +22,9 @@ void CategoriaUsuario ::setUsuarioVinculado(Usuario *usr)
     this->usuarioVinculado = usr;
 }
 
+// Metodos medico
+
+
 //Getters
 Usuario *CategoriaUsuario ::getUsuarioVinculado()
 {

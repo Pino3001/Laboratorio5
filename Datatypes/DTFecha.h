@@ -30,6 +30,9 @@ public:
     bool operator>(const DTFecha& other) const;
     bool operator>=(const DTFecha& other) const;
 
-    void imprimirDTFecha();
+    //Operador de asignacion.
+    DTFecha& operator=(const DTFecha& other);
+
+    void imprimirDTFecha()const;
 };
 #endif

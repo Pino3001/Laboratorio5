@@ -2,10 +2,9 @@
 #define CUSUARIO_H
 #include "IUsuario.h"
 #include "Usuario.h"
+#include "Medico.h"
 #include "DTFecha.h"
 #include "DTHora.h"
-#include "DTReserva.h"
-#include "DTHistorial.h"
 #include "DTDatosUsuario.h"
 #include <map>
 #include <list>
@@ -20,6 +19,7 @@ private:
     Usuario *usrActivo;
     map<string, Usuario *> *memColUsuario;
     list<Usuario *> *memUsrSesion;
+    list<Medico*> *memMedicosSistema;
 
     CUsuario();
 
@@ -27,27 +27,22 @@ public:
     static CUsuario *getInstance();
 
     // metodos controlador
-    void crearAdminDefecto(string nombre, string cedula, string apellido, string contraseña);
     bool existeUsuario(string ci);
     bool esUsuario(string ci);
-    bool verificarContraseña(string ci, string contraseña);
-    bool primerContraseña();
-    void darPrimerContraseña(string contrasenia);
+    bool verificarContrasenia(string contrasenia);
+    bool primerContrasenia();
+    void darPrimerContrasenia(string contrasenia);
     bool asignarSesion(string ci);
     list<TipoUsuario> *tipoDeUsuario(string ci);
     DTDatosUsuario buscarUser(string ci);
-    void altaUsuario(string ci, string nomb, string apell, string sexo, const DTFecha fechNac, list<TipoUsuario> *tUsr);
+    void altaUsuario(string ci, string nomb, string apell, string sexo, const DTFecha fechNac, list<TipoUsuario> tUsr);
     bool cerrarSesion();
     DTDatosUsuario obtenerDatosSocio(string ci);
-
+    list<DTDatosUsuario>  listarMedicos();
     Usuario *darUsuario(string ci);
     Medico *darMedico(string ci);
     Socio *darSocio(string ci);
-
-    void cancelarIntento();
-    void activarUsr();
-    set<DTReserva> mostrarReservasActivas();
-    void camcelarReserva(string idConsulta);
+    list<DTConsulta> obtenerReservas(string ciSocio);
 
     ~CUsuario();
 };

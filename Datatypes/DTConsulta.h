@@ -4,27 +4,37 @@
 #include "DTHora.h"
 #include <string>
 #include "definiciones.h"
+#include "DTDatosUsuario.h"
+#include "DTDiagnostico.h"
+#include <list>
+
 using namespace std;
 
 class DTConsulta
 {
 private:
-    string idConsulta;
-    string nombreSocio;
-    string ciSocio;
-    string nombreMedico;
+    DTDatosUsuario socio;
+    DTDatosUsuario medico;
+    list<DTDiagnostico> diagnosticos;
+    string motivo;
     DTFecha fechaConsulta;
     DTHora horaConsulta;
+    DTFecha fechaReserva;
     TipoConsulta tipo;
 public:
     DTConsulta();
-    DTConsulta(string nomSocio, string ciSocio, string nombreMedico, const DTFecha fechaConsul, const DTHora horaConsul, TipoConsulta tipo);
+    DTConsulta(DTDatosUsuario socio, DTDatosUsuario medico, list<DTDiagnostico> diagnosticos, string motivo, const DTFecha fechaConsul, const DTHora horaConsul, DTFecha fechaReserva, TipoConsulta tipo);
 
-    string getNombreSocio();
-    string getCiSocio();
-    string getNombreMedico();
+    DTDatosUsuario getSocio()const;
+    DTDatosUsuario getMedico()const;
+    list<DTDiagnostico> getDiagnosticos()const;
+    string getMotivo()const;
     DTFecha getFechaConsulta() const;
     DTHora getHoraConsulta()const;
-    TipoConsulta getTipo();
+    DTFecha getFechaReserva()const;
+    TipoConsulta getTipo()const;
+    void mostrarDTConsulta()const;
+    void mostrarReservas()const;
+    void mostrarVersionHistorial()const;
 };
 #endif

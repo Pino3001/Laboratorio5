@@ -14,16 +14,11 @@ protected:
 public:
     CategoriaUsuario();
     CategoriaUsuario(CategoriaUsuario &catUsr);
-    
+
     void setUsuarioVinculado(Usuario *usr);
 
     Usuario* getUsuarioVinculado();
 
-    /* void addActividad(Actividad actividad); */
-    virtual string verNombre() = 0;
-    virtual string verCi()=0;
-    virtual Actividad *buscarConsulta(string idConsulta)=0;
-
-    ~CategoriaUsuario();
+    virtual ~CategoriaUsuario()=0;
 };
 #endif

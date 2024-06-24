@@ -18,10 +18,13 @@ public:
     DTHora(const DTHora &dth);
     DTHora(int hh, int mm, int ss);
 
-    int getHora()const;
-    int getMin()const;
-    int getSeg()const;
+    int getHora() const;
+    int getMin() const;
+    int getSeg() const;
 
-    void imprimirDTHora();
+    void imprimirDTHora() const;
+
+    // Operador de asignación
+    DTHora &operator=(const DTHora &other);
 };
 #endif

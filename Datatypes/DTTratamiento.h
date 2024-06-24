@@ -4,6 +4,7 @@
 #include "definiciones.h"
 #include <string>
 #include <list>
+#include "DTDatosUsuario.h"
 using namespace std;
 
 class DTTratamiento
@@ -13,17 +14,17 @@ private:
     TipoTratamiento tipo;
     list<string> listMedicamentos;
     DTFecha fechaCirujia;
-    string nombreCirujano;
+    DTDatosUsuario cirujano;
 
 public:
     DTTratamiento();
     DTTratamiento(string descripcion, TipoTratamiento tipo, list<string> listaMedicamentos);
-    DTTratamiento(string descripcion, TipoTratamiento tipo, const DTFecha fechaCirujia, string nombreCirujano);
+    DTTratamiento(string descripcion, TipoTratamiento tipo, const DTFecha fechaCirujia, DTDatosUsuario cirujano);
 
-    string getDescripcion();
-    TipoTratamiento getTipo();
-    list<string> getListMedicamentos();
+    string getDescripcion()const;
+    TipoTratamiento getTipo()const;
+    list<string> getListMedicamentos()const;
     DTFecha getFechaCirugia()const;
-    string getNombreCirujano();
+    DTDatosUsuario getCirujano()const;
 };
 #endif

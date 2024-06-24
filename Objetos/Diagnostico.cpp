@@ -55,7 +55,7 @@ list<ProblemaDeSalud *> *Diagnostico::getProblemaDeSalud()
 }
 DTDiagnostico Diagnostico::getDatosDiagnostico()
 {
-    DTDiagnostico dtd(this->descripcion, this->getDatosProblemasAsociados(), this->getDatosTratamientosAsocioados());
+    return DTDiagnostico(this->descripcion, this->getDatosProblemasAsociados(), this->getDatosTratamientosAsocioados());
 }
 list<DTProblemaDeSalud> Diagnostico::getDatosProblemasAsociados()
 {
@@ -97,5 +97,5 @@ void Diagnostico::agregarTratamientoQuirurgico(string descripcion, const DTFecha
 void Diagnostico::agregarTratamientoFarmaco(list<string> *listMedicamentos, string descripcion)
 {
     Farmaco *tratamiento = new Farmaco(descripcion, listMedicamentos);
-    tratamientos->push_back(tratamiento);
+    this->tratamientos->push_back(tratamiento);
 }
