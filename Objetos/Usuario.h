@@ -58,7 +58,6 @@ public:
     vector<CategoriaUsuario*> *getCatUsr();
     DTDatosUsuario getDatosUsuario()const; // lista
 
-    void addVisibilityCatUsr();
     vector<TipoUsuario> listarTipoDeUsuario()const;
     bool contraValida(string contra);
     void addCatUsuario(CategoriaUsuario *cat); // lista

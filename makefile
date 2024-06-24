@@ -53,19 +53,24 @@ $(TARGET): $(OBJS)
 	@echo "Enlazando $(TARGET)..."
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -o $(TARGET) $(OBJS)
 	@echo "Ejecutable $(TARGET) generado."
+	@$(MAKE) clean-objects
 
 # Regla para compilar archivos .cpp en archivos .o
 %.o: %.cpp
 	@echo "Compilando $<..."
-	$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CXX) $(CXXFLAGS) $(INCLUDES) -c $< -o $@
 
-# Regla para limpiar los archivos generados
-clean:
-	rm -f $(OBJS) $(TARGET)
+# Regla para limpiar los archivos objeto generados
+clean-objects:
+	@rm -f $(OBJS)
+
+# Regla para limpiar todos los archivos generados
+clean: clean-objects
+	@rm -f $(TARGET)
 
 # Regla para depurar: muestra las variables SRCS y OBJS
 print-vars:
 	@echo "SRCS: $(SRCS)"
 	@echo "OBJS: $(OBJS)"
 
-.PHONY: all clean print-vars
+.PHONY: all clean clean-objects print-vars

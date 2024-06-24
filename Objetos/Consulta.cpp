@@ -27,7 +27,6 @@ Consulta ::Consulta(const DTFecha fechaConsulta, const DTHora horaConsulta, Soci
     this->fechaConsulta = fechaConsulta;
     this->horaConsulta = horaConsulta;
     this->diagnosticosConsulta = new list<Diagnostico *>;
-
 }
 Consulta ::Consulta(Consulta &consulta, Actividad &actividad) : Actividad(actividad)
 {
@@ -58,12 +57,12 @@ DTHora Consulta ::getHoraConsulta() const
 {
     return this->horaConsulta;
 }
-list<Diagnostico *> *Consulta ::getDiagnosticoConsulta()const
+list<Diagnostico *> *Consulta ::getDiagnosticoConsulta() const
 {
     return this->diagnosticosConsulta;
 }
 
-list<DTDiagnostico> Consulta ::getDatosDiagnosticoConsulta()const
+list<DTDiagnostico> Consulta ::getDatosDiagnosticoConsulta() const
 {
     list<DTDiagnostico> ldtd;
     for (Diagnostico *d : *this->diagnosticosConsulta)
@@ -74,7 +73,7 @@ list<DTDiagnostico> Consulta ::getDatosDiagnosticoConsulta()const
     return ldtd;
 }
 
-Diagnostico * Consulta ::crearDiagnostico(string descripcion, list<ProblemaDeSalud *> *lPds)
+Diagnostico *Consulta ::crearDiagnostico(string descripcion, list<ProblemaDeSalud *> *lPds)
 {
 
     Diagnostico *d = new Diagnostico(descripcion, lPds);
@@ -82,5 +81,22 @@ Diagnostico * Consulta ::crearDiagnostico(string descripcion, list<ProblemaDeSal
     return d;
 }
 
+void Consulta::eliminarDiagnostico(Diagnostico *diag)
+{
+    if (!this->diagnosticosConsulta)
+        return;
+
+    // Recorre la lista para buscar y eliminar el diagnóstico
+    for (auto it = this->diagnosticosConsulta->begin(); it != this->diagnosticosConsulta->end(); ++it)
+    {
+        if (*it == diag)
+        {
+            // Se encontró el diagnóstico
+            delete *it;//llamo al destructor
+            diagnosticosConsulta->erase(it); // Elimina el puntero de la lista
+            break;
+        }
+    }
+}
 
 Consulta::~Consulta() {}

@@ -24,11 +24,9 @@ public:
     string getIdCategoria();
     string getDescripcion();
     list<ProblemaDeSalud*> * getProblemas();
-    DTCategoriaRep getDatosCategoria();
     list <DTProblemaDeSalud> getDTProblemasAsoc();
 
     void altaProblemas(string codigo, string etiqueta);
-    set<DTProblemaDeSalud> *mostrarProblemasDeSalud();
     ProblemaDeSalud *seleccionarProblemaDeSalud(string codigo);
 
 

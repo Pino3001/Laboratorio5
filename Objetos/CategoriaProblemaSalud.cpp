@@ -33,9 +33,7 @@ list<ProblemaDeSalud *> *CategoriaProblemaSalud ::getProblemas()
 {
     return this->problemas;
 }
-DTCategoriaRep CategoriaProblemaSalud ::getDatosCategoria()
-{
-}
+
 
 //Revisar!!
 list<DTProblemaDeSalud> CategoriaProblemaSalud ::getDTProblemasAsoc(){
@@ -67,12 +65,5 @@ ProblemaDeSalud *CategoriaProblemaSalud ::seleccionarProblemaDeSalud(string codi
     }
     return nullptr;
 }
-
-
-// Mostrar problemas de salud
-set<DTProblemaDeSalud> *CategoriaProblemaSalud ::mostrarProblemasDeSalud()
-{
-}
-
 
 CategoriaProblemaSalud ::~CategoriaProblemaSalud() {}

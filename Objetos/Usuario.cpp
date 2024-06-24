@@ -121,14 +121,6 @@ DTDatosUsuario Usuario::getDatosUsuario() const // Da un datatype con los datos 
     return dtu;
 }
 
-// Setea el usuario a CategoriaUsuario para que exista la doble navegabilidad
-void Usuario ::addVisibilityCatUsr()
-{
-    for (CategoriaUsuario *c : *this->catUsr)
-    {
-        c->setUsuarioVinculado(this);
-    }
-}
 // Devielve un array con las categorias de usuario a las que pertenece el Usuario
 vector<TipoUsuario> Usuario ::listarTipoDeUsuario() const
 {

@@ -39,6 +39,7 @@ set <Actividad*, ActividadPtrComparator>  Socio::getActividadesSocio()
 
 void Socio ::addActividad(Actividad* cons)
 {
+    
     this->actividadesSocio.insert(cons);
 }
 

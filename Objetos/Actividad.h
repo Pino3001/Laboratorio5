@@ -3,7 +3,6 @@
 #include <string>
 #include "DTFecha.h"
 #include "DTConsulta.h"
-
 class Usuario;
 class Medico;
 class Socio;

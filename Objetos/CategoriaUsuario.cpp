@@ -1,7 +1,5 @@
 #include "CategoriaUsuario.h"
 #include "Usuario.h"
-#include "Actividad.h"
-#include "Consulta.h"
 #include <string>
 
 using namespace std;
@@ -22,17 +20,9 @@ void CategoriaUsuario ::setUsuarioVinculado(Usuario *usr)
     this->usuarioVinculado = usr;
 }
 
-// Metodos medico
-
-
 //Getters
 Usuario *CategoriaUsuario ::getUsuarioVinculado()
 {
     return this->usuarioVinculado;
 }
-
- //Para implementar
-/* void CategoriaUsuario ::addActividad(Actividad actividad){} */
-
-CategoriaUsuario ::~CategoriaUsuario(){}
-
+CategoriaUsuario::~CategoriaUsuario() {}

@@ -33,7 +33,7 @@ public:
     bool primerContrasenia();
     void darPrimerContrasenia(string contrasenia);
     bool asignarSesion(string ci);
-    list<TipoUsuario> *tipoDeUsuario(string ci);
+    list<TipoUsuario> tipoDeUsuarioEnSesion(string ci);
     DTDatosUsuario buscarUser(string ci);
     void altaUsuario(string ci, string nomb, string apell, string sexo, const DTFecha fechNac, list<TipoUsuario> tUsr);
     bool cerrarSesion();

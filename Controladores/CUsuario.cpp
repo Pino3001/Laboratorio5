@@ -79,9 +79,9 @@ bool CUsuario::asignarSesion(string ci)
     }
 }
 
-list<TipoUsuario> *CUsuario::tipoDeUsuario(string ci)
+list<TipoUsuario> CUsuario::tipoDeUsuarioEnSesion(string ci)
 {
-    list<TipoUsuario> *tUsr = new list<TipoUsuario>;
+    list<TipoUsuario> tUsr;
     auto itu = this->memColUsuario->find(ci);
     if (itu != memColUsuario->end())
     {
@@ -93,25 +93,25 @@ list<TipoUsuario> *CUsuario::tipoDeUsuario(string ci)
             {
                 if (dynamic_cast<Administrativo *>(c))
                 {
-                    tUsr->push_back(TipoUsuario::Tipo_Administrativo);
+                    tUsr.push_back(TipoUsuario::Tipo_Administrativo);
                 }
                 if (dynamic_cast<Socio *>(c))
                 {
-                    tUsr->push_back(TipoUsuario::Tipo_Socio);
+                    tUsr.push_back(TipoUsuario::Tipo_Socio);
                 }
                 if (dynamic_cast<Medico *>(c))
                 {
-                    tUsr->push_back(TipoUsuario::Tipo_Medico);
+                    tUsr.push_back(TipoUsuario::Tipo_Medico);
                 }
                 else
                 {
-                    tUsr->push_back(TipoUsuario::UNKNOWN);
+                    tUsr.push_back(TipoUsuario::UNKNOWN);
                 }
             }
         }
         return tUsr;
     }
-    return nullptr;
+    throw runtime_error("El Usuario con la cedula " + ci + " no existe en el sistema!.");
 }
 
 DTDatosUsuario CUsuario::obtenerDatosSocio(string ci)
@@ -126,8 +126,7 @@ DTDatosUsuario CUsuario::obtenerDatosSocio(string ci)
     }
     else
     {
-        DTDatosUsuario dtu;
-        return dtu;
+        throw runtime_error("El Usuario con la cedula " + ci + " no existe en el sistema!.");
     }
 }
 
@@ -180,28 +179,20 @@ void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, co
     {
         c->setUsuarioVinculado(newUsr);
     }
-    // newUsr->addVisibilityCatUsr();
-
     // Inserto Usuario en la coleccion de usuarios en memoria
     auto incerto = this->memColUsuario->insert(make_pair(ci, newUsr));
-    if (incerto.second)
+    if (!incerto.second)
     {
-        std::cout << "\n Se a creado el Usuario exitosamente!! ";
-    }
-    else
-    {
-        std::cout << "El Usuario con la cedula " << ci << " ya existe en el sistema!!";
         delete catUsr;
         delete newUsr;
+        throw runtime_error("El Usuario con la cedula " + ci + " ya existe en el sistema!.");
     }
-    // Corto iteracion por posible incercion repetida.
 }
 
 bool CUsuario::cerrarSesion()
 {
     this->usrActivo = nullptr;
     return false;
-    cout << "\n Sesion terminada!";
 }
 
 Usuario *CUsuario::darUsuario(string ci)
@@ -268,20 +259,22 @@ list<DTDatosUsuario> CUsuario::listarMedicos()
     return lisDTD;
 }
 
-list<DTConsulta> CUsuario::obtenerReservas(string ciSocio){
+list<DTConsulta> CUsuario::obtenerReservas(string ciSocio)
+{
     list<DTConsulta> liDTC;
-    cout << "CCCCCCEDILA" << ciSocio;
     auto itu = this->memColUsuario->find(ciSocio);
     if (itu != memColUsuario->end())
     {
-        vector<CategoriaUsuario*> *lCU = itu->second->getCatUsr();
-        for(CategoriaUsuario *c : *lCU){
-            if(Socio *socio = dynamic_cast<Socio*>(c)){
-               liDTC = socio->obtenerReservasActivas();
+        vector<CategoriaUsuario *> *lCU = itu->second->getCatUsr();
+        for (CategoriaUsuario *c : *lCU)
+        {
+            if (Socio *socio = dynamic_cast<Socio *>(c))
+            {
+                liDTC = socio->obtenerReservasActivas();
             }
         }
     }
     return liDTC;
 }
 
-CUsuario::~CUsuario(){}
+CUsuario::~CUsuario() {}

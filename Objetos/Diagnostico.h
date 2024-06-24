@@ -10,9 +10,7 @@ class Farmaco;
 class ProblemaDeSalud;
 class Medico;
 #include <list>
-#include <set>
 #include <string>
-
 using namespace std;
 
 class Diagnostico

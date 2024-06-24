@@ -18,9 +18,9 @@ public:
     void setDescripcionTratamiento(string descripcion);
     // Getters
     string getDescripcionTratamiento();
-    virtual DTTratamiento getDatoTratamiento()=0;
+    virtual DTTratamiento getDatoTratamiento() = 0;
 
     // Destructor
-    ~Tratamiento();
+    virtual ~Tratamiento() = 0;
 };
 #endif

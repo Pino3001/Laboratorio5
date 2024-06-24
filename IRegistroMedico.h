@@ -27,7 +27,7 @@ public:
     virtual list<DTConsulta> obtenerHistorialPaciente(string ciSocio)=0;
     virtual void registroConsultaEmergencia(string ci, string ciMedico, const DTFecha fecha, DTHora hora, string descrpcion) = 0;
     virtual list<DTCategoriaRep> listarRepresentacionesEstandarizadas() = 0;
-
+    virtual void eliminarUnDiagnostico()=0;
     virtual void agregarTratamientoFarmaco(string descripcion, list<string> * listMedicamentos) = 0;
     virtual void agregarTratamientoQuirurgico(string ciMedicoCirujano, string descripcion, DTFecha fecha) = 0;
     virtual void agregarDiagnostico(map<string, list<string>> problAsoc, string descripcion) = 0;

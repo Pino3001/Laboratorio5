@@ -38,10 +38,10 @@ public:
     list<DTConsulta> obtenerHistorialPaciente(string ciSocio);
     void registroConsultaEmergencia(string ci, string ciMedico, const DTFecha fecha, const DTHora hora, string descrpcion);
     list<DTCategoriaRep> listarRepresentacionesEstandarizadas();
-
     void agregarTratamientoFarmaco(string descripcion, list<string> * listMedicamentos);
     void agregarTratamientoQuirurgico(string ciMedicoCirujano, string descripcion, DTFecha fecha);
     void agregarDiagnostico(map<string, list<string>> problAsoc, string descripcion);
+    void eliminarUnDiagnostico();
 
     ~CRegistroMedico();
 };

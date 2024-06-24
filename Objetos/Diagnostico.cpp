@@ -7,16 +7,9 @@
 #include "DTProblemaDeSalud.h"
 #include "DTTratamiento.h"
 #include <list>
-#include <set>
 #include <string>
 using namespace std;
 
-/* // Constructor por defecto
-Diagnostico::Diagnostico()
-{
-    this->descripcion = " ";
-    this->tratamientos = new set<Tratamiento *>;
-} */
 // Constructor con parametros
 Diagnostico::Diagnostico(string descripcion, list<ProblemaDeSalud *> *problemaDeSalud)
 {
@@ -77,15 +70,6 @@ list<DTTratamiento> Diagnostico::getDatosTratamientosAsocioados()
     }
     return lTra;
 }
-
-// Destructor
-Diagnostico::~Diagnostico()
-{
-    // Liberar memoria de todos los tratamientos
-}
-
-// A CHEQUEAR!
-
 // Método para agregar tratamiento quirúrgico
 void Diagnostico::agregarTratamientoQuirurgico(string descripcion, const DTFecha fecha, Medico *med)
 {
@@ -98,4 +82,24 @@ void Diagnostico::agregarTratamientoFarmaco(list<string> *listMedicamentos, stri
 {
     Farmaco *tratamiento = new Farmaco(descripcion, listMedicamentos);
     this->tratamientos->push_back(tratamiento);
+}
+// Destructor
+Diagnostico::~Diagnostico()
+{
+    // Liberar memoria de tratamientos si no es null
+    if (this->tratamientos)
+    {
+        for (auto it = this->tratamientos->begin(); it != this->tratamientos->end(); ++it)
+        {
+            delete *it; // Eliminar cada tratamiento
+        }
+        tratamientos->clear(); // Limpiar la lista
+        delete tratamientos;   // Eliminar el puntero a la lista
+    }
+
+    // Liberar memoria de problemaDeSalud, sin eliminar las instancias.
+    if (problemaDeSalud)
+    {
+        delete problemaDeSalud; // Eliminar el puntero a la lista
+    }
 }

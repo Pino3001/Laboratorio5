@@ -76,6 +76,7 @@ list<DTConsulta> CRegistroMedico::mostrarConsultas(const DTFecha fechaHoy)
 
 void CRegistroMedico::registroConsulta(string ci, string ciMedico, const DTFecha fechaHoy)
 {
+    bool registrada = false;
     // Busco en el map si existe una lista de consultas para el dia pasado como parametro.
     auto itu = this->memActividades->find(fechaHoy);
     if (itu != memActividades->end())
@@ -91,17 +92,24 @@ void CRegistroMedico::registroConsulta(string ci, string ciMedico, const DTFecha
                 {
                     // Cambio el estado de la consulta para sacarla de la reserva.
                     comun->setEstadoConsulta(EstadoConsulta::Asistio);
+                    registrada = true;
                 }
             }
         }
     }
     else
     {
+        throw runtime_error("No existen consultas para la fecha dada!.");
+    }
+    if (!registrada)
+    {
+        throw runtime_error("La consulta no ha sido registrada!.");
     }
 }
 
 void CRegistroMedico::cancelarReservaConsuta(string ci, string ciMedico, const DTFecha fechaConsulta)
 {
+    bool cancelada = false;
     // Busco en el map si existe una lista de consultas para el dia pasado como parametro.
     auto itu = this->memActividades->find(fechaConsulta);
     if (itu != memActividades->end())
@@ -117,12 +125,18 @@ void CRegistroMedico::cancelarReservaConsuta(string ci, string ciMedico, const D
                 {
                     // Cambio el estado de la consulta para sacarla de la reserva.
                     comun->setEstadoConsulta(EstadoConsulta::Cancelada);
+                    cancelada = true;
                 }
             }
         }
     }
     else
     {
+        throw runtime_error("No existen consultas para la fecha dada!.");
+    }
+    if (!cancelada)
+    {
+        throw runtime_error("La consulta no ha sido cancelada!.");
     }
 }
 
@@ -143,27 +157,21 @@ void CRegistroMedico::altaCategoriaRepresentacion(string id, string descripcion)
     auto resultado = this->categoriasProblemas->insert(make_pair(id, cat));
     if (!resultado.second)
     {
-        // La inserción no tuvo éxito porque el elemento ya existe
-        delete cat; // Liberar la memoria si el elemento ya existe
-    }
-    else
-    {
-        // Categoría de problema de salud creada e insertada exitosamente.
+        delete cat;
+        throw runtime_error("Categoria con ID " + id + " Ya existe..");
     }
 }
 
 void CRegistroMedico::altaProblemaDeSalud(string id, string codigo, string etiqueta)
 {
-    string codigoP = id;
-    codigoP.append(codigo);
     auto it = this->categoriasProblemas->find(id);
     if (it != categoriasProblemas->end())
     {
-        it->second->altaProblemas(codigoP, etiqueta);
+        it->second->altaProblemas(codigo, etiqueta);
     }
     else
     {
-        cout << "Categoria de problema con ID '" << id << "' no encontrada.";
+        throw runtime_error("Categoria de problema con ID " + id + " no encontrada..");
     }
 }
 
@@ -172,14 +180,12 @@ void CRegistroMedico::reservaNuevaConsulta(string ciMedico, string ciSocio, cons
     Medico *m = CUsuario::getInstance()->darMedico(ciMedico);
     if (m == nullptr)
     {
-        cout << "\n\\t\t La cedula ingresada no pertenece a un Usuario Medico!";
-        return;
+        throw runtime_error("El usuario de la cedula " + ciMedico + " no es socio!.");
     }
     Socio *s = CUsuario::getInstance()->darSocio(ciSocio);
     if (s == nullptr)
     {
-        cout << "\n\\t\t La cedula ingresada no pertenece a un Usuario Medico!";
-        return;
+        throw runtime_error("El usuario de la cedula " + ciSocio + " no es socio!.");
     }
     if (m != nullptr && s != nullptr)
     {
@@ -191,25 +197,17 @@ void CRegistroMedico::reservaNuevaConsulta(string ciMedico, string ciSocio, cons
         {
             itAct->second.push_back(cons);
         }
-        else
+        else if (itAct == this->memActividades->end())
         {
             list<Actividad *> a;
             a.push_back(cons);
             this->memActividades->insert(make_pair(fechaConsulta, a));
         }
+        else
+        {
+            throw runtime_error("La consulta no ha sido creada!");
+        }
     }
-    else if (m == nullptr)
-    {
-        cout << "\nEl usuario de la cedula no es medico";
-        /* El usuario de la cedula no es medico */
-    }
-    else if (s == nullptr)
-    {
-        cout << "\nEl usuario de la cedula no es socio";
-        /* El usuario de la cedula no es socio */
-    }
-
-    cout << endl;
 }
 
 void CRegistroMedico::seleccionarConsulta(string ciSocio, string ciMedico, const DTFecha fechaCons)
@@ -217,14 +215,12 @@ void CRegistroMedico::seleccionarConsulta(string ciSocio, string ciMedico, const
     Medico *usrMedico = CUsuario::getInstance()->darMedico(ciMedico);
     if (usrMedico == nullptr)
     {
-        cout << "\n\\t\t La cedula ingresada no pertenece a un Medico!";
-        return;
+        throw runtime_error("La cedula ingresada no pertenece a un Medico!.");
     }
     Socio *s = CUsuario::getInstance()->darSocio(ciSocio);
     if (s == nullptr)
     {
-        cout << "\n\\t\t La cedula ingresada no pertenece a un Socio!";
-        return;
+        throw runtime_error("La cedula ingresada no pertenece a un Socio!.");
     }
     auto itCons = this->memActividades->find(fechaCons);
     if (itCons != memActividades->end())
@@ -251,12 +247,12 @@ void CRegistroMedico::seleccionarConsulta(string ciSocio, string ciMedico, const
         }
         if (this->memConsulta == nullptr)
         {
-            cout << "\n\t\tNo se encontro una Actividad!";
+            throw runtime_error("No se encontro una Actividad!.");
         }
     }
     else
     {
-        cout << "\n\t\tNo se encontro una Actividad para la fecha dada!";
+        throw runtime_error("No se encontro una Actividad para la fecha dada!.");
     }
 }
 
@@ -265,8 +261,7 @@ list<DTConsulta> CRegistroMedico::obtenerHistorialPaciente(string ciSocio)
     Socio *s = CUsuario::getInstance()->darSocio(ciSocio);
     if (s == nullptr)
     {
-        cout << "\n\\t\t La cedula ingresada no pertenece a un Socio!";
-        throw runtime_error("La cedula " + ciSocio + " no existe.");
+        throw runtime_error("El Usuario con cedula " + ciSocio + " no es un socio.");
     }
     return s->mostrarHistorialPorMedico();
 }
@@ -284,13 +279,11 @@ void CRegistroMedico::registroConsultaEmergencia(string ci, string ciMedico, con
     }
     else if (m == nullptr)
     {
-        cout << "\nEl usuario de la cedula no es medico";
-        /* El usuario de la cedula no es medico */
+        throw runtime_error("La cedula ingresada no pertenece a un Usuario Medico!!");
     }
     else if (s == nullptr)
     {
-        cout << "\nEl usuario de la cedula no es socio";
-        /* El usuario de la cedula no es socio */
+        throw runtime_error("La cedula ingresada no pertenece a un Socio!!");
     }
 }
 
@@ -307,35 +300,41 @@ list<DTCategoriaRep> CRegistroMedico::listarRepresentacionesEstandarizadas()
 
 void CRegistroMedico::agregarTratamientoFarmaco(string descripcion, list<string> *listMedicamentos)
 {
+    if (this->diagnosticoMem == nullptr)
+    {
+        throw runtime_error("No se encontro un diagnostico!");
+    }
     this->diagnosticoMem->agregarTratamientoFarmaco(listMedicamentos, descripcion);
 }
 
 void CRegistroMedico::agregarTratamientoQuirurgico(string ciMedicoCirujano, string descripcion, DTFecha fecha)
 {
-    bool creado = false;
     Medico *m = CUsuario::getInstance()->darMedico(ciMedicoCirujano);
     if (m == nullptr)
     {
-        cout << "\n\\t\t La cedula ingresada no pertenece a un Usuario Medico!";
-        return;
+        throw runtime_error("La cedula ingresada no pertenece a un Usuario Medico!!");
     }
     if (m != nullptr)
     {
         this->diagnosticoMem->agregarTratamientoQuirurgico(descripcion, fecha, m);
-        creado = true;
-    }
-    else if (m == nullptr || creado == false)
-    {
-        cout << "\n\n\t No se creo la consulta!";
     }
 }
 void CRegistroMedico::agregarDiagnostico(map<string, list<string>> problAsoc, string descripcion)
 {
+    if (this->categoriasProblemas->empty())
+    {
+        throw runtime_error("No existen Problemas de salud en el sistema!.");
+    }
+
+    if (this->memConsulta == nullptr)
+    {
+        throw runtime_error("No se encontro la consulta!");
+    }
     list<ProblemaDeSalud *> *listProb = new list<ProblemaDeSalud *>;
     for (auto pair : problAsoc)
     {
         auto itCat = this->categoriasProblemas->find(pair.first);
-        if (itCat != categoriasProblemas->end())
+        if (itCat != this->categoriasProblemas->end())
         {
             for (auto problema : pair.second)
             {
@@ -344,10 +343,24 @@ void CRegistroMedico::agregarDiagnostico(map<string, list<string>> problAsoc, st
                 {
                     listProb->push_back(p);
                 }
+                else
+                {
+                    throw runtime_error("No se encontro el Problema de Salud con Codigo " + problema + "!");
+                }
             }
+        }
+        else
+        {
+            throw runtime_error("No se encontro la Categoria de Problema de Salud de salud con ID " + pair.first + "!");
         }
     }
     this->diagnosticoMem = this->memConsulta->crearDiagnostico(descripcion, listProb);
+}
+
+void CRegistroMedico::eliminarUnDiagnostico()
+{
+    this->memConsulta->eliminarDiagnostico(this->diagnosticoMem);
+    this->diagnosticoMem = nullptr;
 }
 
 CRegistroMedico::~CRegistroMedico()

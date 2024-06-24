@@ -1,8 +1,6 @@
 #ifndef CATEGORIAUSUARIO_H
 #define CATEGORIAUSUARIO_H
 #include <string>
-class Actividad;
-class Consulta;
 class Usuario;
 
 using namespace std;
