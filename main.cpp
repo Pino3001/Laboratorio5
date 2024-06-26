@@ -110,7 +110,7 @@ DTHora splitHora(string str)
         throw runtime_error("Formato de hora invalido");
     if (mm > 59 || mm < 1)
         throw runtime_error("Formato de hora invalido");
-    if (ss > 59 || ss < 1)
+    if (ss > 59 || ss < 0)
         throw runtime_error("Formato de hora invalido");
     DTHora hora(hh, mm, ss);
     return hora;

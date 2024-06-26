@@ -359,8 +359,15 @@ void CRegistroMedico::agregarDiagnostico(map<string, list<string>> problAsoc, st
 
 void CRegistroMedico::eliminarUnDiagnostico()
 {
-    this->memConsulta->eliminarDiagnostico(this->diagnosticoMem);
-    this->diagnosticoMem = nullptr;
+    if (memConsulta != nullptr && diagnosticoMem != nullptr)
+    {
+        this->memConsulta->eliminarDiagnostico(this->diagnosticoMem);
+        this->diagnosticoMem = nullptr;
+    }
+    else
+    {
+        throw runtime_error("No se encontro diagnostico o consulta para eliminar");
+    }
 }
 
 CRegistroMedico::~CRegistroMedico()

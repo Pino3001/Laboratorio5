@@ -145,7 +145,7 @@ bool CUsuario::primerContrasenia()
 void CUsuario::darPrimerContrasenia(string contrasenia)
 {
     this->usrActivo->setContrasenia(contrasenia);
-    this->usrActivo->setPrimeraContrasenia(true);
+    this->usrActivo->setPrimeraContrasenia(false);
 }
 
 void CUsuario::altaUsuario(string ci, string nomb, string apell, string sexo, const DTFecha fechNac, list<TipoUsuario> tUsr)
